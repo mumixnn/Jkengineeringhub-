@@ -3,20 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Department Syllabus | J&K Engineering Hub</title>
+<title>Syllabus | J&K Engineering Hub</title>
 
 <style>
 *{box-sizing:border-box}
+
 body{
   margin:0;
-  font-family:Arial,sans-serif;
-  color:#fff;
+  padding:18px;
   min-height:100vh;
+  font-family:Arial,sans-serif;
+  color:white;
   background:linear-gradient(135deg,#06152f,#075985,#0891b2);
-  padding:20px;
 }
-header, .panel{
-  max-width:850px;
+
+header,.panel{
+  max-width:900px;
   margin:15px auto;
   padding:22px;
   border:1px solid #ffffff40;
@@ -24,40 +26,91 @@ header, .panel{
   background:#ffffff15;
   backdrop-filter:blur(12px);
 }
-a{color:#bae6fd}
-h1{margin-bottom:8px}
+
+a{color:#bae6fd;text-decoration:none}
+a:hover{text-decoration:underline}
+
+.toplinks{
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px;
+}
+
 select,button{
+  width:100%;
   padding:12px;
+  border:1px solid #ffffff40;
   border-radius:10px;
-  border:0;
-  margin:5px 0;
   font-size:15px;
 }
-button{background:#38bdf8;color:#06213b;font-weight:bold}
-.semester{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
-  padding:15px;
-  margin:12px 0;
-  border-radius:14px;
-  background:#ffffff12;
-  border:1px solid #ffffff30;
+
+select{
+  background:#fff;
+  color:#10233d;
+  margin:8px 0;
 }
-small{color:#dbeafe}
+
+button{
+  background:#38bdf8;
+  color:#06213b;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:14px;
+  margin-top:20px;
+}
+
+.card{
+  padding:18px;
+  border:1px solid #ffffff35;
+  border-radius:16px;
+  background:#ffffff12;
+}
+
+.card h3{margin-top:0}
+
+.btn{
+  display:inline-block;
+  margin-top:10px;
+  padding:10px 13px;
+  border-radius:9px;
+  background:#38bdf8;
+  color:#06213b;
+  font-weight:bold;
+}
+
+.note{
+  color:#dbeafe;
+  font-size:14px;
+  line-height:1.6;
+}
+
+footer{
+  text-align:center;
+  padding:20px;
+  color:#dbeafe;
+}
 </style>
 </head>
 
 <body>
+
 <header>
-  <a href="index.html">← Home</a>
-  <h1>📚 Department Syllabus</h1>
+  <div class="toplinks">
+    <a href="index.html">← Home</a>
+    <a id="departmentLink" href="department.html">← Department</a>
+    <a id="resourcesTopLink" href="resources.html">📚 Study Resources</a>
+  </div>
+
+  <h1>📘 Engineering Syllabus</h1>
   <p>J&K Engineering Hub</p>
 
-  <label for="dept">Select Department</label><br>
-  <select id="dept" onchange="updatePage()">
+  <label for="department"><strong>Select Department</strong></label>
+  <select id="department">
     <option value="CE">Computer Engineering</option>
     <option value="AI">Artificial Intelligence</option>
     <option value="EC">Electronics & Communication</option>
@@ -66,63 +119,124 @@ small{color:#dbeafe}
     <option value="CIVIL">Civil Engineering</option>
     <option value="ME">Mechanical Engineering</option>
   </select>
+
+  <label for="semester"><strong>Select Semester</strong></label>
+  <select id="semester">
+    <option value="1">Semester 1</option>
+    <option value="2">Semester 2</option>
+    <option value="3">Semester 3</option>
+    <option value="4">Semester 4</option>
+    <option value="5">Semester 5</option>
+    <option value="6">Semester 6</option>
+    <option value="7">Semester 7</option>
+    <option value="8">Semester 8</option>
+  </select>
+
+  <button id="openResources" type="button">
+    Open Resources for This Semester →
+  </button>
 </header>
 
 <main class="panel">
-  <h2 id="departmentName">Computer Engineering</h2>
-  <p>Select a semester to find its syllabus.</p>
-  <div id="semesters"></div>
+  <h2 id="pageTitle">Semester Syllabus</h2>
+
+  <p class="note">
+    Select your department and semester. You can open study resources
+    for the same selection using the button above or the links below.
+  </p>
+
+  <div id="semesterGrid" class="grid"></div>
 </main>
 
+<footer>
+  © 2026 J&K Engineering Hub
+</footer>
+
 <script>
-const departments={
-  CE:"Computer Engineering",
-  AI:"Artificial Intelligence",
-  EC:"Electronics & Communication",
-  IT:"Information Technology",
-  CYBER:"Cyber Security",
-  CIVIL:"Civil Engineering",
-  ME:"Mechanical Engineering"
+const departments = {
+  CE: "Computer Engineering",
+  AI: "Artificial Intelligence",
+  EC: "Electronics & Communication",
+  IT: "Information Technology",
+  CYBER: "Cyber Security",
+  CIVIL: "Civil Engineering",
+  ME: "Mechanical Engineering"
 };
 
+const department = document.getElementById("department");
+const semester = document.getElementById("semester");
+const semesterGrid = document.getElementById("semesterGrid");
+
+function resourcesURL(dept, sem){
+  return "resources.html?dept=" +
+    encodeURIComponent(dept) + "&sem=" +
+    encodeURIComponent(sem);
+}
+
 function updatePage(){
-  const params=new URLSearchParams(location.search);
-  const dept=document.getElementById("dept").value;
-  document.getElementById("departmentName").textContent=departments[dept];
+  const dept = department.value;
+  const sem = semester.value;
 
-  const container=document.getElementById("semesters");
-  container.innerHTML="";
+  document.getElementById("pageTitle").textContent =
+    departments[dept] + " — Semester " + sem + " Syllabus";
 
-  for(let sem=1;sem<=8;sem++){
-    const card=document.createElement("div");
-    card.className="semester";
+  document.getElementById("departmentLink").href =
+    "department.html?dept=" + encodeURIComponent(dept);
 
-    const info=document.createElement("div");
-    const heading=document.createElement("strong");
-    heading.textContent="Semester "+sem;
-    const description=document.createElement("p");
-    description.textContent="View syllabus for "+departments[dept];
-    const note=document.createElement("small");
-    note.textContent="Upload or add the official syllabus PDF when available.";
-    info.append(heading,description,note);
+  document.getElementById("resourcesTopLink").href =
+    resourcesURL(dept, sem);
 
-    const link=document.createElement("a");
-    link.href="resources.html?dept="+encodeURIComponent(dept)+"&sem="+sem;
-    link.textContent="Open Resources →";
+  semesterGrid.replaceChildren();
 
-    card.append(info,link);
-    container.appendChild(card);
+  for(let i = 1; i <= 8; i++){
+    const card = document.createElement("section");
+    card.className = "card";
+
+    const heading = document.createElement("h3");
+    heading.textContent = "Semester " + i;
+
+    const description = document.createElement("p");
+    description.className = "note";
+    description.textContent =
+      "View study materials and syllabus resources for " +
+      departments[dept] + ", Semester " + i + ".";
+
+    const link = document.createElement("a");
+    link.className = "btn";
+    link.href = resourcesURL(dept, i);
+    link.textContent = "Open Semester " + i + " Resources →";
+
+    card.append(heading, description, link);
+
+    if(String(i) === sem){
+      card.style.border = "2px solid #7dd3fc";
+    }
+
+    semesterGrid.appendChild(card);
   }
-
-  params.set("dept",dept);
-  history.replaceState(null,"","?dept="+encodeURIComponent(dept));
 }
 
-const initialDept=new URLSearchParams(location.search).get("dept");
-if(initialDept && departments[initialDept]){
-  document.getElementById("dept").value=initialDept;
+document.getElementById("openResources").addEventListener("click", () => {
+  window.location.href = resourcesURL(department.value, semester.value);
+});
+
+department.addEventListener("change", updatePage);
+semester.addEventListener("change", updatePage);
+
+const params = new URLSearchParams(window.location.search);
+const initialDept = params.get("dept");
+const initialSem = Number(params.get("sem"));
+
+if(departments[initialDept]){
+  department.value = initialDept;
 }
+
+if(initialSem >= 1 && initialSem <= 8){
+  semester.value = String(initialSem);
+}
+
 updatePage();
 </script>
+
 </body>
 </html>
