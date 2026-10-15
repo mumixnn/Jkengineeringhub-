@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Department Syllabus | J&K Engineering Hub</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  color:#fff;
+  min-height:100vh;
+  background:linear-gradient(135deg,#06152f,#075985,#0891b2);
+  padding:20px;
+}
+header, .panel{
+  max-width:850px;
+  margin:15px auto;
+  padding:22px;
+  border:1px solid #ffffff40;
+  border-radius:20px;
+  background:#ffffff15;
+  backdrop-filter:blur(12px);
+}
+a{color:#bae6fd}
+h1{margin-bottom:8px}
+select,button{
+  padding:12px;
+  border-radius:10px;
+  border:0;
+  margin:5px 0;
+  font-size:15px;
+}
+button{background:#38bdf8;color:#06213b;font-weight:bold}
+.semester{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+  padding:15px;
+  margin:12px 0;
+  border-radius:14px;
+  background:#ffffff12;
+  border:1px solid #ffffff30;
+}
+small{color:#dbeafe}
+</style>
+</head>
+
+<body>
+<header>
+  <a href="index.html">← Home</a>
+  <h1>📚 Department Syllabus</h1>
+  <p>J&K Engineering Hub</p>
+
+  <label for="dept">Select Department</label><br>
+  <select id="dept" onchange="updatePage()">
+    <option value="CE">Computer Engineering</option>
+    <option value="AI">Artificial Intelligence</option>
+    <option value="EC">Electronics & Communication</option>
+    <option value="IT">Information Technology</option>
+    <option value="CYBER">Cyber Security</option>
+    <option value="CIVIL">Civil Engineering</option>
+    <option value="ME">Mechanical Engineering</option>
+  </select>
+</header>
+
+<main class="panel">
+  <h2 id="departmentName">Computer Engineering</h2>
+  <p>Select a semester to find its syllabus.</p>
+  <div id="semesters"></div>
+</main>
+
+<script>
+const departments={
+  CE:"Computer Engineering",
+  AI:"Artificial Intelligence",
+  EC:"Electronics & Communication",
+  IT:"Information Technology",
+  CYBER:"Cyber Security",
+  CIVIL:"Civil Engineering",
+  ME:"Mechanical Engineering"
+};
+
+function updatePage(){
+  const params=new URLSearchParams(location.search);
+  const dept=document.getElementById("dept").value;
+  document.getElementById("departmentName").textContent=departments[dept];
+
+  const container=document.getElementById("semesters");
+  container.innerHTML="";
+
+  for(let sem=1;sem<=8;sem++){
+    const card=document.createElement("div");
+    card.className="semester";
+
+    const info=document.createElement("div");
+    const heading=document.createElement("strong");
+    heading.textContent="Semester "+sem;
+    const description=document.createElement("p");
+    description.textContent="View syllabus for "+departments[dept];
+    const note=document.createElement("small");
+    note.textContent="Upload or add the official syllabus PDF when available.";
+    info.append(heading,description,note);
+
+    const link=document.createElement("a");
+    link.href="resources.html?dept="+encodeURIComponent(dept)+"&sem="+sem;
+    link.textContent="Open Resources →";
+
+    card.append(info,link);
+    container.appendChild(card);
+  }
+
+  params.set("dept",dept);
+  history.replaceState(null,"","?dept="+encodeURIComponent(dept));
+}
+
+const initialDept=new URLSearchParams(location.search).get("dept");
+if(initialDept && departments[initialDept]){
+  document.getElementById("dept").value=initialDept;
+}
+updatePage();
+</script>
+</body>
+</html>
