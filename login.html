@@ -1,615 +1,177 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#dbeafe">
 <title>Login | J&K Engineering Hub</title>
 
 <style>
 *{box-sizing:border-box}
-
-:root{
-  --blue:#4776f5;
-  --purple:#8b5cf6;
-  --ink:#20264a;
-  --muted:#687493;
-}
-
+:root{--blue:#5965ff;--purple:#9274ff}
 body{
-  margin:0;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  font-family:Arial,sans-serif;
-  color:var(--ink);
-  background:
-    radial-gradient(ellipse at 12% 18%,#a5c8ffb8,transparent 42%),
-    radial-gradient(ellipse at 88% 25%,#d7baffbd,transparent 42%),
-    radial-gradient(ellipse at 50% 100%,#b9d5ff,transparent 48%),
-    linear-gradient(135deg,#edf5ff,#f3edff 55%,#e6efff);
-  background-attachment:fixed;
+ margin:0;font-family:Arial,sans-serif;color:#fff;min-height:100vh;
+ background:linear-gradient(135deg,#729df7,#a8a4ff 50%,#d8c9ff);
+ display:flex;flex-direction:column;position:relative;overflow-x:hidden
 }
-
-a{color:#4169e8;text-decoration:none}
-
-header{
-  padding:22px 6%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
+body:before{
+ content:"";position:fixed;inset:0;z-index:-2;
+ background:
+ radial-gradient(ellipse at 15% 15%,#c6d9ff 0,transparent 35%),
+ radial-gradient(ellipse at 90% 70%,#8e9bff 0,transparent 40%),
+ linear-gradient(135deg,#78a8f7,#b2a4ff 55%,#e1d2ff)
 }
-
-.brand{
-  font-size:17px;
-  font-weight:800;
-  line-height:1.5;
-  color:#29375d;
-  letter-spacing:.3px;
-}
-
-.brand span{
-  background:linear-gradient(90deg,#4776f5,#9560e9);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-}
-
-header>a:last-child{
-  font-size:13px;
-  font-weight:bold;
-  color:#53628c;
-}
-
-main{
-  flex:1;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:28px 16px 40px;
-}
-
+a{color:inherit;text-decoration:none}
+header{padding:22px 6%;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.brand{font-size:17px;font-weight:800;line-height:1.5}
+.brand span{color:#4d50e8}
+.home-link{font-size:13px;padding:11px 16px;border:1px solid #ffffff70;border-radius:30px;background:#ffffff18}
+main{flex:1;display:flex;justify-content:center;align-items:center;padding:24px 16px}
 .card{
-  width:100%;
-  max-width:445px;
-  padding:34px;
-  border:1px solid #ffffffc9;
-  border-radius:26px;
-  background:rgba(255,255,255,.48);
-  box-shadow:
-    0 24px 70px #5868a51c,
-    inset 0 1px 0 #ffffffd9;
-  backdrop-filter:blur(24px);
-  -webkit-backdrop-filter:blur(24px);
-  animation:appear .55s ease both;
+ width:100%;max-width:440px;padding:32px;border-radius:25px;
+ background:#ffffff24;border:1px solid #ffffffa8;
+ box-shadow:0 18px 55px #344b9a30,inset 0 1px 1px #ffffff90;
+ backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)
 }
-
-@keyframes appear{
-  from{opacity:0;transform:translateY(12px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
 .logo{
-  width:59px;
-  height:59px;
-  display:grid;
-  place-items:center;
-  margin-bottom:22px;
-  border:1px solid #ffffffd9;
-  border-radius:19px;
-  background:linear-gradient(135deg,#ffffffd9,#d9e4ffb8);
-  box-shadow:0 8px 25px #7289ef24;
-  font-size:29px;
+ width:58px;height:58px;display:grid;place-items:center;border-radius:18px;
+ font-size:28px;margin-bottom:20px;background:linear-gradient(135deg,#80b7ff,#7964ff);
+ border:1px solid #ffffffa0;box-shadow:0 8px 24px #5555ff45
 }
-
-h1{
-  margin:0 0 10px;
-  font-size:27px;
-  letter-spacing:-.6px;
-}
-
-.subtitle{
-  margin:0 0 25px;
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.7;
-}
-
-.tabs{
-  display:flex;
-  padding:5px;
-  margin-bottom:23px;
-  border:1px solid #ffffffc7;
-  border-radius:13px;
-  background:#e8edff99;
-}
-
-.tabs button{
-  flex:1;
-  padding:12px 8px;
-  border:0;
-  border-radius:10px;
-  background:transparent;
-  color:#697493;
-  font-weight:bold;
-  cursor:pointer;
-  transition:.2s;
-}
-
-.tabs button.active{
-  color:#4168e8;
-  background:#ffffffdc;
-  box-shadow:0 3px 12px #5968a51c;
-}
-
-label{
-  display:block;
-  margin:16px 0 8px;
-  color:#35405f;
-  font-size:13px;
-  font-weight:bold;
-}
-
+h1{font-size:27px;margin:0 0 10px;letter-spacing:-.6px}
+h1 span{color:#5559ff}
+.subtitle{font-size:14px;color:#f4f5ff;line-height:1.6;margin:0 0 24px}
+.tabs{display:flex;padding:5px;background:#ffffff28;border:1px solid #ffffff55;border-radius:13px;margin-bottom:22px}
+.tabs button{flex:1;border:0;padding:12px 6px;background:transparent;border-radius:10px;font-weight:bold;color:#fff;cursor:pointer}
+.tabs button.active{background:linear-gradient(110deg,#6b83ff,#7862ff);box-shadow:0 4px 15px #4c50db45}
+label{display:block;font-size:13px;font-weight:bold;margin:15px 0 8px}
 input{
-  width:100%;
-  min-width:0;
-  padding:14px;
-  border:1px solid #cfd8efb8;
-  border-radius:12px;
-  outline:none;
-  background:#ffffffa6;
-  color:#242d4b;
-  font-size:14px;
-  transition:.2s;
+ width:100%;padding:14px;border:1px solid #ffffff90;border-radius:11px;
+ background:#ffffff20;color:#fff;font-size:14px;outline:none
 }
-
-input::placeholder{color:#9aa4bc}
-
-input:focus{
-  border-color:#8299ff;
-  background:#ffffffdf;
-  box-shadow:0 0 0 4px #8299ff20;
-}
-
-.password{
-  display:flex;
-  gap:8px;
-}
-
-.password input{flex:1}
-
-.password button{
-  padding:0 13px;
-  border:1px solid #cfd8efb8;
-  border-radius:12px;
-  background:#ffffffa6;
-  color:#5268b7;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.forgot{
-  margin-top:12px;
-  text-align:right;
-  font-size:12px;
-  font-weight:bold;
-}
-
-.forgot a:hover{text-decoration:underline}
-
+input::placeholder{color:#f0f2ff}
+input:focus{border-color:#fff;box-shadow:0 0 0 3px #ffffff25}
+.password{display:flex;gap:8px}
+.password input{flex:1;min-width:0}
+.password button{border:1px solid #ffffff80;background:#ffffff20;color:#fff;border-radius:11px;padding:0 13px;cursor:pointer}
+.forgot{text-align:right;margin-top:11px;font-size:12px}
+.forgot a{color:#f4f4ff}
 .submit{
-  width:100%;
-  margin-top:22px;
-  padding:15px;
-  border:0;
-  border-radius:13px;
-  background:linear-gradient(110deg,#4776f5,#795ce8 65%,#9a65e9);
-  color:white;
-  font-size:14px;
-  font-weight:bold;
-  cursor:pointer;
-  box-shadow:0 9px 22px #6a68e63b;
-  transition:transform .2s,box-shadow .2s;
+ width:100%;margin-top:22px;padding:15px;border:1px solid #ffffff90;
+ border-radius:12px;background:linear-gradient(110deg,#687dff,#7960ff);
+ color:white;font-size:14px;font-weight:bold;cursor:pointer;
+ box-shadow:0 7px 18px #4f50dd40
 }
-
-.submit:hover{
-  transform:translateY(-1px);
-  box-shadow:0 12px 27px #6a68e650;
-}
-
-.submit:disabled,.google:disabled{
-  opacity:.65;
-  cursor:wait;
-  transform:none;
-}
-
-.divider{
-  display:flex;
-  align-items:center;
-  gap:13px;
-  margin:22px 0;
-  color:#8791ac;
-  font-size:11px;
-  font-weight:bold;
-}
-
-.divider:before,.divider:after{
-  content:"";
-  height:1px;
-  flex:1;
-  background:#b9c5e477;
-}
-
-.google{
-  width:100%;
-  padding:13px;
-  border:1px solid #ffffffdc;
-  border-radius:12px;
-  background:#ffffffa8;
-  color:#39435e;
-  font-size:13px;
-  font-weight:bold;
-  cursor:pointer;
-  transition:.2s;
-}
-
-.google:hover{background:#ffffffed}
-
-.message{
-  display:none;
-  padding:12px;
-  margin-top:15px;
-  border:1px solid transparent;
-  border-radius:11px;
-  font-size:13px;
-  line-height:1.6;
-  overflow-wrap:anywhere;
-}
-
-.message.error{
-  display:block;
-  color:#a52e51;
-  background:#fff0f4dc;
-  border-color:#ffd5e0;
-}
-
-.message.success{
-  display:block;
-  color:#176b51;
-  background:#e9fff5dc;
-  border-color:#c1f1df;
-}
-
-.message.info{
-  display:block;
-  color:#3859a7;
-  background:#edf3ffdc;
-  border-color:#d6e2ff;
-}
-
-.terms{
-  margin:19px 0 0;
-  color:#7b86a2;
-  text-align:center;
-  font-size:11px;
-  line-height:1.8;
-}
-
-footer{
-  padding:18px;
-  color:#7885a3;
-  text-align:center;
-  font-size:12px;
-}
-
-@media(max-width:480px){
-  header{padding:18px 5%}
-  .brand{font-size:15px}
-  header>a:last-child{font-size:12px}
-  main{padding:20px 14px 30px}
-  .card{padding:27px 21px;border-radius:23px}
-  h1{font-size:25px}
-}
-
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{
-    animation:none!important;
-    transition:none!important;
-  }
-}
+.submit:hover{filter:brightness(1.07)}
+.divider{display:flex;align-items:center;gap:12px;margin:21px 0;color:#f3f3ff;font-size:12px}
+.divider:before,.divider:after{content:"";height:1px;background:#ffffff80;flex:1}
+.google{width:100%;padding:13px;background:#ffffff20;color:white;border:1px solid #ffffff80;border-radius:11px;font-weight:bold;cursor:pointer}
+.message{display:none;background:#ffffff30;border:1px solid #ffffff60;color:white;padding:12px;border-radius:10px;font-size:13px;line-height:1.5;margin-top:14px;overflow-wrap:anywhere}
+.terms{font-size:11px;line-height:1.7;color:#f3f3ff;text-align:center;margin:20px 0 0}
+footer{text-align:center;padding:20px;font-size:12px;color:#f3f3ff}
+@media(max-width:480px){.card{padding:25px 20px}header{padding:17px 5%}h1{font-size:25px}}
 </style>
 </head>
 
 <body>
 <header>
-  <a class="brand" href="index.html">
-    J&amp;K <span>ENGINEERING</span><br>HUB 🎓
-  </a>
-  <a href="index.html">← Back to home</a>
+ <a class="brand" href="index.html">J&K <span>ENGINEERING</span><br>HUB 🎓</a>
+ <a class="home-link" href="index.html">← Back to home</a>
 </header>
 
 <main>
 <section class="card">
-  <div class="logo">🎓</div>
+ <div class="logo">🎓</div>
+ <h1 id="heading">Welcome <span>back!</span></h1>
+ <p class="subtitle" id="subtitle">Sign in to access your engineering study space.</p>
 
-  <h1 id="heading">Welcome back!</h1>
-  <p class="subtitle" id="subtitle">
-    Sign in to access your engineering study space.
-  </p>
+ <div class="tabs">
+  <button class="active" id="loginTab" type="button" onclick="setMode('login')">Login</button>
+  <button id="signupTab" type="button" onclick="setMode('signup')">Create account</button>
+ </div>
 
-  <div class="tabs">
-    <button class="active" id="loginTab" type="button">Login</button>
-    <button id="signupTab" type="button">Create account</button>
+ <form id="authForm">
+  <div id="nameField" style="display:none">
+   <label for="name">Full name</label>
+   <input id="name" type="text" autocomplete="name" placeholder="Enter your full name">
   </div>
 
-  <form id="authForm">
-    <div id="nameField" hidden>
-      <label for="name">Full name</label>
-      <input id="name" type="text" autocomplete="name"
-             placeholder="Enter your full name" maxlength="100">
-    </div>
+  <label for="email">Email address</label>
+  <input id="email" type="email" autocomplete="email" placeholder="you@example.com" required>
 
-    <label for="email">Email address</label>
-    <input id="email" type="email" autocomplete="email"
-           placeholder="you@example.com" required>
+  <label for="password">Password</label>
+  <div class="password">
+   <input id="password" type="password" minlength="6" autocomplete="current-password" placeholder="At least 6 characters" required>
+   <button type="button" id="eye" onclick="togglePassword()">Show</button>
+  </div>
 
-    <label for="password">Password</label>
-    <div class="password">
-      <input id="password" type="password"
-             autocomplete="current-password"
-             minlength="6" placeholder="At least 6 characters"
-             required>
-      <button type="button" id="eye">Show</button>
-    </div>
+  <div class="forgot" id="forgot">
+   <a href="#" onclick="forgotPassword(event)">Forgot password?</a>
+  </div>
 
-    <div id="forgot" class="forgot">
-      <a href="#" id="forgotLink">Forgot password?</a>
-    </div>
+  <button class="submit" type="submit" id="submitBtn">Login to your account →</button>
+  <div class="message" id="message" role="status"></div>
+ </form>
 
-    <button class="submit" type="submit" id="submitBtn">
-      Login to your account →
-    </button>
+ <div class="divider">OR</div>
+ <button class="google" type="button" onclick="showMessage('Google login is unavailable in this demo.')">🌐 Continue with Google</button>
 
-    <div class="message" id="message" role="status"
-         aria-live="polite"></div>
-  </form>
-
-  <div class="divider">OR</div>
-
-  <button class="google" id="googleBtn" type="button">
-    🌐 Continue with Google
-  </button>
-
-  <p class="terms">
-    Your account helps you access J&amp;K Engineering Hub.
-    Keep your login details private.
-  </p>
+ <p class="terms">This is a demonstration login page. Accounts are not created or verified, and passwords are not saved.</p>
 </section>
 </main>
 
-<footer>© J&amp;K Engineering Hub · Learn. Share. Grow.</footer>
+<footer>© J&K Engineering Hub · Learn. Share. Grow.</footer>
 
-<script type="module">
-import { auth, db } from "./firebase.js";
-
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-  sendPasswordResetEmail,
-  GoogleAuthProvider,
-  signInWithPopup
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-
-import {
-  doc,
-  setDoc,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
-
-const $ = id => document.getElementById(id);
-
+<script>
 let mode = "login";
 
-function showMessage(text, type = "error") {
-  const box = $("message");
-  box.textContent = text;
-  box.className = "message " + type;
+function setMode(nextMode){
+ mode = nextMode;
+ const signup = mode === "signup";
+
+ document.getElementById("heading").innerHTML = signup
+  ? "Join our <span>community</span>" : "Welcome <span>back!</span>";
+
+ document.getElementById("subtitle").textContent = signup
+  ? "Create your student account to get started."
+  : "Sign in to access your engineering study space.";
+
+ document.getElementById("nameField").style.display = signup ? "block" : "none";
+ document.getElementById("name").required = signup;
+ document.getElementById("loginTab").classList.toggle("active",!signup);
+ document.getElementById("signupTab").classList.toggle("active",signup);
+ document.getElementById("forgot").style.display = signup ? "none" : "block";
+ document.getElementById("submitBtn").textContent = signup
+  ? "Create my account →" : "Login to your account →";
+ document.getElementById("password").autocomplete = signup ? "new-password" : "current-password";
+ document.getElementById("message").style.display = "none";
 }
 
-function clearMessage() {
-  $("message").textContent = "";
-  $("message").className = "message";
+function togglePassword(){
+ const input = document.getElementById("password");
+ const visible = input.type === "password";
+ input.type = visible ? "text" : "password";
+ document.getElementById("eye").textContent = visible ? "Hide" : "Show";
 }
 
-function setMode(nextMode) {
-  mode = nextMode;
-  const signup = mode === "signup";
-
-  $("heading").textContent = signup
-    ? "Join our community" : "Welcome back!";
-
-  $("subtitle").textContent = signup
-    ? "Create your student account to get started."
-    : "Sign in to access your engineering study space.";
-
-  $("nameField").hidden = !signup;
-  $("name").required = signup;
-  $("loginTab").classList.toggle("active", !signup);
-  $("signupTab").classList.toggle("active", signup);
-  $("forgot").hidden = signup;
-
-  $("submitBtn").textContent = signup
-    ? "Create my account →" : "Login to your account →";
-
-  $("password").autocomplete = signup
-    ? "new-password" : "current-password";
-
-  clearMessage();
+function showMessage(text){
+ const box = document.getElementById("message");
+ box.textContent = text;
+ box.style.display = "block";
 }
 
-$("loginTab").addEventListener("click", () => setMode("login"));
-$("signupTab").addEventListener("click", () => setMode("signup"));
+document.getElementById("authForm").addEventListener("submit",function(event){
+ event.preventDefault();
+ if(!this.reportValidity()) return;
 
-$("eye").addEventListener("click", () => {
-  const input = $("password");
-  const visible = input.type === "password";
-  input.type = visible ? "text" : "password";
-  $("eye").textContent = visible ? "Hide" : "Show";
-  $("eye").setAttribute("aria-label",
-    visible ? "Hide password" : "Show password");
+ showMessage(mode === "signup"
+  ? "Demo only: no account was created. Real account registration requires a backend."
+  : "Demo only: your identity has not been verified. No login session was created.");
 });
 
-function friendlyError(error) {
-  const code = error?.code || "";
-
-  const messages = {
-    "auth/invalid-email": "Please enter a valid email address.",
-    "auth/user-disabled": "This account has been disabled.",
-    "auth/user-not-found": "No account found. Create an account first.",
-    "auth/wrong-password": "Incorrect email or password.",
-    "auth/invalid-credential": "Incorrect email or password.",
-    "auth/email-already-in-use": "An account with this email already exists. Try logging in.",
-    "auth/weak-password": "Choose a stronger password with at least 6 characters.",
-    "auth/too-many-requests": "Too many attempts. Please wait and try again.",
-    "auth/network-request-failed": "Network problem. Check your internet connection.",
-    "auth/popup-closed-by-user": "Google sign-in was closed before completion.",
-    "auth/operation-not-allowed": "This sign-in method is not enabled in Firebase Console.",
-    "auth/unauthorized-domain": "Add your website domain under Firebase Authentication settings.",
-    "permission-denied": "Database access was denied. Firebase Firestore rules need to be configured securely."
-  };
-
-  return messages[code] ||
-    "Something went wrong. Please try again. (" + code + ")";
+function forgotPassword(event){
+ event.preventDefault();
+ showMessage("Password reset is unavailable because this demo has no authentication backend.");
 }
-
-function setLoading(loading) {
-  $("submitBtn").disabled = loading;
-  $("googleBtn").disabled = loading;
-
-  if (loading) {
-    $("submitBtn").textContent = "Please wait…";
-  } else {
-    $("submitBtn").textContent = mode === "signup"
-      ? "Create my account →" : "Login to your account →";
-  }
-}
-
-async function saveUserProfile(user, fullName = "") {
-  // A database failure should not invalidate successful authentication.
-  // Firestore rules must allow users to write only their own profile.
-  try {
-    await setDoc(doc(db, "users", user.uid), {
-      uid: user.uid,
-      email: user.email || "",
-      displayName: fullName || user.displayName || "",
-      updatedAt: serverTimestamp()
-    }, { merge: true });
-  } catch (error) {
-    console.error("Profile save failed:", error);
-    showMessage(
-      "Your account is signed in, but your profile could not be saved. Database rules may need configuration.",
-      "info"
-    );
-  }
-}
-
-function goAfterLogin() {
-  // Change this only if your actual post-login page has another filename.
-  window.location.href = "profile.html";
-}
-
-$("authForm").addEventListener("submit", async event => {
-  event.preventDefault();
-  clearMessage();
-
-  if (!$("authForm").reportValidity()) return;
-
-  const email = $("email").value.trim();
-  const password = $("password").value;
-  const fullName = $("name").value.trim();
-
-  if (mode === "signup" && !fullName) {
-    showMessage("Please enter your full name.");
-    $("name").focus();
-    return;
-  }
-
-  setLoading(true);
-
-  try {
-    if (mode === "signup") {
-      const credential = await createUserWithEmailAndPassword(
-        auth, email, password
-      );
-
-      await updateProfile(credential.user, {
-        displayName: fullName
-      });
-
-      await saveUserProfile(credential.user, fullName);
-
-      showMessage("Account created successfully! Opening your profile…", "success");
-    } else {
-      const credential = await signInWithEmailAndPassword(
-        auth, email, password
-      );
-
-      await saveUserProfile(credential.user);
-
-      showMessage("Login successful! Opening your profile…", "success");
-    }
-
-    setTimeout(goAfterLogin, 700);
-  } catch (error) {
-    console.error("Authentication error:", error);
-    showMessage(friendlyError(error));
-    setLoading(false);
-  }
-});
-
-$("forgotLink").addEventListener("click", async event => {
-  event.preventDefault();
-  clearMessage();
-
-  const email = $("email").value.trim();
-
-  if (!email) {
-    showMessage("Enter your email address above first.", "info");
-    $("email").focus();
-    return;
-  }
-
-  try {
-    await sendPasswordResetEmail(auth, email);
-    showMessage(
-      "If an account exists for this email, a password-reset email will be sent. Check your inbox and spam folder.",
-      "success"
-    );
-  } catch (error) {
-    showMessage(friendlyError(error));
-  }
-});
-
-$("googleBtn").addEventListener("click", async () => {
-  clearMessage();
-  setLoading(true);
-
-  try {
-    const provider = new GoogleAuthProvider();
-    const result = await signInWithPopup(auth, provider);
-
-    await saveUserProfile(result.user);
-    showMessage("Google sign-in successful! Opening your profile…", "success");
-    setTimeout(goAfterLogin, 700);
-  } catch (error) {
-    console.error("Google sign-in error:", error);
-    showMessage(friendlyError(error));
-    setLoading(false);
-  }
-});
 </script>
 </body>
 </html>
