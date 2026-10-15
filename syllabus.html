@@ -3,96 +3,409 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#eaf2ff">
+<meta name="description" content="Explore semester-wise engineering syllabus for students across Jammu and Kashmir.">
 <title>Syllabus | J&K Engineering Hub</title>
 
 <style>
-*{box-sizing:border-box}
+:root {
+  --blue: #2563eb;
+  --ink: #14233d;
+  --muted: #66758d;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
-body{
-  margin:0;
-  padding:18px;
-  min-height:100vh;
-  font-family:Arial,sans-serif;
-  color:white;
-  background:linear-gradient(135deg,#06152f,#075985,#0891b2);
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse at 10% 10%, rgba(147,197,253,.65), transparent 38%),
+    radial-gradient(ellipse at 90% 28%, rgba(196,181,253,.5), transparent 35%),
+    radial-gradient(ellipse at 50% 85%, rgba(186,230,253,.6), transparent 40%),
+    linear-gradient(135deg,#f5f8ff,#e9f0ff 50%,#f6f4ff);
+  background-attachment: fixed;
+}
+a { color: inherit; text-decoration: none; }
+button, input, select { font: inherit; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 3px solid #60a5fa;
+  outline-offset: 3px;
+}
+.container { width: min(1120px,92%); margin: auto; }
+
+/* HEADER */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 13px 0;
+  background: rgba(242,247,255,.8);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border-bottom: 1px solid rgba(255,255,255,.8);
+}
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+.brand { display: flex; align-items: center; gap: 10px; }
+.logo {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  color: white;
+  font-size: 19px;
+  font-weight: 900;
+  background: linear-gradient(145deg,#60a5fa,#2563eb 65%,#4f46e5);
+  box-shadow: 0 7px 20px #2563eb30;
+}
+.brand-name { font-size: 13px; font-weight: 850; line-height: 1.5; }
+.brand-name span { color: var(--blue); }
+.brand-tag {
+  display: block;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.header-link {
+  padding: 11px 15px;
+  border: 1px solid #cbd9ef;
+  border-radius: 12px;
+  background: rgba(255,255,255,.65);
+  color: #24436f;
+  font-size: 12px;
+  font-weight: 750;
 }
 
-header,.panel{
-  max-width:900px;
-  margin:15px auto;
-  padding:22px;
-  border:1px solid #ffffff40;
-  border-radius:20px;
-  background:#ffffff15;
-  backdrop-filter:blur(12px);
+/* INTRO */
+main { padding: 40px 0 60px; }
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 13px;
+  border: 1px solid rgba(255,255,255,.95);
+  border-radius: 50px;
+  background: rgba(255,255,255,.55);
+  color: #315a9a;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3b82f6;
+  box-shadow: 0 0 0 4px #2563eb20;
+}
+h1 {
+  margin: 18px 0 12px;
+  font-size: clamp(34px,5vw,49px);
+  line-height: 1.12;
+  letter-spacing: -1.8px;
+}
+.gradient-text {
+  color: transparent;
+  background: linear-gradient(110deg,#2563eb,#6366f1 60%,#8b5cf6);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+.intro {
+  max-width: 660px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.85;
+}
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+.stat {
+  padding: 11px 14px;
+  border: 1px solid rgba(255,255,255,.9);
+  border-radius: 13px;
+  background: rgba(255,255,255,.48);
+  color: #506582;
+  font-size: 11px;
+}
+.stat strong { color: #24436f; }
+
+/* FILTERS */
+.filter-panel {
+  margin: 28px 0 30px;
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,.95);
+  border-radius: 21px;
+  background: rgba(255,255,255,.54);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 10px 35px rgba(40,70,120,.04);
+}
+.filter-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 11px;
+}
+.filter-row select,
+.search-wrap input {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 13px;
+  border: 1px solid #dce5f2;
+  border-radius: 12px;
+  outline: none;
+  background: rgba(255,255,255,.8);
+  color: #425674;
+  font-size: 12px;
+}
+.search-wrap { position: relative; margin-top: 12px; }
+.search-wrap input { padding-left: 40px; }
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 17px;
+  pointer-events: none;
+}
+.filter-row select:focus,
+.search-wrap input:focus {
+  border-color: #7da9f9;
+  box-shadow: 0 0 0 3px rgba(59,130,246,.1);
 }
 
-a{color:#bae6fd;text-decoration:none}
-a:hover{text-decoration:underline}
+/* SECTION HEADINGS */
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 19px;
+}
+.kicker {
+  color: var(--blue);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+}
+h2 { margin: 8px 0 0; font-size: 25px; letter-spacing: -.6px; }
+.result-count { color: var(--muted); font-size: 11px; }
 
-.toplinks{
-  display:flex;
-  flex-wrap:wrap;
-  gap:16px;
+/* SEMESTER TABS */
+.semester-tabs {
+  display: grid;
+  grid-template-columns: repeat(8,minmax(0,1fr));
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.semester-tab {
+  padding: 12px 5px;
+  border: 1px solid rgba(255,255,255,.95);
+  border-radius: 12px;
+  background: rgba(255,255,255,.52);
+  color: #536a8b;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: .2s;
+}
+.semester-tab:hover,
+.semester-tab.active {
+  border-color: #93b7ff;
+  background: linear-gradient(135deg,#3b82f6,#2563eb);
+  color: white;
+  box-shadow: 0 7px 18px #2563eb20;
 }
 
-select,button{
-  width:100%;
-  padding:12px;
-  border:1px solid #ffffff40;
-  border-radius:10px;
-  font-size:15px;
+/* SUBJECT CARDS */
+.subject-grid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 15px;
+}
+.subject-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid rgba(255,255,255,.95);
+  border-radius: 21px;
+  background: rgba(255,255,255,.57);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 9px 30px rgba(40,70,120,.04);
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+.subject-card:hover {
+  transform: translateY(-4px);
+  border-color: #bfdbfe;
+  box-shadow: 0 18px 38px rgba(40,70,120,.09);
+}
+.subject-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+.subject-icon {
+  width: 47px;
+  height: 47px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: #e0edff;
+  font-size: 22px;
+}
+.subject-badge {
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: #eaf1ff;
+  color: #315a9a;
+  font-size: 9px;
+  font-weight: 850;
+}
+.subject-card h3 {
+  margin: 16px 0 8px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.subject-card p {
+  flex: 1;
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.8;
+}
+.subject-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 14px;
+}
+.meta-tag {
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: rgba(237,244,255,.9);
+  color: #536a8b;
+  font-size: 9px;
+}
+.subject-footer {
+  margin-top: 17px;
+  padding-top: 14px;
+  border-top: 1px solid #e5ebf5;
+}
+.doc-button {
+  display: block;
+  width: 100%;
+  padding: 11px 12px;
+  border: 0;
+  border-radius: 11px;
+  background: linear-gradient(135deg,#3b82f6,#2563eb);
+  color: white;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.doc-button:hover { background: #1745b5; }
+
+/* EMPTY STATE */
+.empty-state {
+  display: none;
+  padding: 35px 20px;
+  text-align: center;
+  border: 1px solid white;
+  border-radius: 20px;
+  background: rgba(255,255,255,.55);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+.empty-state strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--ink);
 }
 
-select{
-  background:#fff;
-  color:#10233d;
-  margin:8px 0;
+/* INFO BANNER */
+.info-banner {
+  margin-top: 35px;
+  padding: 23px;
+  border: 1px solid white;
+  border-radius: 21px;
+  background: linear-gradient(120deg,rgba(219,234,254,.85),rgba(237,233,254,.83));
+}
+.info-banner h2 { margin: 0; font-size: 19px; }
+.info-banner p {
+  margin: 9px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
 }
 
-button{
-  background:#38bdf8;
-  color:#06213b;
-  font-weight:bold;
-  cursor:pointer;
+/* FOOTER */
+footer {
+  margin-top: 55px;
+  border-top: 1px solid rgba(255,255,255,.9);
+  padding: 23px 0;
+  background: rgba(255,255,255,.23);
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 13px;
+}
+.footer-name { font-size: 12px; font-weight: 850; }
+.footer-note { color: var(--muted); font-size: 10px; line-height: 1.8; }
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  font-size: 11px;
+  color: #526580;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:14px;
-  margin-top:20px;
+@media(max-width:850px) {
+  .subject-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .semester-tabs { grid-template-columns: repeat(4,minmax(0,1fr)); }
 }
-
-.card{
-  padding:18px;
-  border:1px solid #ffffff35;
-  border-radius:16px;
-  background:#ffffff12;
+@media(max-width:600px) {
+  .container { width: 92%; }
+  header { padding: 10px 0; }
+  .logo { width: 39px; height: 39px; font-size: 17px; }
+  .brand { gap: 8px; }
+  .brand-name { font-size: 11px; }
+  .brand-tag { font-size: 8px; }
+  .header-link { padding: 10px 11px; font-size: 11px; }
+  main { padding: 30px 0 45px; }
+  h1 { font-size: 36px; }
+  .intro { font-size: 13px; }
+  .filter-panel { padding: 12px; }
+  .filter-row { grid-template-columns: 1fr; gap: 9px; }
+  .section-heading { align-items: flex-start; flex-direction: column; gap: 7px; }
+  .semester-tabs { gap: 7px; }
+  .semester-tab { padding: 11px 3px; font-size: 10px; }
+  .subject-grid { grid-template-columns: 1fr; gap: 12px; }
+  .subject-card { padding: 18px; }
+  .footer-inner { align-items: flex-start; flex-direction: column; }
 }
-
-.card h3{margin-top:0}
-
-.btn{
-  display:inline-block;
-  margin-top:10px;
-  padding:10px 13px;
-  border-radius:9px;
-  background:#38bdf8;
-  color:#06213b;
-  font-weight:bold;
-}
-
-.note{
-  color:#dbeafe;
-  font-size:14px;
-  line-height:1.6;
-}
-
-footer{
-  text-align:center;
-  padding:20px;
-  color:#dbeafe;
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { scroll-behavior:auto !important; transition:none !important; }
 }
 </style>
 </head>
@@ -100,143 +413,265 @@ footer{
 <body>
 
 <header>
-  <div class="toplinks">
-    <a href="index.html">← Home</a>
-    <a id="departmentLink" href="department.html">← Department</a>
-    <a id="resourcesTopLink" href="resources.html">📚 Study Resources</a>
+  <div class="container navbar">
+    <a class="brand" href="index.html" aria-label="J&K Engineering Hub home">
+      <div class="logo">J&K</div>
+      <div class="brand-name">
+        ENGINEERING <span>HUB</span>
+        <small class="brand-tag">LEARN · SHARE · GROW</small>
+      </div>
+    </a>
+    <a class="header-link" href="index.html">← Home</a>
   </div>
-
-  <h1>📘 Engineering Syllabus</h1>
-  <p>J&K Engineering Hub</p>
-
-  <label for="department"><strong>Select Department</strong></label>
-  <select id="department">
-    <option value="CE">Computer Engineering</option>
-    <option value="AI">Artificial Intelligence</option>
-    <option value="EC">Electronics & Communication</option>
-    <option value="IT">Information Technology</option>
-    <option value="CYBER">Cyber Security</option>
-    <option value="CIVIL">Civil Engineering</option>
-    <option value="ME">Mechanical Engineering</option>
-  </select>
-
-  <label for="semester"><strong>Select Semester</strong></label>
-  <select id="semester">
-    <option value="1">Semester 1</option>
-    <option value="2">Semester 2</option>
-    <option value="3">Semester 3</option>
-    <option value="4">Semester 4</option>
-    <option value="5">Semester 5</option>
-    <option value="6">Semester 6</option>
-    <option value="7">Semester 7</option>
-    <option value="8">Semester 8</option>
-  </select>
-
-  <button id="openResources" type="button">
-    Open Resources for This Semester →
-  </button>
 </header>
 
-<main class="panel">
-  <h2 id="pageTitle">Semester Syllabus</h2>
+<main>
+<div class="container">
 
-  <p class="note">
-    Select your department and semester. You can open study resources
-    for the same selection using the button above or the links below.
-  </p>
+  <section>
+    <div class="eyebrow"><span class="dot"></span> YOUR ACADEMIC GUIDE</div>
+    <h1>Explore the <span class="gradient-text">Syllabus</span></h1>
+    <p class="intro">
+      Find semester-wise syllabus information for engineering courses.
+      Select your department and semester to explore subjects and syllabus documents.
+    </p>
 
-  <div id="semesterGrid" class="grid"></div>
+    <div class="stats">
+      <div class="stat"><strong>7</strong> Departments</div>
+      <div class="stat"><strong>8</strong> Semesters</div>
+      <div class="stat"><strong>Easy</strong> Subject search</div>
+    </div>
+  </section>
+
+  <section class="filter-panel" aria-label="Filter syllabus">
+    <div class="filter-row">
+      <select id="departmentFilter" aria-label="Select department">
+        <option value="">All departments</option>
+        <option value="CE">Computer Engineering</option>
+        <option value="AI">Artificial Intelligence</option>
+        <option value="EC">Electronics & Communication</option>
+        <option value="IT">Information Technology</option>
+        <option value="CYBER">Cyber Security</option>
+        <option value="CIVIL">Civil Engineering</option>
+        <option value="ME">Mechanical Engineering</option>
+      </select>
+
+      <select id="semesterFilter" aria-label="Select semester">
+        <option value="">All semesters</option>
+        <option value="1">Semester 1</option>
+        <option value="2">Semester 2</option>
+        <option value="3">Semester 3</option>
+        <option value="4">Semester 4</option>
+        <option value="5">Semester 5</option>
+        <option value="6">Semester 6</option>
+        <option value="7">Semester 7</option>
+        <option value="8">Semester 8</option>
+      </select>
+
+      <select id="typeFilter" aria-label="Filter by syllabus type">
+        <option value="">All types</option>
+        <option value="CORE">Core subject</option>
+        <option value="ELECTIVE">Elective</option>
+        <option value="FOUNDATION">Foundation</option>
+      </select>
+    </div>
+
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input id="searchInput" type="search"
+        placeholder="Search subject or topic..."
+        aria-label="Search syllabus subjects">
+    </div>
+  </section>
+
+  <section>
+    <div class="section-heading">
+      <div>
+        <div class="kicker">Choose your semester</div>
+        <h2>Semester Overview</h2>
+      </div>
+      <div class="result-count" id="resultCount">6 subjects</div>
+    </div>
+
+    <div class="semester-tabs" id="semesterTabs">
+      <button class="semester-tab" type="button" data-semester="1">Sem 1</button>
+      <button class="semester-tab" type="button" data-semester="2">Sem 2</button>
+      <button class="semester-tab" type="button" data-semester="3">Sem 3</button>
+      <button class="semester-tab" type="button" data-semester="4">Sem 4</button>
+      <button class="semester-tab" type="button" data-semester="5">Sem 5</button>
+      <button class="semester-tab" type="button" data-semester="6">Sem 6</button>
+      <button class="semester-tab" type="button" data-semester="7">Sem 7</button>
+      <button class="semester-tab" type="button" data-semester="8">Sem 8</button>
+    </div>
+
+    <div class="subject-grid" id="subjectGrid">
+
+      <article class="subject-card"
+        data-title="Programming Fundamentals"
+        data-dept="CE" data-semester="1" data-type="FOUNDATION">
+        <div class="subject-top">
+          <div class="subject-icon">💻</div>
+          <span class="subject-badge">FOUNDATION</span>
+        </div>
+        <h3>Programming Fundamentals</h3>
+        <p>Introduction to programming concepts, variables, conditions, loops and basic problem solving.</p>
+        <div class="subject-meta">
+          <span class="meta-tag">Computer Engineering</span>
+          <span class="meta-tag">Semester 1</span>
+        </div>
+        <div class="subject-footer">
+          <button class="doc-button" type="button" data-demo="true">View syllabus details ↗</button>
+        </div>
+      </article>
+
+      <article class="subject-card"
+        data-title="Engineering Mathematics"
+        data-dept="CE" data-semester="1" data-type="FOUNDATION">
+        <div class="subject-top">
+          <div class="subject-icon" style="background:#eee7ff">📐</div>
+          <span class="subject-badge">FOUNDATION</span>
+        </div>
+        <h3>Engineering Mathematics</h3>
+        <p>Sample subject card for mathematical methods used in engineering studies.</p>
+        <div class="subject-meta">
+          <span class="meta-tag">Computer Engineering</span>
+          <span class="meta-tag">Semester 1</span>
+        </div>
+        <div class="subject-footer">
+          <button class="doc-button" type="button" data-demo="true">View syllabus details ↗</button>
+        </div>
+      </article>
+
+      <article class="subject-card"
+        data-title="Data Structures and Algorithms"
+        data-dept="CE" data-semester="3" data-type="CORE">
+        <div class="subject-top">
+          <div class="subject-icon" style="background:#dcfce7">🧩</div>
+          <span class="subject-badge">CORE</span>
+        </div>
+        <h3>Data Structures & Algorithms</h3>
+        <p>Sample subject card covering data organisation, algorithms and computational problem solving.</p>
+        <div class="subject-meta">
+          <span class="meta-tag">Computer Engineering</span>
+          <span class="meta-tag">Semester 3</span>
+        </div>
+        <div class="subject-footer">
+          <button class="doc-button" type="button" data-demo="true">View syllabus details ↗</button>
+        </div>
+      </article>
+
+      <article class="subject-card"
+        data-title="Database Management Systems"
+        data-dept="CE" data-semester="4" data-type="CORE">
+        <div class="subject-top">
+          <div class="subject-icon" style="background:#dceafe">🗄️</div>
+          <span class="subject-badge">CORE</span>
+        </div>
+        <h3>Database Management Systems</h3>
+        <p>Sample subject card covering database design, SQL, normalisation and transactions.</p>
+        <div class="subject-meta">
+          <span class="meta-tag">Computer Engineering</span>
+          <span class="meta-tag">Semester 4</span>
+        </div>
+        <div class="subject-footer">
+          <button class="doc-button" type="button" data-demo="true">View syllabus details ↗</button>
+        </div>
+      </article>
+
+      <article class="subject-card"
+        data-title="Introduction to Artificial Intelligence"
+        data-dept="AI" data-semester="3" data-type="CORE">
+        <div class="subject-top">
+          <div class="subject-icon" style="background:#eee7ff">🤖</div>
+          <span class="subject-badge">CORE</span>
+        </div>
+        <h3>Introduction to AI</h3>
+        <p>Sample subject card covering intelligent systems, AI approaches and introductory machine learning.</p>
+        <div class="subject-meta">
+          <span class="meta-tag">Artificial Intelligence</span>
+          <span class="meta-tag">Semester 3</span>
+        </div>
+        <div class="subject-footer">
+          <button class="doc-button" type="button" data-demo="true">View syllabus details ↗</button>
+        </div>
+      </article>
+
+      <article class="subject-card"
+        data-title="Computer Networks"
+        data-dept="IT" data-semester="5" data-type="CORE">
+        <div class="subject-top">
+          <div class="subject-icon" style="background:#dff7f4">🌐</div>
+          <span class="subject-badge">CORE</span>
+        </div>
+        <h3>Computer Networks</h3>
+        <p>Sample subject card for network models, protocols, routing and data communication.</p>
+        <div class="subject-meta">
+          <span class="meta-tag">Information Technology</span>
+          <span class="meta-tag">Semester 5</span>
+        </div>
+        <div class="subject-footer">
+          <button class="doc-button" type="button" data-demo="true">View syllabus details ↗</button>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="empty-state" id="emptyState">
+      <strong>No matching subjects found</strong>
+      Try changing your department, semester or search term.
+    </div>
+
+    <div class="info-banner">
+      <h2>Official syllabus documents</h2>
+      <p>
+        The subjects shown here are sample entries to demonstrate the design.
+        Official university syllabus PDFs and actual subject details must be added
+        before this page can be used as an authoritative syllabus source.
+      </p>
+    </div>
+  </section>
+
+</div>
 </main>
 
 <footer>
-  © 2026 J&K Engineering Hub
+  <div class="container footer-inner">
+    <div>
+      <div class="footer-name">J&K Engineering Hub</div>
+      <div class="footer-note">Learn · Share · Grow</div>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="department.html">Departments</a>
+      <a href="resources.html">Resources</a>
+      <a href="syllabus.html">Syllabus</a>
+      <a href="profile.html">My Profile</a>
+    </div>
+    <div class="footer-note">© <span id="year"></span> J&K Engineering Hub</div>
+  </div>
 </footer>
 
 <script>
-const departments = {
-  CE: "Computer Engineering",
-  AI: "Artificial Intelligence",
-  EC: "Electronics & Communication",
-  IT: "Information Technology",
-  CYBER: "Cyber Security",
-  CIVIL: "Civil Engineering",
-  ME: "Mechanical Engineering"
-};
+const departmentFilter = document.getElementById("departmentFilter");
+const semesterFilter = document.getElementById("semesterFilter");
+const typeFilter = document.getElementById("typeFilter");
+const searchInput = document.getElementById("searchInput");
+const cards = Array.from(document.querySelectorAll(".subject-card"));
+const resultCount = document.getElementById("resultCount");
+const emptyState = document.getElementById("emptyState");
+const semesterTabs = Array.from(document.querySelectorAll(".semester-tab"));
 
-const department = document.getElementById("department");
-const semester = document.getElementById("semester");
-const semesterGrid = document.getElementById("semesterGrid");
+function updateSemesterTabs() {
+  const selected = semesterFilter.value;
 
-function resourcesURL(dept, sem){
-  return "resources.html?dept=" +
-    encodeURIComponent(dept) + "&sem=" +
-    encodeURIComponent(sem);
+  semesterTabs.forEach(tab => {
+    const active = tab.dataset.semester === selected && selected !== "";
+    tab.classList.toggle("active", active);
+    tab.setAttribute("aria-pressed", active ? "true" : "false");
+  });
 }
 
-function updatePage(){
-  const dept = department.value;
-  const sem = semester.value;
-
-  document.getElementById("pageTitle").textContent =
-    departments[dept] + " — Semester " + sem + " Syllabus";
-
-  document.getElementById("departmentLink").href =
-    "department.html?dept=" + encodeURIComponent(dept);
-
-  document.getElementById("resourcesTopLink").href =
-    resourcesURL(dept, sem);
-
-  semesterGrid.replaceChildren();
-
-  for(let i = 1; i <= 8; i++){
-    const card = document.createElement("section");
-    card.className = "card";
-
-    const heading = document.createElement("h3");
-    heading.textContent = "Semester " + i;
-
-    const description = document.createElement("p");
-    description.className = "note";
-    description.textContent =
-      "View study materials and syllabus resources for " +
-      departments[dept] + ", Semester " + i + ".";
-
-    const link = document.createElement("a");
-    link.className = "btn";
-    link.href = resourcesURL(dept, i);
-    link.textContent = "Open Semester " + i + " Resources →";
-
-    card.append(heading, description, link);
-
-    if(String(i) === sem){
-      card.style.border = "2px solid #7dd3fc";
-    }
-
-    semesterGrid.appendChild(card);
-  }
-}
-
-document.getElementById("openResources").addEventListener("click", () => {
-  window.location.href = resourcesURL(department.value, semester.value);
-});
-
-department.addEventListener("change", updatePage);
-semester.addEventListener("change", updatePage);
-
-const params = new URLSearchParams(window.location.search);
-const initialDept = params.get("dept");
-const initialSem = Number(params.get("sem"));
-
-if(departments[initialDept]){
-  department.value = initialDept;
-}
-
-if(initialSem >= 1 && initialSem <= 8){
-  semester.value = String(initialSem);
-}
-
-updatePage();
-</script>
-
-</body>
-</html>
+function filterSubjects() {
+  const query = searchInput.value.trim().toLowerCase();
+  const dept = departmentFilter.value;
+  const semester = semest
