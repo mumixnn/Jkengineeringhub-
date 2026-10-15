@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login | J&K Engineering Hub</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fc;color:#17243b;min-height:100vh;display:flex;flex-direction:column}
+a{text-decoration:none;color:#2563eb}
+header{padding:20px 6%;display:flex;justify-content:space-between;align-items:center}
+.brand{font-size:18px;font-weight:800;color:#142747;line-height:1.5}
+.brand span{color:#2563eb}
+header a{font-size:13px;font-weight:bold}
+main{flex:1;display:flex;justify-content:center;align-items:center;padding:25px 16px}
+.card{background:white;width:100%;max-width:440px;padding:32px;border-radius:22px;box-shadow:0 12px 45px #1e3a5f12;border:1px solid #e5eaf2}
+.logo{width:55px;height:55px;border-radius:16px;background:#eaf1ff;display:grid;place-items:center;font-size:27px;margin-bottom:20px}
+h1{font-size:26px;margin:0 0 9px}
+.subtitle{font-size:14px;color:#66758d;line-height:1.6;margin-bottom:25px}
+.tabs{display:flex;background:#f1f5fb;padding:4px;border-radius:10px;margin-bottom:23px}
+.tabs button{flex:1;border:0;padding:11px;background:transparent;border-radius:8px;font-weight:bold;color:#64748b;cursor:pointer}
+.tabs button.active{background:white;color:#2563eb;box-shadow:0 2px 6px #0000000a}
+label{display:block;font-size:13px;font-weight:bold;margin:15px 0 8px}
+input{width:100%;padding:13px;border:1px solid #dce3ed;border-radius:10px;font-size:14px;outline:none}
+input:focus{border-color:#2563eb;box-shadow:0 0 0 3px #2563eb14}
+.password{display:flex;gap:8px}
+.password input{flex:1;min-width:0}
+.password button{border:1px solid #dce3ed;background:white;border-radius:10px;padding:0 12px;cursor:pointer}
+.forgot{text-align:right;margin-top:11px;font-size:12px}
+.submit{width:100%;margin-top:22px;padding:14px;border:0;border-radius:10px;background:#2563eb;color:white;font-size:14px;font-weight:bold;cursor:pointer}
+.submit:hover{background:#1d4ed8}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0;color:#94a3b8;font-size:12px}
+.divider:before,.divider:after{content:"";height:1px;background:#e5eaf2;flex:1}
+.google{width:100%;padding:12px;background:white;border:1px solid #dce3ed;border-radius:10px;font-weight:bold;cursor:pointer}
+.message{display:none;background:#fff7ed;color:#9a3412;padding:11px;border-radius:9px;font-size:13px;line-height:1.5;margin-top:14px}
+.terms{font-size:11px;line-height:1.7;color:#8290a5;text-align:center;margin-top:20px}
+footer{text-align:center;padding:18px;font-size:12px;color:#8290a5}
+@media(max-width:480px){.card{padding:25px 20px}header{padding:17px 5%}}
+</style>
+</head>
+<body>
+<header>
+  <a class="brand" href="index.html">J&K <span>ENGINEERING</span><br>HUB 🎓</a>
+  <a href="index.html">← Back to home</a>
+</header>
+
+<main>
+<section class="card">
+  <div class="logo">🎓</div>
+  <h1 id="heading">Welcome back!</h1>
+  <p class="subtitle" id="subtitle">Sign in to access your engineering study space.</p>
+
+  <div class="tabs">
+    <button class="active" id="loginTab" type="button" onclick="setMode('login')">Login</button>
+    <button id="signupTab" type="button" onclick="setMode('signup')">Create account</button>
+  </div>
+
+  <form id="authForm">
+    <div id="nameField" style="display:none">
+      <label for="name">Full name</label>
+      <input id="name" type="text" autocomplete="name" placeholder="Enter your full name">
+    </div>
+
+    <label for="email">Email address</label>
+    <input id="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+
+    <label for="password">Password</label>
+    <div class="password">
+      <input id="password" type="password" autocomplete="current-password" minlength="6" placeholder="At least 6 characters" required>
+      <button type="button" onclick="togglePassword()" id="eye" aria-label="Show password">Show</button>
+    </div>
+
+    <div id="forgot" class="forgot"><a href="#" onclick="forgotPassword(event)">Forgot password?</a></div>
+    <button class="submit" type="submit" id="submitBtn">Login to your account →</button>
+    <div class="message" id="message" role="status"></div>
+  </form>
+
+  <div class="divider">OR</div>
+  <button class="google" type="button" onclick="showDemoMessage()">🌐 Continue with Google</button>
+  <p class="terms">By continuing, you agree to use J&K Engineering Hub responsibly. Authentication will be enabled after Firebase integration.</p>
+</section>
+</main>
+
+<footer>© J&K Engineering Hub · Learn. Share. Grow.</footer>
+
+<script>
+let mode = "login";
+
+function setMode(nextMode) {
+  mode = nextMode;
+  const signup = mode === "signup";
+  document.getElementById("heading").textContent = signup ? "Join our community" : "Welcome back!";
+  document.getElementById("subtitle").textContent = signup
+    ? "Create your student account to get started."
+    : "Sign in to access your engineering study space.";
+  document.getElementById("nameField").style.display = signup ? "block" : "none";
+  document.getElementById("name").required = signup;
+  document.getElementById("loginTab").classList.toggle("active", !signup);
+  document.getElementById("signupTab").classList.toggle("active", signup);
+  document.getElementById("forgot").style.display = signup ? "none" : "block";
+  document.getElementById("submitBtn").textContent = signup ? "Create my account →" : "Login to your account →";
+  document.getElementById("password").autocomplete = signup ? "new-password" : "current-password";
+  document.getElementById("message").style.display = "none";
+}
+
+function togglePassword() {
+  const input = document.getElementById("password");
+  const visible = input.type === "password";
+  input.type = visible ? "text" : "password";
+  document.getElementById("eye").textContent = visible ? "Hide" : "Show";
+}
+
+function showMessage(text) {
+  const box = document.getElementById("message");
+  box.textContent = text;
+  box.style.display = "block";
+}
+
+document.getElementById("authForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+  if (!this.reportValidity()) return;
+  showMessage(mode === "signup"
+    ? "Your form looks good! Account creation will work once Firebase Authentication is connected."
+    : "Your form looks good! Login will work once Firebase Authentication is connected.");
+});
+
+function forgotPassword(event) {
+  event.preventDefault();
+  const email = document.getElementById("email").value.trim();
+  if (!email) {
+    showMessage("Enter your email address above first. Password reset will be enabled after Firebase integration.");
+    document.getElementById("email").focus();
+    return;
+  }
+  showMessage("Password reset for " + email + " will be enabled when Firebase is connected.");
+}
+
+function showDemoMessage() {
+  showMessage("Google sign-in will be enabled after Firebase Authentication is configured.");
+}
+</script>
+</body>
+</html>
