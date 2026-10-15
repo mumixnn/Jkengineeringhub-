@@ -1,282 +1,354 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#102a43">
-  <meta name="description" content="Engineering notes, syllabus and study resources for students across Jammu and Kashmir.">
-  <title>J&K Engineering Hub</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#eaf2ff">
+<meta name="description" content="J&K Engineering Hub — notes, syllabus and learning resources for engineering students across Jammu and Kashmir.">
+<title>J&K Engineering Hub | Learn. Share. Grow.</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+:root {
+  --blue: #2563eb;
+  --blue-dark: #1745b5;
+  --ink: #14233d;
+  --muted: #66758d;
+  --glass: rgba(255,255,255,.63);
+  --line: rgba(255,255,255,.85);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  color: var(--ink);
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 10% 10%, rgba(147,197,253,.65), transparent 38%),
+    radial-gradient(ellipse at 90% 28%, rgba(196,181,253,.5), transparent 35%),
+    radial-gradient(ellipse at 50% 85%, rgba(186,230,253,.6), transparent 40%),
+    linear-gradient(135deg, #f5f8ff, #e9f0ff 50%, #f6f4ff);
+  background-attachment: fixed;
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+button:focus-visible, a:focus-visible {
+  outline: 3px solid #60a5fa;
+  outline-offset: 3px;
+}
+.container { width: min(1160px, 92%); margin: auto; }
 
-    body {
-      font-family: Arial, sans-serif;
-      color: #102a43;
-      min-height: 100vh;
-      background:
-        radial-gradient(ellipse at 10% 5%, #9ce8f5, transparent 40%),
-        radial-gradient(ellipse at 90% 90%, #b7c8ff, transparent 45%),
-        linear-gradient(135deg, #e8faff, #f2f0ff);
-      background-attachment: fixed;
-    }
+/* HEADER */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 14px 0;
+  background: rgba(242,247,255,.72);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border-bottom: 1px solid rgba(255,255,255,.7);
+}
+.navbar { display:flex; align-items:center; justify-content:space-between; gap:15px; }
+.brand { display:flex; align-items:center; gap:11px; min-width:0; }
+.logo {
+  width:44px; height:44px; flex-shrink:0;
+  display:grid; place-items:center;
+  color:white; font-size:21px; font-weight:900;
+  border-radius:15px;
+  background:linear-gradient(145deg,#60a5fa,#2563eb 65%,#4f46e5);
+  box-shadow:0 7px 20px #2563eb35;
+}
+.brand-name { font-weight:850; font-size:14px; letter-spacing:.35px; line-height:1.5; }
+.brand-name span { color:var(--blue); }
+.brand-tag { display:block; color:var(--muted); font-size:10px; font-weight:500; letter-spacing:1px; }
+.header-actions { display:flex; align-items:center; gap:10px; }
+.btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:12px 18px; border-radius:13px; border:1px solid transparent;
+  font-size:13px; font-weight:750; cursor:pointer; transition:.2s ease;
+}
+.btn:hover { transform:translateY(-2px); }
+.btn-primary {
+  color:white; background:linear-gradient(135deg,#3b82f6,#2563eb);
+  box-shadow:0 7px 18px #2563eb27;
+}
+.btn-outline { color:#24436f; background:rgba(255,255,255,.5); border-color:#cbd9ef; }
+.btn-glass { background:rgba(255,255,255,.55); border-color:rgba(255,255,255,.9); color:#21416e; }
+.menu-btn {
+  width:45px; height:45px; display:grid; place-items:center; gap:5px;
+  border:1px solid rgba(255,255,255,.95); border-radius:14px;
+  background:rgba(255,255,255,.65); cursor:pointer;
+  box-shadow:0 5px 16px #1e40af0a;
+}
+.menu-lines { display:flex; flex-direction:column; gap:5px; }
+.menu-lines span { width:19px; height:2px; background:#203958; border-radius:5px; transition:.2s; }
+.menu-btn[aria-expanded="true"] .menu-lines span:first-child { transform:translateY(7px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] .menu-lines span:nth-child(2) { opacity:0; }
+.menu-btn[aria-expanded="true"] .menu-lines span:last-child { transform:translateY(-7px) rotate(-45deg); }
 
-    header {
-      padding: 22px 15px;
-      text-align: center;
-      color: white;
-      background: rgba(10, 35, 65, 0.88);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      border-bottom: 1px solid rgba(255,255,255,.2);
-    }
+/* DROPDOWN MENU */
+.menu-wrap { position:relative; }
+.menu-panel {
+  display:none; position:absolute; top:56px; right:0; width:270px; padding:12px;
+  border-radius:20px; background:rgba(255,255,255,.91);
+  border:1px solid rgba(255,255,255,.98);
+  backdrop-filter:blur(25px); -webkit-backdrop-filter:blur(25px);
+  box-shadow:0 22px 60px rgba(38,65,115,.18);
+}
+.menu-panel.open { display:block; animation:pop .18s ease-out; }
+@keyframes pop { from {opacity:0;transform:translateY(-6px)} to {opacity:1;transform:translateY(0)} }
+.menu-heading { color:#8290a5; font-size:10px; font-weight:800; letter-spacing:1.5px; padding:9px 10px; }
+.menu-link { display:flex; align-items:center; gap:12px; padding:12px 10px; border-radius:12px; font-size:13px; font-weight:650; }
+.menu-link:hover { background:#edf4ff; color:var(--blue); }
+.menu-icon { width:34px; height:34px; display:grid; place-items:center; background:#edf4ff; border-radius:11px; font-size:17px; }
+.menu-divider { height:1px; background:#e8edf5; margin:7px 3px; }
 
-    header h1 {
-      font-size: clamp(22px, 5vw, 30px);
-    }
+/* HERO */
+.hero { padding:75px 0 55px; }
+.hero-grid { display:grid; grid-template-columns:1.05fr .95fr; gap:45px; align-items:center; }
+.eyebrow {
+  display:inline-flex; align-items:center; gap:8px; padding:8px 13px;
+  border:1px solid rgba(255,255,255,.95); background:rgba(255,255,255,.5);
+  border-radius:50px; color:#315a9a; font-size:11px; font-weight:800;
+  letter-spacing:.5px; box-shadow:0 4px 20px #1e40af08;
+}
+.eyebrow-dot { width:7px; height:7px; border-radius:50%; background:#3b82f6; box-shadow:0 0 0 4px #3b82f620; }
+h1 { font-size:clamp(38px,5vw,62px); line-height:1.08; letter-spacing:-2.4px; margin:22px 0 20px; font-weight:850; }
+.gradient-text { background:linear-gradient(110deg,#2563eb,#6366f1 60%,#8b5cf6); color:transparent; background-clip:text; -webkit-background-clip:text; }
+.hero-description { max-width:540px; font-size:16px; line-height:1.85; color:#5b6b83; }
+.hero-buttons { display:flex; flex-wrap:wrap; gap:12px; margin-top:28px; }
+.hero-buttons .btn { padding:15px 20px; }
+.trust-row { display:flex; flex-wrap:wrap; gap:17px; margin-top:26px; color:#687a94; font-size:11px; }
+.trust-row span { display:flex; align-items:center; gap:6px; }
 
-    header p {
-      margin-top: 8px;
-      font-size: 14px;
-      opacity: .85;
-    }
+/* HERO GLASS ILLUSTRATION */
+.visual { position:relative; min-height:390px; display:grid; place-items:center; }
+.glass-board {
+  width:100%; max-width:445px; padding:23px; border-radius:29px;
+  background:linear-gradient(140deg,rgba(255,255,255,.76),rgba(255,255,255,.38));
+  border:1px solid rgba(255,255,255,.95);
+  backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px);
+  box-shadow:0 28px 75px rgba(58,86,145,.13),inset 0 1px 0 white;
+  transform:rotate(-2deg);
+}
+.board-top { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:23px; }
+.board-title { font-size:14px; font-weight:800; }
+.board-sub { color:#8190a5; font-size:11px; margin-top:5px; }
+.status { font-size:10px; font-weight:800; padding:7px 10px; border-radius:20px; color:#15803d; background:#dcfce7; }
+.study-card {
+  display:flex; align-items:center; gap:13px; padding:14px;
+  background:rgba(255,255,255,.7); border:1px solid rgba(255,255,255,.95);
+  border-radius:17px; margin:10px 0;
+}
+.study-icon { width:45px; height:45px; border-radius:14px; display:grid; place-items:center; font-size:22px; flex-shrink:0; }
+.blue-bg { background:#e0edff; } .purple-bg { background:#eee7ff; } .green-bg { background:#dcfce7; }
+.study-info { flex:1; min-width:0; }
+.study-info strong { display:block; font-size:12px; margin-bottom:6px; }
+.study-info small { display:block; color:#8491a5; font-size:10px; }
+.mini-bar { height:5px; border-radius:10px; background:#e7edf6; margin-top:9px; overflow:hidden; }
+.mini-bar span { display:block; height:100%; border-radius:10px; background:linear-gradient(90deg,#60a5fa,#4f46e5); }
+.float-card {
+  position:absolute; padding:14px 17px; border-radius:17px;
+  background:rgba(255,255,255,.82); border:1px solid white;
+  backdrop-filter:blur(15px); box-shadow:0 14px 35px #31558b18;
+}
+.float-card strong { display:block; font-size:13px; margin-top:5px; }
+.float-card small { color:#8190a5; font-size:10px; }
+.float-one { top:13px; right:-6px; }
+.float-two { bottom:18px; left:-9px; }
+.float-emoji { font-size:19px; }
 
-    .hero {
-      text-align: center;
-      padding: 48px 16px 25px;
-    }
+/* COMMON SECTIONS */
+.section { padding:47px 0; }
+.section-head { display:flex; justify-content:space-between; align-items:end; gap:20px; margin-bottom:25px; }
+.kicker { color:var(--blue); font-size:11px; letter-spacing:1.7px; font-weight:850; text-transform:uppercase; }
+h2 { font-size:clamp(25px,3vw,34px); letter-spacing:-.8px; margin:9px 0 0; }
+.section-desc { font-size:13px; line-height:1.7; color:var(--muted); margin-top:10px; max-width:570px; }
+.text-link { color:var(--blue); font-size:12px; font-weight:800; white-space:nowrap; }
+.dept-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:15px; }
+.glass-card {
+  border:1px solid rgba(255,255,255,.95); background:rgba(255,255,255,.54);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  border-radius:21px; padding:21px; box-shadow:0 8px 30px rgba(40,70,120,.035);
+  transition:transform .22s,border-color .22s,box-shadow .22s;
+}
+.glass-card:hover { transform:translateY(-5px); border-color:#bfdbfe; box-shadow:0 18px 38px rgba(40,70,120,.09); }
+.dept-card { display:block; min-height:164px; }
+.dept-emoji { width:48px; height:48px; display:grid; place-items:center; border-radius:15px; font-size:24px; margin-bottom:18px; }
+.dept-card h3 { font-size:14px; margin:0 0 7px; }
+.dept-card p { font-size:11px; color:var(--muted); margin:0; line-height:1.6; }
+.dept-arrow { color:var(--blue); font-size:16px; float:right; }
+.resource-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+.resource-card { padding:22px; }
+.resource-card h3 { font-size:15px; margin:17px 0 8px; }
+.resource-card p { color:var(--muted); font-size:12px; line-height:1.7; min-height:40px; }
+.resource-card a { color:var(--blue); font-size:12px; font-weight:800; display:inline-block; margin-top:10px; }
+.resource-emoji { width:48px; height:48px; display:grid; place-items:center; font-size:24px; border-radius:15px; background:#e7efff; }
+.cta {
+  margin:55px 0 65px; border-radius:27px; padding:38px;
+  background:linear-gradient(120deg,rgba(219,234,254,.85),rgba(237,233,254,.83));
+  border:1px solid white; display:flex; align-items:center; justify-content:space-between; gap:25px;
+  box-shadow:0 15px 45px rgba(60,85,145,.06);
+}
+.cta h2 { font-size:27px; margin:0; }
+.cta p { color:var(--muted); font-size:13px; line-height:1.7; margin:12px 0 0; }
+footer { border-top:1px solid rgba(255,255,255,.9); padding:25px 0; background:rgba(255,255,255,.23); }
+.footer-inner { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px; }
+.footer-brand { font-size:13px; font-weight:800; }
+.footer-note { color:var(--muted); font-size:11px; line-height:1.8; }
+.footer-links { display:flex; gap:17px; flex-wrap:wrap; font-size:11px; color:#526580; }
 
-    .hero h2 {
-      font-size: clamp(27px, 6vw, 40px);
-      margin-bottom: 13px;
-    }
-
-    .hero p {
-      color: #476078;
-      line-height: 1.7;
-      font-size: 15px;
-    }
-
-    .search {
-      display: block;
-      width: min(92%, 520px);
-      margin: 24px auto 10px;
-      padding: 15px 18px;
-      border: 1px solid rgba(255,255,255,.9);
-      border-radius: 16px;
-      background: rgba(255,255,255,.72);
-      box-shadow: 0 8px 25px rgba(30,70,110,.08);
-      font-size: 16px;
-      outline-color: #168aad;
-    }
-
-    .section-title {
-      text-align: center;
-      margin: 28px 10px 8px;
-      font-size: 23px;
-    }
-
-    .section-subtitle {
-      text-align: center;
-      color: #536b80;
-      margin: 0 12px 15px;
-      font-size: 14px;
-    }
-
-    .departments {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
-      gap: 16px;
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 16px;
-    }
-
-    .card {
-      display: block;
-      text-align: center;
-      text-decoration: none;
-      color: inherit;
-      padding: 25px 12px;
-      min-height: 165px;
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,.85);
-      background: rgba(255,255,255,.55);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 8px 28px rgba(34,85,120,.10);
-      transition: transform .2s, box-shadow .2s;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 14px 32px rgba(34,85,120,.16);
-    }
-
-    .icon {
-      font-size: 34px;
-      margin-bottom: 13px;
-    }
-
-    .card h3 {
-      font-size: 16px;
-      line-height: 1.4;
-    }
-
-    .card p {
-      font-size: 12px;
-      margin-top: 9px;
-      color: #536b80;
-      line-height: 1.5;
-    }
-
-    .empty {
-      display: none;
-      text-align: center;
-      padding: 20px;
-      color: #536b80;
-    }
-
-    footer {
-      text-align: center;
-      padding: 25px 15px;
-      margin-top: 25px;
-      color: #52677c;
-      font-size: 13px;
-    }
-
-    @media (max-width: 380px) {
-      .departments {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 11px;
-        padding: 12px;
-      }
-
-      .card {
-        padding: 21px 8px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        transition: none !important;
-      }
-    }
-  </style>
+/* MOBILE */
+@media(max-width:900px) {
+  .hero-grid { grid-template-columns:1fr 1fr; gap:25px; }
+  .dept-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .float-one { right:0; }
+}
+@media(max-width:650px) {
+  .container { width:91%; }
+  header { padding:10px 0; }
+  .brand-name { font-size:12px; }
+  .brand-tag { font-size:9px; }
+  .logo { width:40px; height:40px; border-radius:13px; }
+  .header-actions { gap:7px; }
+  .header-actions .btn { padding:10px 11px; font-size:11px; }
+  .menu-btn { width:41px; height:41px; }
+  .menu-panel { position:fixed; top:65px; right:4.5%; width:min(300px,91vw); }
+  .hero { padding:48px 0 25px; }
+  .hero-grid { grid-template-columns:1fr; gap:14px; }
+  h1 { font-size:43px; letter-spacing:-1.8px; margin:18px 0 15px; }
+  .hero-description { font-size:14px; }
+  .hero-buttons .btn { flex:1; padding:14px 11px; font-size:12px; }
+  .trust-row { gap:11px; }
+  .visual { min-height:335px; margin-top:5px; }
+  .glass-board { padding:17px; max-width:390px; }
+  .float-one { right:-3px; top:0; }
+  .float-two { left:-3px; bottom:0; }
+  .section { padding:35px 0; }
+  .section-head { align-items:start; flex-direction:column; gap:12px; }
+  .dept-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; }
+  .glass-card { padding:16px; border-radius:17px; }
+  .dept-card { min-height:150px; }
+  .dept-emoji { width:42px; height:42px; margin-bottom:13px; }
+  .resource-grid { grid-template-columns:1fr; }
+  .resource-card { padding:20px; }
+  .resource-card p { min-height:0; }
+  .cta { margin:35px 0 40px; padding:25px 20px; flex-direction:column; align-items:flex-start; }
+  .cta h2 { font-size:24px; }
+  .footer-inner { align-items:flex-start; flex-direction:column; }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { scroll-behavior:auto !important; transition:none !important; animation:none !important; }
+}
+</style>
 </head>
 
 <body>
-
-  <header>
-    <h1>📘 J&K Engineering Hub</h1>
-    <p>Your learning community, all in one place</p>
-  </header>
-
-  <section class="hero">
-    <h2>Learn. Share. Succeed.</h2>
-    <p>
-      Engineering notes, syllabus and study resources<br>
-      for students across Jammu & Kashmir.
-    </p>
-
-    <input
-      class="search"
-      id="search"
-      type="search"
-      placeholder="🔍 Search departments..."
-      aria-label="Search departments"
-    >
-  </section>
-
-  <h2 class="section-title">Explore Departments</h2>
-  <p class="section-subtitle">Choose your engineering department to get started.</p>
-
-  <main class="departments" id="departments">
-
-    <a class="card" href="department.html?dept=CE"
-       data-name="computer engineering ce">
-      <div class="icon">💻</div>
-      <h3>Computer Engineering</h3>
-      <p>Notes · Syllabus · Resources</p>
+<header>
+  <div class="container navbar">
+    <a class="brand" href="index.html" aria-label="J and K Engineering Hub home">
+      <div class="logo">J&K</div>
+      <div class="brand-name">ENGINEERING <span>HUB</span><small class="brand-tag">LEARN · SHARE · GROW</small></div>
     </a>
 
-    <a class="card" href="department.html?dept=AI"
-       data-name="artificial intelligence ai">
-      <div class="icon">🤖</div>
-      <h3>Artificial Intelligence</h3>
-      <p>Notes · Syllabus · Resources</p>
-    </a>
+    <div class="header-actions">
+      <a class="btn btn-outline" href="login.html">Log in</a>
+      <a class="btn btn-primary" href="login.html#signup">Sign up <span>↗</span></a>
+      <div class="menu-wrap">
+        <button class="menu-btn" id="menuBtn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="menuPanel">
+          <span class="menu-lines"><span></span><span></span><span></span></span>
+        </button>
+        <nav class="menu-panel" id="menuPanel" aria-label="Main navigation">
+          <div class="menu-heading">YOUR LEARNING SPACE</div>
+          <a class="menu-link" href="index.html"><span class="menu-icon">🏠</span>Home</a>
+          <a class="menu-link" href="department.html"><span class="menu-icon">🎓</span>Departments</a>
+          <a class="menu-link" href="resources.html"><span class="menu-icon">📚</span>Notes & Resources</a>
+          <a class="menu-link" href="syllabus.html"><span class="menu-icon">📖</span>Syllabus</a>
+          <div class="menu-divider"></div>
+          <div class="menu-heading">STUDENT ACCOUNT</div>
+          <a class="menu-link" href="dashboard.html"><span class="menu-icon">📊</span>Dashboard</a>
+          <a class="menu-link" href="profile.html"><span class="menu-icon">👤</span>My Profile</a>
+          <a class="menu-link" href="quiz.html"><span class="menu-icon">📝</span>Quizzes & Mock Tests</a>
+          <a class="menu-link" href="login.html"><span class="menu-icon">🔐</span>Login / Sign Up</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
 
-    <a class="card" href="department.html?dept=EC"
-       data-name="electronics communication ec">
-      <div class="icon">📡</div>
-      <h3>Electronics & Communication</h3>
-      <p>Notes · Syllabus · Resources</p>
-    </a>
+<main>
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow"><span class="eyebrow-dot"></span> BUILT FOR J&K ENGINEERING STUDENTS</div>
+      <h1>Your Engineering Journey, <span class="gradient-text">Connected.</span></h1>
+      <p class="hero-description">
+        One place for study notes, syllabus, presentations and exam preparation.
+        Learn together with engineering students across Jammu & Kashmir.
+      </p>
+      <div class="hero-buttons">
+        <a href="department.html" class="btn btn-primary">Explore Departments <span>→</span></a>
+        <a href="resources.html" class="btn btn-glass">Browse Resources</a>
+      </div>
+      <div class="trust-row">
+        <span>✓ Seven departments</span>
+        <span>✓ Eight semesters</span>
+        <span>✓ Student-focused</span>
+      </div>
+    </div>
 
-    <a class="card" href="department.html?dept=IT"
-       data-name="information technology it">
-      <div class="icon">🌐</div>
-      <h3>Information Technology</h3>
-      <p>Notes · Syllabus · Resources</p>
-    </a>
+    <div class="visual" aria-label="Preview of the learning resources available">
+      <div class="glass-board">
+        <div class="board-top">
+          <div><div class="board-title">Your Learning Space ✨</div><div class="board-sub">Everything you need to study</div></div>
+          <span class="status">READY TO LEARN</span>
+        </div>
+        <div class="study-card">
+          <div class="study-icon blue-bg">📘</div>
+          <div class="study-info"><strong>Study Notes</strong><small>Explore subject-wise material</small><div class="mini-bar"><span style="width:78%"></span></div></div>
+        </div>
+        <div class="study-card">
+          <div class="study-icon purple-bg">📑</div>
+          <div class="study-info"><strong>Syllabus & Question Papers</strong><small>Prepare for your semester</small><div class="mini-bar"><span style="width:65%"></span></div></div>
+        </div>
+        <div class="study-card">
+          <div class="study-icon green-bg">🎯</div>
+          <div class="study-info"><strong>Quizzes & Mock Tests</strong><small>Practise at your own pace</small><div class="mini-bar"><span style="width:50%"></span></div></div>
+        </div>
+      </div>
+      <div class="float-card float-one"><span class="float-emoji">💡</span><strong>Learn smarter</strong><small>One hub for your studies</small></div>
+      <div class="float-card float-two"><span class="float-emoji">🤝</span><strong>Share knowledge</strong><small>Help fellow students</small></div>
+    </div>
+  </div>
+</section>
 
-    <a class="card" href="department.html?dept=CYBER"
-       data-name="cyber security">
-      <div class="icon">🔐</div>
-      <h3>Cyber Security</h3>
-      <p>Notes · Syllabus · Resources</p>
-    </a>
+<section class="section" id="departments">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="kicker">Find your field</div><h2>Explore Departments</h2><p class="section-desc">Choose your engineering department and explore learning materials for your semester.</p></div>
+      <a class="text-link" href="department.html">View all departments →</a>
+    </div>
+    <div class="dept-grid">
+      <a class="glass-card dept-card" href="department.html?dept=CE"><span class="dept-arrow">↗</span><div class="dept-emoji" style="background:#e0edff">💻</div><h3>Computer Engineering</h3><p>Programming, systems & software</p></a>
+      <a class="glass-card dept-card" href="department.html?dept=AI"><span class="dept-arrow">↗</span><div class="dept-emoji" style="background:#eee7ff">🤖</div><h3>Artificial Intelligence</h3><p>AI, machine learning & data</p></a>
+      <a class="glass-card dept-card" href="department.html?dept=EC"><span class="dept-arrow">↗</span><div class="dept-emoji" style="background:#dff7f4">📡</div><h3>Electronics & Communication</h3><p>Circuits, signals & communication</p></a>
+      <a class="glass-card dept-card" href="department.html?dept=IT"><span class="dept-arrow">↗</span><div class="dept-emoji" style="background:#dceafe">🌐</div><h3>Information Technology</h3><p>Networks, web & databases</p></a>
+      <a class="glass-card dept-card" href="department.html?dept=CYBER"><span class="dept-arrow">↗</span><div class="dept-emoji" style="background:#ffe9dc">🔐</div><h3>Cyber Security</h3><p>Security, privacy & protection</p></a>
+      <a class="glass-card dept-card" href="department.html?dept=CIVIL"><span class="dept-arrow">↗</span><div class="dept-emoji" style="background:#fff1d6">🏗️</div><h3>Civil Engineering</h3><p>Structures, construction & design</p></a>
+      <a class="glass-card dept-card" href="department.html?dept=ME"><span class="dept-arrow">↗</span><div class="dept-emoji" style="background:#fce7f3">⚙️</div><h3>Mechanical Engineering</h3><p>Machines, materials & mechanics</p></a>
+      <a class="glass-card dept-card" href="resources.html"><span class="dept-arrow">↗</span><div class="dept-emoji" style="background:#e0f2fe">📂</div><h3>All Resources</h3><p>Browse available study materials</p></a>
+    </div>
+  </div>
+</section>
 
-    <a class="card" href="department.html?dept=CIVIL"
-       data-name="civil engineering">
-      <div class="icon">🏗️</div>
-      <h3>Civil Engineering</h3>
-      <p>Notes · Syllabus · Resources</p>
-    </a>
-
-    <a class="card" href="department.html?dept=ME"
-       data-name="mechanical engineering me">
-      <div class="icon">⚙️</div>
-      <h3>Mechanical Engineering</h3>
-      <p>Notes · Syllabus · Resources</p>
-    </a>
-
-  </main>
-
-  <p class="empty" id="empty">No matching department found.</p>
-
-  <footer>
-    <p>© 2026 J&K Engineering Hub</p>
-    <p style="margin-top:6px">Built for engineering students of Jammu & Kashmir 💙</p>
-  </footer>
-
-  <script>
-    const search = document.getElementById("search");
-    const cards = document.querySelectorAll(".card");
-    const empty = document.getElementById("empty");
-
-    search.addEventListener("input", function () {
-      const query = this.value.toLowerCase().trim();
-      let visibleCount = 0;
-
-      cards.forEach(function (card) {
-        const name = card.dataset.name.toLowerCase();
-        const title = card.querySelector("h3").textContent.toLowerCase();
-        const matches = name.includes(query) || title.includes(query);
-
-        card.style.display = matches ? "" : "none";
-
-        if (matches) visibleCount++;
-      });
-
-      empty.style.display = visibleCount === 0 ? "block" : "none";
-    });
-  </script>
-
-</body>
-</html>
+<section class="section" id="resources">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="kicker">Study essentials</div><h2>Your Learning Toolkit</h2><p class="section-desc">Find the right material for your classes, assignments and exam preparation.</p></div>
+    </div>
+    <div class="resource-grid">
+      <article class="glass-card resource-card"><div class="resource-emoji">📚</div><h3>Notes & Study Material</h3><p>Find subject notes and learning material organised by department and semester.</p><a href="resources.html">Browse notes →</a></article>
+      <article class="glass-card resource-card"><div class="resource-emoji" style="background:#eee7ff">📖</div><h3>Syllabus</h3><p>Navigate semester-wise syllabus information for your engineering course.</p><a href="syllabus.html">Explore syllabus →</a></article>
+      <article class="glass-card resource-card"><div class="resource-emoji" style="background:#dcfce7">📝</div><h3>Quizzes & Mock Tests</h3><p>Practise multipl
