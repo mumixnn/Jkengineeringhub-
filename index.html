@@ -3,89 +3,174 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#102a43">
+  <meta name="description" content="Engineering notes, syllabus and study resources for students across Jammu and Kashmir.">
   <title>J&K Engineering Hub</title>
+
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: Arial, sans-serif;
       color: #102a43;
       min-height: 100vh;
       background:
-        radial-gradient(ellipse at top left, #9ce8f5, transparent 45%),
-        radial-gradient(ellipse at bottom right, #b7c8ff, transparent 45%),
+        radial-gradient(ellipse at 10% 5%, #9ce8f5, transparent 40%),
+        radial-gradient(ellipse at 90% 90%, #b7c8ff, transparent 45%),
         linear-gradient(135deg, #e8faff, #f2f0ff);
+      background-attachment: fixed;
     }
 
     header {
-      padding: 20px;
+      padding: 22px 15px;
       text-align: center;
       color: white;
-      background: rgba(10, 45, 75, 0.82);
+      background: rgba(10, 35, 65, 0.88);
       backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(255,255,255,.2);
     }
 
-    header h1 { font-size: 25px; }
-    header p { margin-top: 8px; opacity: .85; }
+    header h1 {
+      font-size: clamp(22px, 5vw, 30px);
+    }
+
+    header p {
+      margin-top: 8px;
+      font-size: 14px;
+      opacity: .85;
+    }
 
     .hero {
       text-align: center;
-      padding: 45px 18px 25px;
+      padding: 48px 16px 25px;
     }
 
-    .hero h2 { font-size: 30px; margin-bottom: 12px; }
-    .hero p { line-height: 1.7; color: #476078; }
+    .hero h2 {
+      font-size: clamp(27px, 6vw, 40px);
+      margin-bottom: 13px;
+    }
+
+    .hero p {
+      color: #476078;
+      line-height: 1.7;
+      font-size: 15px;
+    }
 
     .search {
       display: block;
-      width: min(90%, 500px);
-      margin: 22px auto;
-      padding: 14px 18px;
-      border: 1px solid #ffffff;
-      border-radius: 15px;
-      background: rgba(255,255,255,.7);
+      width: min(92%, 520px);
+      margin: 24px auto 10px;
+      padding: 15px 18px;
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: 16px;
+      background: rgba(255,255,255,.72);
+      box-shadow: 0 8px 25px rgba(30,70,110,.08);
       font-size: 16px;
       outline-color: #168aad;
+    }
+
+    .section-title {
+      text-align: center;
+      margin: 28px 10px 8px;
+      font-size: 23px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #536b80;
+      margin: 0 12px 15px;
+      font-size: 14px;
     }
 
     .departments {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
       gap: 16px;
-      max-width: 950px;
-      margin: 10px auto 45px;
-      padding: 15px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 16px;
     }
 
     .card {
+      display: block;
       text-align: center;
-      padding: 24px 12px;
+      text-decoration: none;
+      color: inherit;
+      padding: 25px 12px;
+      min-height: 165px;
       border-radius: 20px;
-      border: 1px solid rgba(255,255,255,.8);
-      background: rgba(255,255,255,.48);
+      border: 1px solid rgba(255,255,255,.85);
+      background: rgba(255,255,255,.55);
       backdrop-filter: blur(14px);
-      box-shadow: 0 8px 28px rgba(34, 85, 120, .1);
-      transition: transform .2s;
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 8px 28px rgba(34,85,120,.10);
+      transition: transform .2s, box-shadow .2s;
     }
 
-    .card:hover { transform: translateY(-5px); }
-    .card .icon { font-size: 32px; margin-bottom: 12px; }
-    .card h3 { font-size: 17px; }
-    .card p { font-size: 13px; margin-top: 8px; color: #536b80; }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 32px rgba(34,85,120,.16);
+    }
+
+    .icon {
+      font-size: 34px;
+      margin-bottom: 13px;
+    }
+
+    .card h3 {
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .card p {
+      font-size: 12px;
+      margin-top: 9px;
+      color: #536b80;
+      line-height: 1.5;
+    }
+
+    .empty {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      color: #536b80;
+    }
 
     footer {
       text-align: center;
-      padding: 22px;
+      padding: 25px 15px;
+      margin-top: 25px;
       color: #52677c;
       font-size: 13px;
     }
 
+    @media (max-width: 380px) {
+      .departments {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 11px;
+        padding: 12px;
+      }
+
+      .card {
+        padding: 21px 8px;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { transition: none !important; }
+      *, *::before, *::after {
+        transition: none !important;
+      }
     }
   </style>
 </head>
+
 <body>
+
   <header>
     <h1>📘 J&K Engineering Hub</h1>
     <p>Your learning community, all in one place</p>
@@ -93,72 +178,105 @@
 
   <section class="hero">
     <h2>Learn. Share. Succeed.</h2>
-    <p>Engineering notes, syllabus and study resources<br>
-       for students across Jammu & Kashmir.</p>
-    <input class="search" id="search"
+    <p>
+      Engineering notes, syllabus and study resources<br>
+      for students across Jammu & Kashmir.
+    </p>
+
+    <input
+      class="search"
+      id="search"
+      type="search"
       placeholder="🔍 Search departments..."
-      aria-label="Search departments">
+      aria-label="Search departments"
+    >
   </section>
 
-  <section class="departments" id="departments">
-    <article class="card" data-name="computer engineering ce">
+  <h2 class="section-title">Explore Departments</h2>
+  <p class="section-subtitle">Choose your engineering department to get started.</p>
+
+  <main class="departments" id="departments">
+
+    <a class="card" href="department.html?dept=CE"
+       data-name="computer engineering ce">
       <div class="icon">💻</div>
       <h3>Computer Engineering</h3>
       <p>Notes · Syllabus · Resources</p>
-    </article>
+    </a>
 
-    <article class="card" data-name="artificial intelligence ai">
+    <a class="card" href="department.html?dept=AI"
+       data-name="artificial intelligence ai">
       <div class="icon">🤖</div>
       <h3>Artificial Intelligence</h3>
       <p>Notes · Syllabus · Resources</p>
-    </article>
+    </a>
 
-    <article class="card" data-name="electronics communication e&c">
+    <a class="card" href="department.html?dept=EC"
+       data-name="electronics communication ec">
       <div class="icon">📡</div>
       <h3>Electronics & Communication</h3>
       <p>Notes · Syllabus · Resources</p>
-    </article>
+    </a>
 
-    <article class="card" data-name="information technology it">
+    <a class="card" href="department.html?dept=IT"
+       data-name="information technology it">
       <div class="icon">🌐</div>
       <h3>Information Technology</h3>
       <p>Notes · Syllabus · Resources</p>
-    </article>
+    </a>
 
-    <article class="card" data-name="cyber security">
+    <a class="card" href="department.html?dept=CYBER"
+       data-name="cyber security">
       <div class="icon">🔐</div>
       <h3>Cyber Security</h3>
       <p>Notes · Syllabus · Resources</p>
-    </article>
+    </a>
 
-    <article class="card" data-name="civil engineering">
+    <a class="card" href="department.html?dept=CIVIL"
+       data-name="civil engineering">
       <div class="icon">🏗️</div>
       <h3>Civil Engineering</h3>
       <p>Notes · Syllabus · Resources</p>
-    </article>
+    </a>
 
-    <article class="card" data-name="mechanical engineering me">
+    <a class="card" href="department.html?dept=ME"
+       data-name="mechanical engineering me">
       <div class="icon">⚙️</div>
       <h3>Mechanical Engineering</h3>
       <p>Notes · Syllabus · Resources</p>
-    </article>
-  </section>
+    </a>
+
+  </main>
+
+  <p class="empty" id="empty">No matching department found.</p>
 
   <footer>
-    © 2026 J&K Engineering Hub · Built for students
+    <p>© 2026 J&K Engineering Hub</p>
+    <p style="margin-top:6px">Built for engineering students of Jammu & Kashmir 💙</p>
   </footer>
 
   <script>
     const search = document.getElementById("search");
     const cards = document.querySelectorAll(".card");
+    const empty = document.getElementById("empty");
 
-    search.addEventListener("input", () => {
-      const query = search.value.toLowerCase().trim();
-      cards.forEach(card => {
-        card.style.display =
-          card.dataset.name.includes(query) ? "" : "none";
+    search.addEventListener("input", function () {
+      const query = this.value.toLowerCase().trim();
+      let visibleCount = 0;
+
+      cards.forEach(function (card) {
+        const name = card.dataset.name.toLowerCase();
+        const title = card.querySelector("h3").textContent.toLowerCase();
+        const matches = name.includes(query) || title.includes(query);
+
+        card.style.display = matches ? "" : "none";
+
+        if (matches) visibleCount++;
       });
+
+      empty.style.display = visibleCount === 0 ? "block" : "none";
     });
   </script>
+
 </body>
 </html>
