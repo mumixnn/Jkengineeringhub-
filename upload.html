@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#eaf2ff">
+<meta name="description" content="Upload and share engineering notes with students across Jammu and Kashmir.">
+<title>Upload Notes | J&K Engineering Hub</title>
+
+<style>
+:root {
+  --blue: #2563eb;
+  --ink: #14233d;
+  --muted: #66758d;
+}
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse at 10% 10%, rgba(147,197,253,.65), transparent 38%),
+    radial-gradient(ellipse at 90% 28%, rgba(196,181,253,.5), transparent 35%),
+    radial-gradient(ellipse at 50% 85%, rgba(186,230,253,.6), transparent 40%),
+    linear-gradient(135deg,#f5f8ff,#e9f0ff 50%,#f6f4ff);
+  background-attachment: fixed;
+}
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; }
+button:focus-visible, a:focus-visible,
+input:focus-visible, select:focus-visible {
+  outline: 3px solid #60a5fa;
+  outline-offset: 3px;
+}
+.container { width: min(1120px,92%); margin: auto; }
+
+/* HEADER */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 13px 0;
+  background: rgba(242,247,255,.8);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border-bottom: 1px solid rgba(255,255,255,.8);
+}
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+.brand { display: flex; align-items: center; gap: 10px; }
+.logo {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  color: white;
+  font-size: 19px;
+  font-weight: 900;
+  background: linear-gradient(145deg,#60a5fa,#2563eb 65%,#4f46e5);
+  box-shadow: 0 7px 20px #2563eb30;
+}
+.brand-name { font-size: 13px; font-weight: 850; line-height: 1.5; }
+.brand-name span { color: var(--blue); }
+.brand-tag {
+  display: block;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.home-link {
+  padding: 11px 15px;
+  border: 1px solid #cbd9ef;
+  border-radius: 12px;
+  background: rgba(255,255,255,.65);
+  color: #24436f;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+/* MAIN INTRO */
+main { padding: 42px 0 60px; }
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 13px;
+  border: 1px solid rgba(255,255,255,.95);
+  border-radius: 50px;
+  background: rgba(255,255,255,.55);
+  color: #315a9a;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3b82f6;
+  box-shadow: 0 0 0 4px #2563eb20;
+}
+h1 {
+  margin: 18px 0 12px;
+  font-size: clamp(34px,5vw,49px);
+  line-height: 1.12;
+  letter-spacing: -1.8px;
+}
+.gradient-text {
+  color: transparent;
+  background: linear-gradient(110deg,#2563eb,#6366f1 60%,#8b5cf6);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+.intro {
+  max-width: 650px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+/* LAYOUT */
+.upload-layout {
+  display: grid;
+  grid-template-columns: minmax(0,1.5fr) minmax(230px,.8fr);
+  align-items: start;
+  gap: 20px;
+  margin-top: 30px;
+}
+.glass-card {
+  border: 1px solid rgba(255,255,255,.95);
+  border-radius: 23px;
+  background: rgba(255,255,255,.58);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 12px 38px rgba(40,70,120,.05);
+}
+.form-card { padding: 25px; }
+.card-heading {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 22px;
+}
+.heading-icon {
+  width: 47px;
+  height: 47px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 15px;
+  background: #e0edff;
+  font-size: 23px;
+}
+.card-heading h2 { margin: 0; font-size: 19px; }
+.card-heading p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* FORM */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 14px;
+}
+.field { margin-bottom: 16px; }
+.field.full { grid-column: 1 / -1; }
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #304563;
+  font-size: 12px;
+  font-weight: 750;
+}
+input[type="text"], input[type="email"], select, textarea {
+  width: 100%;
+  min-height: 45px;
+  padding: 12px 13px;
+  border: 1px solid #dce5f2;
+  border-radius: 12px;
+  background: rgba(255,255,255,.8);
+  color: var(--ink);
+  font-size: 12px;
+}
+textarea {
+  min-height: 85px;
+  resize: vertical;
+}
+input::placeholder, textarea::placeholder { color: #98a5b8; }
+input:focus, select:focus, textarea:focus {
+  border-color: #93b7ff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59,130,246,.1);
+}
+
+/* FILE DROP AREA */
+.file-area {
+  display: block;
+  padding: 24px 15px;
+  border: 1.5px dashed #a8c5f5;
+  border-radius: 17px;
+  background: rgba(239,246,255,.7);
+  text-align: center;
+  cursor: pointer;
+  transition: .2s;
+}
+.file-area:hover {
+  border-color: #4f83ee;
+  background: rgba(229,239,255,.9);
+}
+.file-icon {
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 12px;
+  border-radius: 15px;
+  background: white;
+  box-shadow: 0 5px 16px #31558b12;
+  font-size: 24px;
+}
+.file-area strong {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+.file-area small {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.7;
+}
+.file-area input { display: none; }
+.file-name {
+  margin-top: 10px;
+  color: #2563eb;
+  font-size: 11px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+.file-help {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.7;
+}
+.checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 4px 0 17px;
+  color: #5e6f87;
+  font-size: 11px;
+  line-height: 1.7;
+}
+.checkbox-row input {
+  margin-top: 3px;
+  accent-color: #2563eb;
+}
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  border: 0;
+  border-radius: 13px;
+  background: linear-gradient(135deg,#3b82f6,#2563eb);
+  color: white;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 20px #2563eb25;
+  transition: .2s;
+}
+.submit-btn:hover { transform: translateY(-2px); }
+.status-message {
+  display: none;
+  margin-top: 14px;
+  padding: 13px;
+  border-radius: 12px;
+  background: #fff4d9;
+  color: #795718;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* SIDE PANEL */
+.side-card { padding: 21px; margin-bottom: 15px; }
+.side-card h3 { margin: 0 0 14px; font-size: 15px; }
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin-top: 17px;
+}
+.step-number {
+  width: 29px;
+  height: 29px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #e0edff;
+  color: #2563eb;
+  font-size: 11px;
+  font-weight: 850;
+}
+.step strong { display: block; font-size: 12px; }
+.step p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.7;
+}
+.file-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 13px;
+}
+.file-type {
+  padding: 7px 9px;
+  border-radius: 9px;
+  background: #edf4ff;
+  color: #315a9a;
+  font-size: 10px;
+  font-weight: 750;
+}
+.notice {
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,.9);
+  border-radius: 15px;
+  background: rgba(255,255,255,.5);
+  color: #687991;
+  font-size: 11px;
+  line-height: 1.8;
+}
+.notice strong { color: #304563; }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid rgba(255,255,255,.9);
+  padding: 23px 0;
+  background: rgba(255,255,255,.23);
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 13px;
+}
+.footer-name { font-size: 12px; font-weight: 850; }
+.footer-note { color: var(--muted); font-size: 10px; line-height: 1.8; }
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  font-size: 11px;
+  color: #526580;
+}
+
+@media(max-width:800px) {
+  .upload-layout { grid-template-columns: 1fr; }
+  .side-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+}
+@media(max-width:560px) {
+  .container { width: 92%; }
+  header { padding: 10px 0; }
+  .logo { width: 39px; height: 39px; font-size: 17px; }
+  .brand-name { font-size: 11px; }
+  .brand-tag { font-size: 8px; }
+  .home-link { padding: 10px 11px; font-size: 11px; }
+  main { padding: 30px 0 45px; }
+  h1 { font-size: 36px; }
+  .intro { font-size: 13px; }
+  .form-card { padding: 18px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .field.full { grid-column: auto; }
+  .side-layout { grid-template-columns: 1fr; gap: 0; }
+  .side-card { padding: 19px; }
+  .footer-inner { align-items: flex-start; flex-direction: column; }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container navbar">
+    <a class="brand" href="index.html" aria-label="J&K Engineering Hub home">
+      <div class="logo">J&K</div>
+      <div class="brand-name">
+        ENGINEERING <span>HUB</span>
+        <small class="brand-tag">LEARN · SHARE · GROW</small>
+      </div>
+    </a>
+    <a class="home-link" href="index.html">← Home</a>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <section>
+      <div class="eyebrow"><span class="dot"></span> SHARE KNOWLEDGE</div>
+      <h1>Upload your <span class="gradient-text">Notes.</span></h1>
+      <p class="intro">
+        Help fellow engineering students by sharing your notes, presentations
+        and study material. Every useful resource makes learning easier.
+      </p>
+    </section>
+
+    <div class="upload-layout">
+      <section class="glass-card form-card">
+        <div class="card-heading">
+          <div class="heading-icon">📤</div>
+          <div>
+            <h2>Upload resource</h2>
+            <p>Enter the details and select your study file.</p>
+          </div>
+        </div>
+
+        <form id="uploadForm">
+          <div class="form-grid">
+            <div class="field">
+              <label for="uploader">Your name</label>
+              <input id="uploader" name="uploader" type="text"
+                placeholder="Enter your name" maxlength="80" required>
+            </div>
+
+            <div class="field">
+              <label for="college">College name (optional)</label>
+              <input id="college" name="college" type="text"
+                placeholder="Your college" maxlength="120">
+            </div>
+
+            <div class="field">
+              <label for="department">Department</label>
+              <select id="department" name="department" required>
+                <option value="">Choose department</option>
+                <option value="CE">Computer Engineering</option>
+                <option value="AI">Artificial Intelligence</option>
+                <option value="EC">Electronics & Communication</option>
+                <option value="IT">Information Technology</option>
+                <option value="CYBER">Cyber Security</option>
+                <option value="CIVIL">Civil Engineering</option>
+                <option value="ME">Mechanical Engineering</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="semester">Semester</label>
+              <select id="semester" name="semester" required>
+                <option value="">Choose semester</option>
+                <option value="1">Semester 1</option>
+                <option value="2">Semester 2</option>
+                <option value="3">Semester 3</option>
+                <option value="4">Semester 4</option>
+                <option value="5">Semester 5</option>
+                <option value="6">Semester 6</option>
+                <option value="7">Semester 7</option>
+                <option value="8">Semester 8</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="subject">Subject name</label>
+              <input id="subject" name="subject" type="text"
+                placeholder="e.g. Database Management Systems"
+                maxlength="120" required>
+            </div>
+
+            <div class="field full">
+              <label for="title">Resource title</label>
+              <input id="title" name="title" type="text"
+                placeholder="e.g. DBMS Unit 1 Notes"
+                maxlength="150" required>
+            </div>
+
+            <div class="field full">
+              <label for="description">Description (optional)</label>
+              <textarea id="description" name="description"
+                placeholder="Briefly describe these notes or what topics they cover."
+                maxlength="500"></textarea>
+            </div>
+
+            <div class="field full">
+              <label>Select your file</label>
+              <label class="file-area" for="file">
+                <span class="file-icon">📁</span>
+                <strong>Tap to choose a file</strong>
+                <small>PDF, PPT, PPTX, DOC, DOCX or TXT</small>
+                <small>Maximum suggested size: 10 MB</small>
+                <div class="file-name" id="fileName">No file selected</div>
+                <input id="file" name="file" type="file"
+                  accept=".pdf,.ppt,.pptx,.doc,.docx,.txt"
+                  required>
+              </label>
+              <div class="file-help">
+                Only upload material you are allowed to share. Do not upload
+                private information or someone else's copyrighted work without permission.
+              </div>
+            </div>
+          </div>
+
+          <label class="checkbox-row" for="permission">
+            <input id="permission" type="checkbox" required>
+            <span>I have permission to share this file and confirm that it does not contain private or harmful content.</span>
+          </label>
+
+          <button class="submit-btn" type="submit">Submit Notes&nbsp; →</button>
+          <div class="status-message" id="statusMessage" role="status"></div>
+        </form>
+      </section>
+
+      <aside>
+        <div class="side-layout">
+          <section class="glass-card side-card">
+            <h3>How it works</h3>
+
+            <div class="step">
+              <div class="step-number">1</div>
+              <div>
+                <strong>Add details</strong>
+                <p>Choose your department, semester and subject.</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">2</div>
+              <div>
+                <strong>Select a file</strong>
+                <p>Choose your notes or presentation from your device.</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">3</div>
+              <div>
+                <strong>Share with students</strong>
+                <p>After storage is connected, your approved resource can appear in Resources.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="glass-card side-card">
+            <h3>Supported formats</h3>
+            <p style="color:#66758d;font-size:11px;line-height:1.8;margin:0">
+              Upload common study documents and presentations.
+            </p>
+            <div class="file-types">
+              <span class="file-type">PDF</span>
+              <span class="file-type">PPT</span>
+              <span class="file-type">PPTX</span>
+              <span class="file-type">DOC</span>
+              <span class="file-type">DOCX</span>
+              <span class="file-type">TXT</span>
+            </div>
+          </section>
+        </div>
+
+        <div class="notice">
+          <strong>Note:</strong> This page currently provides the upload interface.
+          It will not save files online until Firebase Storage and the database
+          are connected. A file selection alone does not upload anything.
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <div>
+      <div class="footer-name">J&K Engineering Hub</div>
+      <div class="footer-note">Learn · Share · Grow</div>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="department.html">Departments</a>
+      <a href="resources.html">Resources</a>
+      <a href="syllabus.html">Syllabus</a>
+      <a href="profile.html">My Profile</a>
+    </div>
+    <div class="footer-note">© <span id="year"></span> J&K Engineering Hub</div>
+  </div>
+</footer>
+
+<script>
+const fileInput = document.getElementById("file");
+const fileName = document.getElementById("fileName");
+const form = document.getElementById("uploadForm");
+const statusMessage = document.getElementById("statusMessage");
+
+fileInput.addEventListener("change", function () {
+  const file = this.files[0];
+
+  if (!file) {
+    fileName.textContent = "No file selected";
+    return;
+  }
+
+  fileName.textContent = file.name;
+
+  if (file.size > 10 * 1024 * 1024) {
+    statusMessage.style.display = "block";
+    statusMessage.textContent = "This file is larger than 10 MB. Please choose a smaller file.";
+    fileInput.value = "";
+    fileName.textContent = "No file selected";
+  } else {
+    statusMessage.style.display = "none";
+    statusMessage.textContent = "";
+  }
+});
+
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const file = fileInput.files[0];
+
+  if (!file) {
+    statusMessage.style.display = "block";
+    statusMessage.textContent = "Please select a file first.";
+    return;
+  }
+
+  if (file.size > 10 * 1024 * 1024) {
+    statusMessage.style.display = "block";
+    statusMessage.textContent = "Your file is larger than 10 MB. Please select a smaller file.";
+    return;
+  }
+
+  statusMessage.style.display = "block";
+  statusMessage.textContent =
+    "Your form is ready, but online storage is not connected yet. Nothing has been uploaded. Connect Firebase Storage and the database to enable real uploads.";
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+  </html>
