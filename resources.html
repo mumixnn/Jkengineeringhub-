@@ -3,18 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Study Resources | J&K Engineering Hub</title>
 
 <style>
 *{box-sizing:border-box}
+
 body{
   margin:0;
   padding:18px;
+  min-height:100vh;
   font-family:Arial,sans-serif;
   color:white;
   background:linear-gradient(135deg,#06152f,#075985,#0891b2);
-  min-height:100vh;
 }
+
 header,.panel{
   max-width:950px;
   margin:15px auto;
@@ -24,14 +27,17 @@ header,.panel{
   background:#ffffff15;
   backdrop-filter:blur(12px);
 }
+
 a{color:#bae6fd}
-h1{margin-bottom:8px}
+.toplinks{display:flex;flex-wrap:wrap;gap:16px}
+
 .controls{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
   gap:10px;
-  margin-top:18px;
+  margin-top:15px;
 }
+
 input,select,button{
   width:100%;
   padding:12px;
@@ -39,28 +45,41 @@ input,select,button{
   border-radius:10px;
   font-size:15px;
 }
-input,select{background:#f8fafc;color:#10233d}
+
+input,select{background:#fff;color:#10233d}
+
 button{
   background:#38bdf8;
   color:#06213b;
   font-weight:bold;
   cursor:pointer;
 }
-.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+
+.tabs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:18px 0;
+}
+
 .tabs button{width:auto}
 .tabs button.active{background:#fff}
+
 .resource{
   padding:17px;
   margin:12px 0;
   border:1px solid #ffffff30;
   border-radius:15px;
   background:#ffffff12;
+  overflow-wrap:anywhere;
 }
-.resource h3{margin:0 0 8px}
+
+.resource h3{margin-top:0}
 .meta{color:#dbeafe;font-size:13px}
+
 .download{
   display:inline-block;
-  margin-top:10px;
+  margin:8px 8px 0 0;
   padding:10px 14px;
   background:#38bdf8;
   color:#06213b;
@@ -68,7 +87,13 @@ button{
   text-decoration:none;
   font-weight:bold;
 }
-.empty{padding:20px;text-align:center;color:#dbeafe}
+
+.empty{
+  padding:20px;
+  text-align:center;
+  color:#dbeafe;
+}
+
 footer{text-align:center;padding:20px;color:#dbeafe}
 </style>
 </head>
@@ -76,12 +101,17 @@ footer{text-align:center;padding:20px;color:#dbeafe}
 <body>
 
 <header>
-  <a href="index.html">← Back to Home</a>
+  <div class="toplinks">
+    <a href="index.html">← Home</a>
+    <a id="departmentLink" href="department.html">← Department</a>
+    <a id="syllabusLink" href="syllabus.html">📘 View Syllabus</a>
+  </div>
+
   <h1>📚 Study Resources</h1>
   <p>J&K Engineering Hub — Learn, Share and Grow.</p>
 
   <div class="controls">
-    <select id="department">
+    <select id="department" aria-label="Select department">
       <option value="CE">Computer Engineering</option>
       <option value="AI">Artificial Intelligence</option>
       <option value="EC">Electronics & Communication</option>
@@ -91,7 +121,7 @@ footer{text-align:center;padding:20px;color:#dbeafe}
       <option value="ME">Mechanical Engineering</option>
     </select>
 
-    <select id="semester">
+    <select id="semester" aria-label="Select semester">
       <option value="1">Semester 1</option>
       <option value="2">Semester 2</option>
       <option value="3">Semester 3</option>
@@ -104,151 +134,208 @@ footer{text-align:center;padding:20px;color:#dbeafe}
   </div>
 
   <div class="controls">
-    <input id="search" type="search" placeholder="Search subjects or notes...">
-    <button onclick="showResources()">Search Resources</button>
+    <input id="search" type="search"
+      placeholder="Search notes, subjects or papers...">
+    <button id="searchButton" type="button">Search Resources</button>
   </div>
 </header>
 
 <main class="panel">
   <h2 id="pageTitle">Semester Resources</h2>
 
-  <div class="tabs">
-    <button class="active" onclick="setCategory('All',this)">All</button>
-    <button onclick="setCategory('Notes',this)">Notes</button>
-    <button onclick="setCategory('PPT',this)">PPTs</button>
-    <button onclick="setCategory('Question Papers',this)">Question Papers</button>
-    <button onclick="setCategory('Syllabus',this)">Syllabus</button>
+  <div class="tabs" id="categoryTabs">
+    <button class="active" data-category="All">All</button>
+    <button data-category="Notes">Notes</button>
+    <button data-category="PPT">PPTs</button>
+    <button data-category="Question Papers">Question Papers</button>
+    <button data-category="Syllabus">Syllabus</button>
   </div>
 
-  <div id="resourceList"></div>
+  <div id="resourceList" aria-live="polite"></div>
 </main>
 
 <footer>
-  © 2026 J&K Engineering Hub | Made for Engineering Students
+  © 2026 J&K Engineering Hub
 </footer>
 
 <script>
-const departments={
-  CE:"Computer Engineering",
-  AI:"Artificial Intelligence",
-  EC:"Electronics & Communication",
-  IT:"Information Technology",
-  CYBER:"Cyber Security",
-  CIVIL:"Civil Engineering",
-  ME:"Mechanical Engineering"
+const departments = {
+  CE: "Computer Engineering",
+  AI: "Artificial Intelligence",
+  EC: "Electronics & Communication",
+  IT: "Information Technology",
+  CYBER: "Cyber Security",
+  CIVIL: "Civil Engineering",
+  ME: "Mechanical Engineering"
 };
 
 /*
-  Add your actual resources below.
-  Replace each example file URL with a direct link to your PDF,
-  PPT, or other file. The examples are placeholders.
+  Add real resource entries here.
+  Replace url with a publicly accessible PDF or file URL.
+  Empty URLs are intentionally treated as unavailable.
 */
-const resources=[
+const resources = [
   {
-    dept:"CE",sem:3,subject:"Database Management System",
-    title:"DBMS Study Notes",category:"Notes",
-    type:"PDF",url:""
+    dept: "CE",
+    sem: 3,
+    subject: "Database Management System",
+    title: "DBMS Study Notes",
+    category: "Notes",
+    type: "PDF",
+    url: ""
   },
   {
-    dept:"CE",sem:3,subject:"Java Programming",
-    title:"Java Programming Presentation",category:"PPT",
-    type:"PPT",url:""
+    dept: "CE",
+    sem: 3,
+    subject: "Java Programming",
+    title: "Java Programming Presentation",
+    category: "PPT",
+    type: "PPT",
+    url: ""
   },
   {
-    dept:"CE",sem:3,subject:"Data Structures",
-    title:"Previous Year Question Paper",category:"Question Papers",
-    type:"PDF",url:""
-  },
-  {
-    dept:"CE",sem:3,subject:"Computer Engineering",
-    title:"Official Semester Syllabus",category:"Syllabus",
-    type:"PDF",url:""
+    dept: "CE",
+    sem: 3,
+    subject: "Data Structures",
+    title: "Previous Year Question Paper",
+    category: "Question Papers",
+    type: "PDF",
+    url: ""
   }
 ];
 
-let selectedCategory="All";
+const departmentSelect = document.getElementById("department");
+const semesterSelect = document.getElementById("semester");
+const searchInput = document.getElementById("search");
+const resourceList = document.getElementById("resourceList");
 
-const departmentSelect=document.getElementById("department");
-const semesterSelect=document.getElementById("semester");
-const searchInput=document.getElementById("search");
+let selectedCategory = "All";
 
-function setCategory(category,button){
-  selectedCategory=category;
-  document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
-  button.classList.add("active");
-  showResources();
+function updateLinks(){
+  const dept = departmentSelect.value;
+  const sem = semesterSelect.value;
+
+  document.getElementById("departmentLink").href =
+    "department.html?dept=" + encodeURIComponent(dept);
+
+  document.getElementById("syllabusLink").href =
+    "syllabus.html?dept=" + encodeURIComponent(dept) +
+    "&sem=" + encodeURIComponent(sem);
+}
+
+function createText(tag, text, className){
+  const element = document.createElement(tag);
+  element.textContent = text;
+
+  if(className){
+    element.className = className;
+  }
+
+  return element;
 }
 
 function showResources(){
-  const dept=departmentSelect.value;
-  const sem=Number(semesterSelect.value);
-  const query=searchInput.value.trim().toLowerCase();
+  const dept = departmentSelect.value;
+  const sem = Number(semesterSelect.value);
+  const query = searchInput.value.trim().toLowerCase();
 
-  document.getElementById("pageTitle").textContent=
-    departments[dept]+" — Semester "+sem;
+  updateLinks();
 
-  const list=document.getElementById("resourceList");
-  list.innerHTML="";
+  document.getElementById("pageTitle").textContent =
+    departments[dept] + " — Semester " + sem;
 
-  const filtered=resources.filter(r=>
-    r.dept===dept &&
-    r.sem===sem &&
-    (selectedCategory==="All"||r.category===selectedCategory) &&
-    (r.title+" "+r.subject+" "+r.category).toLowerCase().includes(query)
+  resourceList.replaceChildren();
+
+  const filtered = resources.filter(r =>
+    r.dept === dept &&
+    Number(r.sem) === sem &&
+    (selectedCategory === "All" ||
+     r.category === selectedCategory) &&
+    (r.title + " " + r.subject + " " + r.category)
+      .toLowerCase().includes(query)
   );
 
-  if(filtered.length===0){
-    list.innerHTML=
-      '<div class="empty">No resources added yet.<br>Check back later for notes, PPTs and syllabus.</div>';
+  if(filtered.length === 0){
+    const empty = createText(
+      "div",
+      "No resources have been added for this selection yet.",
+      "empty"
+    );
+
+    const syllabusMessage = createText(
+      "p",
+      "You can still check the department syllabus using the link above."
+    );
+
+    empty.appendChild(syllabusMessage);
+    resourceList.appendChild(empty);
     return;
   }
 
-  filtered.forEach(r=>{
-    const card=document.createElement("article");
-    card.className="resource";
+  filtered.forEach(r => {
+    const card = document.createElement("article");
+    card.className = "resource";
 
-    const title=document.createElement("h3");
-    title.textContent="📄 "+r.title;
+    card.appendChild(createText("h3", "📄 " + r.title));
+    card.appendChild(createText("p", "Subject: " + r.subject));
 
-    const subject=document.createElement("p");
-    subject.textContent="Subject: "+r.subject;
+    card.appendChild(createText(
+      "p",
+      r.category + " • " + r.type +
+      " • Semester " + r.sem,
+      "meta"
+    ));
 
-    const meta=document.createElement("p");
-    meta.className="meta";
-    meta.textContent=r.category+" • "+r.type+" • "+departments[r.dept]+" • Semester "+r.sem;
-
-    card.append(title,subject,meta);
-
-    if(r.url){
-      const link=document.createElement("a");
-      link.className="download";
-      link.href=r.url;
-      link.target="_blank";
-      link.rel="noopener noreferrer";
-      link.textContent="Open / Download";
+    if(r.url && /^https?:\/\//i.test(r.url)){
+      const link = document.createElement("a");
+      link.className = "download";
+      link.href = r.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = "Open / Download";
       card.appendChild(link);
     }else{
-      const note=document.createElement("p");
-      note.className="meta";
-      note.textContent="Sample entry — file link not added yet.";
-      card.appendChild(note);
+      card.appendChild(createText(
+        "p",
+        "File not added yet.",
+        "meta"
+      ));
     }
 
-    list.appendChild(card);
+    resourceList.appendChild(card);
   });
 }
 
-const params=new URLSearchParams(location.search);
+document.getElementById("categoryTabs").addEventListener("click", event => {
+  const button = event.target.closest("button[data-category]");
+  if(!button) return;
+
+  selectedCategory = button.dataset.category;
+
+  document.querySelectorAll("#categoryTabs button").forEach(b => {
+    b.classList.toggle("active", b === button);
+  });
+
+  showResources();
+});
+
+departmentSelect.addEventListener("change", showResources);
+semesterSelect.addEventListener("change", showResources);
+searchInput.addEventListener("input", showResources);
+
+document.getElementById("searchButton").addEventListener("click", showResources);
+
+const params = new URLSearchParams(window.location.search);
+
 if(departments[params.get("dept")]){
-  departmentSelect.value=params.get("dept");
-}
-if(Number(params.get("sem"))>=1&&Number(params.get("sem"))<=8){
-  semesterSelect.value=params.get("sem");
+  departmentSelect.value = params.get("dept");
 }
 
-departmentSelect.addEventListener("change",showResources);
-semesterSelect.addEventListener("change",showResources);
-searchInput.addEventListener("input",showResources);
+const initialSemester = Number(params.get("sem"));
+
+if(initialSemester >= 1 && initialSemester <= 8){
+  semesterSelect.value = String(initialSemester);
+}
 
 showResources();
 </script>
