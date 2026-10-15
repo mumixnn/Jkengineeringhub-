@@ -1,1 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>J&K Engineering Hub</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    body {
+      font-family: Arial, sans-serif;
+      color: #102a43;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at top left, #9ce8f5, transparent 45%),
+        radial-gradient(ellipse at bottom right, #b7c8ff, transparent 45%),
+        linear-gradient(135deg, #e8faff, #f2f0ff);
+    }
+
+    header {
+      padding: 20px;
+      text-align: center;
+      color: white;
+      background: rgba(10, 45, 75, 0.82);
+      backdrop-filter: blur(15px);
+    }
+
+    header h1 { font-size: 25px; }
+    header p { margin-top: 8px; opacity: .85; }
+
+    .hero {
+      text-align: center;
+      padding: 45px 18px 25px;
+    }
+
+    .hero h2 { font-size: 30px; margin-bottom: 12px; }
+    .hero p { line-height: 1.7; color: #476078; }
+
+    .search {
+      display: block;
+      width: min(90%, 500px);
+      margin: 22px auto;
+      padding: 14px 18px;
+      border: 1px solid #ffffff;
+      border-radius: 15px;
+      background: rgba(255,255,255,.7);
+      font-size: 16px;
+      outline-color: #168aad;
+    }
+
+    .departments {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      gap: 16px;
+      max-width: 950px;
+      margin: 10px auto 45px;
+      padding: 15px;
+    }
+
+    .card {
+      text-align: center;
+      padding: 24px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.8);
+      background: rgba(255,255,255,.48);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 8px 28px rgba(34, 85, 120, .1);
+      transition: transform .2s;
+    }
+
+    .card:hover { transform: translateY(-5px); }
+    .card .icon { font-size: 32px; margin-bottom: 12px; }
+    .card h3 { font-size: 17px; }
+    .card p { font-size: 13px; margin-top: 8px; color: #536b80; }
+
+    footer {
+      text-align: center;
+      padding: 22px;
+      color: #52677c;
+      font-size: 13px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📘 J&K Engineering Hub</h1>
+    <p>Your learning community, all in one place</p>
+  </header>
+
+  <section class="hero">
+    <h2>Learn. Share. Succeed.</h2>
+    <p>Engineering notes, syllabus and study resources<br>
+       for students across Jammu & Kashmir.</p>
+    <input class="search" id="search"
+      placeholder="🔍 Search departments..."
+      aria-label="Search departments">
+  </section>
+
+  <section class="departments" id="departments">
+    <article class="card" data-name="computer engineering ce">
+      <div class="icon">💻</div>
+      <h3>Computer Engineering</h3>
+      <p>Notes · Syllabus · Resources</p>
+    </article>
+
+    <article class="card" data-name="artificial intelligence ai">
+      <div class="icon">🤖</div>
+      <h3>Artificial Intelligence</h3>
+      <p>Notes · Syllabus · Resources</p>
+    </article>
+
+    <article class="card" data-name="electronics communication e&c">
+      <div class="icon">📡</div>
+      <h3>Electronics & Communication</h3>
+      <p>Notes · Syllabus · Resources</p>
+    </article>
+
+    <article class="card" data-name="information technology it">
+      <div class="icon">🌐</div>
+      <h3>Information Technology</h3>
+      <p>Notes · Syllabus · Resources</p>
+    </article>
+
+    <article class="card" data-name="cyber security">
+      <div class="icon">🔐</div>
+      <h3>Cyber Security</h3>
+      <p>Notes · Syllabus · Resources</p>
+    </article>
+
+    <article class="card" data-name="civil engineering">
+      <div class="icon">🏗️</div>
+      <h3>Civil Engineering</h3>
+      <p>Notes · Syllabus · Resources</p>
+    </article>
+
+    <article class="card" data-name="mechanical engineering me">
+      <div class="icon">⚙️</div>
+      <h3>Mechanical Engineering</h3>
+      <p>Notes · Syllabus · Resources</p>
+    </article>
+  </section>
+
+  <footer>
+    © 2026 J&K Engineering Hub · Built for students
+  </footer>
+
+  <script>
+    const search = document.getElementById("search");
+    const cards = document.querySelectorAll(".card");
+
+    search.addEventListener("input", () => {
+      const query = search.value.toLowerCase().trim();
+      cards.forEach(card => {
+        card.style.display =
+          card.dataset.name.includes(query) ? "" : "none";
+      });
+    });
+  </script>
+</body>
+</html>
