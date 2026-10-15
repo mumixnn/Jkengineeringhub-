@@ -2,205 +2,715 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Student Profile | J&K Engineering Hub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#eaf2ff">
+<title>My Profile | J&K Engineering Hub</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f3f6fc;color:#1e293b}
-a{text-decoration:none;color:inherit}
-button,input,select{font:inherit}
-.layout{display:flex;min-height:100vh}
-.sidebar{width:230px;background:#10213d;color:white;padding:24px 16px;flex-shrink:0}
-.brand{font-size:18px;font-weight:800;line-height:1.5;margin-bottom:30px}
-.brand span{color:#7dd3fc}
-.nav-label{font-size:11px;color:#9eafc9;letter-spacing:1px;margin:22px 10px 10px}
-.nav a{display:block;padding:12px;border-radius:9px;margin:4px 0;color:#dbeafe;font-size:14px}
-.nav a:hover,.nav a.active{background:#263d60}
-main{flex:1;min-width:0;padding:28px}
-.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:25px}
-h1{font-size:26px;margin:0 0 8px}
-.muted{color:#64748b;font-size:13px;line-height:1.6}
-.card{background:white;border:1px solid #e5eaf2;border-radius:16px;padding:22px;margin-bottom:20px}
-.profile-head{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
-.photo-wrap{position:relative}
-.photo{width:104px;height:104px;border-radius:50%;background:#dbeafe;display:grid;place-items:center;font-size:42px;overflow:hidden;border:4px solid #eff6ff}
-.photo img{width:100%;height:100%;object-fit:cover}
-.profile-info{flex:1;min-width:180px}
-.profile-info h2{margin:0 0 8px;font-size:23px}
-.tag{display:inline-block;padding:6px 10px;background:#eff6ff;color:#1d4ed8;border-radius:20px;font-size:11px;margin:7px 5px 0 0}
-.btn{display:inline-block;padding:11px 15px;border-radius:9px;background:#2563eb;color:white;border:0;cursor:pointer;font-weight:bold;font-size:12px}
-.btn.light{background:#eff6ff;color:#1d4ed8}
-.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:20px}
-.stat{background:white;border:1px solid #e5eaf2;border-radius:14px;padding:18px}
-.stat strong{display:block;font-size:24px;margin:10px 0 5px}
-h3{font-size:17px;margin:0 0 17px}
-.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-label{display:block;font-size:12px;font-weight:bold;margin-bottom:8px}
-input,select{width:100%;padding:12px;border:1px solid #dbe3ef;border-radius:9px;background:white;color:#1e293b;outline:none}
-input:focus,select:focus{border-color:#2563eb}
-.field{min-width:0}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
-.note{font-size:12px;color:#64748b;line-height:1.6;margin-top:14px}
-.resource{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #edf0f5}
-.resource:last-child{border:0}
-.file{font-size:23px;background:#eff6ff;padding:12px;border-radius:10px}
-.resource-info{flex:1;min-width:0}
-.resource-info strong{display:block;font-size:13px;margin-bottom:6px}
-.resource-info small{font-size:11px;color:#64748b}
-.empty{padding:20px;text-align:center;background:#f8fafc;border-radius:10px;color:#64748b;font-size:13px}
-.menu-btn{display:none;border:0;background:white;padding:10px;border-radius:8px}
-#status{display:none;margin-top:12px;background:#eff6ff;color:#1d4ed8;padding:12px;border-radius:9px;font-size:13px}
-footer{text-align:center;color:#94a3b8;font-size:11px;padding:15px}
-@media(max-width:800px){.sidebar{width:200px}main{padding:20px 15px}.stats{grid-template-columns:1fr}}
-@media(max-width:600px){.layout{display:block}.sidebar{display:none;width:100%}.sidebar.show{display:block}.menu-btn{display:inline-block}main{padding:17px 12px}.top h1{font-size:22px}.fields{grid-template-columns:1fr}.card{padding:17px}.profile-head{gap:14px}.photo{width:84px;height:84px}.profile-info h2{font-size:20px}}
+:root {
+  --blue: #2563eb;
+  --ink: #14233d;
+  --muted: #66758d;
+  --line: rgba(255,255,255,.9);
+}
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse at 10% 10%, rgba(147,197,253,.65), transparent 38%),
+    radial-gradient(ellipse at 90% 28%, rgba(196,181,253,.5), transparent 35%),
+    radial-gradient(ellipse at 50% 85%, rgba(186,230,253,.6), transparent 40%),
+    linear-gradient(135deg,#f5f8ff,#e9f0ff 50%,#f6f4ff);
+  background-attachment: fixed;
+}
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+.container { width: min(1000px,92%); margin: auto; }
+
+/* HEADER */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 13px 0;
+  background: rgba(242,247,255,.82);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border-bottom: 1px solid rgba(255,255,255,.8);
+}
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+.brand { display: flex; align-items: center; gap: 10px; }
+.logo {
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 14px;
+  color: white;
+  font-size: 19px;
+  font-weight: 900;
+  background: linear-gradient(145deg,#60a5fa,#2563eb 65%,#4f46e5);
+  box-shadow: 0 7px 20px #2563eb30;
+}
+.brand-name { font-size: 13px; font-weight: 850; line-height: 1.5; }
+.brand-name span { color: var(--blue); }
+.brand-tag {
+  display: block;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 15px;
+  border: 1px solid #cbd9ef;
+  border-radius: 12px;
+  background: rgba(255,255,255,.65);
+  color: #24436f;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+/* PAGE */
+main { padding: 38px 0 65px; }
+.page-heading { margin-bottom: 25px; }
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid white;
+  border-radius: 50px;
+  background: rgba(255,255,255,.55);
+  color: #315a9a;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3b82f6;
+}
+h1 {
+  margin: 17px 0 9px;
+  font-size: clamp(30px,5vw,42px);
+  line-height: 1.15;
+  letter-spacing: -1.4px;
+}
+.gradient-text {
+  color: transparent;
+  background: linear-gradient(110deg,#2563eb,#6366f1,#8b5cf6);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+.page-description {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* GLASS CARDS */
+.profile-layout {
+  display: grid;
+  grid-template-columns: 300px minmax(0,1fr);
+  gap: 20px;
+  align-items: start;
+}
+.glass {
+  background: rgba(255,255,255,.57);
+  border: 1px solid rgba(255,255,255,.95);
+  border-radius: 23px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 15px 45px rgba(40,70,120,.06);
+}
+.profile-card { padding: 25px 20px; text-align: center; }
+.avatar-wrap {
+  position: relative;
+  width: 112px;
+  height: 112px;
+  margin: 0 auto 15px;
+}
+.avatar {
+  width: 112px;
+  height: 112px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 4px solid rgba(255,255,255,.95);
+  background: linear-gradient(145deg,#dbeafe,#e9e5ff);
+  color: #3971d8;
+  box-shadow: 0 9px 28px rgba(37,99,235,.15);
+}
+.avatar svg { width: 52px; height: 52px; }
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.photo-button {
+  position: absolute;
+  right: -2px;
+  bottom: 2px;
+  width: 35px;
+  height: 35px;
+  display: grid;
+  place-items: center;
+  border: 3px solid white;
+  border-radius: 50%;
+  background: var(--blue);
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+#photoInput { display: none; }
+.profile-name {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 850;
+  overflow-wrap: anywhere;
+}
+.profile-email {
+  margin: 7px 0 15px;
+  color: var(--muted);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.student-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 11px;
+  border-radius: 30px;
+  background: #e5edff;
+  color: #2857ad;
+  font-size: 10px;
+  font-weight: 800;
+}
+.card-divider { height: 1px; background: #e5ebf5; margin: 22px 0; }
+.side-link {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 12px;
+  border-radius: 12px;
+  text-align: left;
+  color: #455b7b;
+  font-size: 12px;
+  font-weight: 700;
+}
+.side-link:hover { background: #edf4ff; color: var(--blue); }
+.side-icon {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #edf4ff;
+  font-size: 16px;
+}
+
+/* FORM */
+.form-card { padding: 26px; }
+.card-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.heading-icon {
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: #e3edff;
+  font-size: 20px;
+}
+.card-heading h2 { margin: 0; font-size: 18px; }
+.card-heading p { margin: 5px 0 0; color: var(--muted); font-size: 12px; }
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 19px 15px;
+}
+.field { min-width: 0; }
+.field.full { grid-column: 1 / -1; }
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #344968;
+  font-size: 12px;
+  font-weight: 750;
+}
+input, select, textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 13px 14px;
+  border: 1px solid #dce5f2;
+  border-radius: 12px;
+  outline: none;
+  color: var(--ink);
+  background: rgba(255,255,255,.7);
+  font-size: 13px;
+  transition: border-color .2s, box-shadow .2s;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: #7da9f9;
+  box-shadow: 0 0 0 3px rgba(59,130,246,.1);
+}
+input::placeholder, textarea::placeholder { color: #9aa7ba; }
+textarea { min-height: 100px; resize: vertical; line-height: 1.7; }
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 11px;
+  margin-top: 24px;
+}
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 19px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 800;
+  transition: .2s ease;
+}
+.btn-primary {
+  color: white;
+  background: linear-gradient(135deg,#3b82f6,#2563eb);
+  box-shadow: 0 7px 18px #2563eb25;
+}
+.btn-secondary {
+  color: #315078;
+  background: rgba(255,255,255,.7);
+  border-color: #d5e0f0;
+}
+.btn:hover { transform: translateY(-1px); }
+.status-message {
+  display: none;
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  color: #166534;
+  background: #dcfce7;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.status-message.show { display: block; }
+.helper {
+  margin-top: 17px;
+  color: #7b8aa1;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+/* FOOTER */
+footer {
+  border-top: 1px solid rgba(255,255,255,.9);
+  padding: 22px 0;
+  background: rgba(255,255,255,.23);
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-name { font-size: 12px; font-weight: 850; }
+.footer-note { color: var(--muted); font-size: 11px; line-height: 1.8; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 15px; font-size: 11px; color: #526580; }
+
+@media(max-width:760px) {
+  .profile-layout { grid-template-columns: 1fr; }
+  .profile-card { padding: 23px 18px; }
+  .side-links { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  .form-card { padding: 21px 17px; }
+}
+@media(max-width:480px) {
+  .container { width: 92%; }
+  header { padding: 10px 0; }
+  .logo { width: 39px; height: 39px; font-size: 17px; }
+  .brand { gap: 8px; }
+  .brand-name { font-size: 11px; }
+  .brand-tag { font-size: 8px; }
+  .back-link { padding: 10px; font-size: 11px; }
+  main { padding: 27px 0 45px; }
+  .form-grid { grid-template-columns: 1fr; gap: 16px; }
+  .field.full { grid-column: auto; }
+  .side-links { grid-template-columns: 1fr 1fr; }
+  .side-link { padding: 9px 7px; font-size: 11px; }
+  .cta { padding: 18px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { transition: none !important; }
+}
 </style>
 </head>
-<body>
-<div class="layout">
-<aside class="sidebar" id="sidebar">
-  <div class="brand">J&K <span>ENGINEERING</span><br>HUB 🎓</div>
-  <nav class="nav">
-    <div class="nav-label">STUDENT SPACE</div>
-    <a href="dashboard.html">🏠 Dashboard</a>
-    <a href="index.html">🌐 Home</a>
-    <a href="department.html">📚 Departments</a>
-    <a href="resources.html">📁 Notes & Resources</a>
-    <a href="syllabus.html">📖 Syllabus</a>
-    <div class="nav-label">LEARNING</div>
-    <a href="quiz.html">📝 Quizzes & Mock Tests</a>
-    <a class="active" href="profile.html">👤 My Profile</a>
-    <div class="nav-label">ACCOUNT</div>
-    <a href="login.html">🔐 Login / Sign Up</a>
-  </nav>
-</aside>
 
-<main>
-<header class="top">
-  <div style="display:flex;gap:10px;align-items:flex-start">
-    <button class="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('show')" aria-label="Toggle menu">☰</button>
-    <div><h1>My Profile</h1><div class="muted">Manage your student details and contributions.</div></div>
+<body>
+
+<header>
+  <div class="container navbar">
+    <a class="brand" href="index.html">
+      <div class="logo">J&K</div>
+      <div class="brand-name">
+        ENGINEERING <span>HUB</span>
+        <small class="brand-tag">LEARN · SHARE · GROW</small>
+      </div>
+    </a>
+    <a class="back-link" href="index.html">← Home</a>
   </div>
-  <a href="dashboard.html" class="btn light">← Dashboard</a>
 </header>
 
-<section class="card">
-  <div class="profile-head">
-    <div class="photo-wrap">
-      <div class="photo" id="photoPreview">👨‍🎓</div>
+<main>
+  <div class="container">
+
+    <div class="page-heading">
+      <div class="eyebrow"><span class="dot"></span> STUDENT ACCOUNT</div>
+      <h1>My <span class="gradient-text">Profile</span></h1>
+      <p class="page-description">
+        Manage your student details and personalise your learning space.
+      </p>
     </div>
-    <div class="profile-info">
-      <h2 id="displayName">Student Name</h2>
-      <div class="muted" id="displayEmail">student@example.com · Demo profile</div>
-      <span class="tag" id="displayDept">Computer Engineering</span>
-      <span class="tag" id="displaySem">Semester 3</span>
-    </div>
-    <div>
-      <label class="btn light" for="photoInput">📷 Choose Photo</label>
-      <input type="file" id="photoInput" accept="image/*" style="display:none">
+
+    <div class="profile-layout">
+
+      <!-- PROFILE SUMMARY -->
+      <aside class="glass profile-card">
+
+        <div class="avatar-wrap">
+          <div class="avatar" id="avatar">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.5"
+                 stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+              <circle cx="12" cy="8" r="4"></circle>
+              <path d="M4.5 21a7.5 7.5 0 0 1 15 0"></path>
+            </svg>
+          </div>
+          <button class="photo-button" type="button"
+                  id="changePhoto" aria-label="Change profile photo">✎</button>
+          <input type="file" id="photoInput" accept="image/*">
+        </div>
+
+        <h2 class="profile-name" id="previewName">Your Name</h2>
+        <p class="profile-email" id="previewEmail">your.email@example.com</p>
+        <span class="student-badge">🎓 Engineering Student</span>
+
+        <div class="card-divider"></div>
+
+        <nav class="side-links" aria-label="Profile navigation">
+          <a class="side-link" href="#personal">
+            <span class="side-icon">👤</span> Personal Details
+          </a>
+          <a class="side-link" href="#education">
+            <span class="side-icon">🎓</span> Education
+          </a>
+          <a class="side-link" href="resources.html">
+            <span class="side-icon">📚</span> Browse Resources
+          </a>
+          <a class="side-link" href="syllabus.html">
+            <span class="side-icon">📖</span> View Syllabus
+          </a>
+        </nav>
+
+      </aside>
+
+      <!-- PROFILE FORM -->
+      <section class="glass form-card">
+
+        <div class="card-heading">
+          <div class="heading-icon">✏️</div>
+          <div>
+            <h2>Edit your profile</h2>
+            <p>Keep your student information up to date.</p>
+          </div>
+        </div>
+
+        <form id="profileForm">
+
+          <div class="form-grid">
+
+            <div class="field full" id="personal">
+              <label for="fullName">Full name</label>
+              <input id="fullName" name="fullName" type="text"
+                     placeholder="Enter your full name" maxlength="80">
+            </div>
+
+            <div class="field">
+              <label for="email">Email address</label>
+              <input id="email" name="email" type="email"
+                     placeholder="you@example.com" maxlength="120">
+            </div>
+
+            <div class="field">
+              <label for="phone">Phone number (optional)</label>
+              <input id="phone" name="phone" type="tel"
+                     placeholder="Enter phone number" maxlength="20">
+            </div>
+
+            <div class="field full" id="education">
+              <label for="college">College / Institution</label>
+              <input id="college" name="college" type="text"
+                     placeholder="Enter your college name" maxlength="120">
+            </div>
+
+            <div class="field">
+              <label for="department">Department</label>
+              <select id="department" name="department">
+                <option value="">Select department</option>
+                <option value="Computer Engineering">Computer Engineering</option>
+                <option value="Artificial Intelligence">Artificial Intelligence</option>
+                <option value="Electronics & Communication">Electronics & Communication</option>
+                <option value="Information Technology">Information Technology</option>
+                <option value="Cyber Security">Cyber Security</option>
+                <option value="Civil Engineering">Civil Engineering</option>
+                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="semester">Current semester</label>
+              <select id="semester" name="semester">
+                <option value="">Select semester</option>
+                <option value="1">Semester 1</option>
+                <option value="2">Semester 2</option>
+                <option value="3">Semester 3</option>
+                <option value="4">Semester 4</option>
+                <option value="5">Semester 5</option>
+                <option value="6">Semester 6</option>
+                <option value="7">Semester 7</option>
+                <option value="8">Semester 8</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="bio">About me (optional)</label>
+              <textarea id="bio" name="bio" maxlength="300"
+                        placeholder="Tell other students a little about yourself..."></textarea>
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Save Profile ✓</button>
+            <button class="btn btn-secondary" type="button" id="resetForm">Reset</button>
+          </div>
+
+          <div class="status-message" id="statusMessage" role="status"></div>
+
+          <p class="helper">
+            Your profile details are currently saved in this browser only.
+            Firebase can be connected later to securely save your profile across devices.
+          </p>
+
+        </form>
+      </section>
+
     </div>
   </div>
-  <div class="note">Photo preview works in this browser session. Saving it to your account will be available after Firebase integration.</div>
-</section>
-
-<section class="stats">
-  <div class="stat"><span>📤 Contributions</span><strong>0</strong><span class="muted">Resources shared</span></div>
-  <div class="stat"><span>📝 Quiz attempts</span><strong>0</strong><span class="muted">Practice sessions</span></div>
-  <div class="stat"><span>⭐ Reputation</span><strong>New</strong><span class="muted">Keep contributing</span></div>
-</section>
-
-<section class="card">
-  <h3>✏️ Student Information</h3>
-  <form id="profileForm">
-    <div class="fields">
-      <div class="field"><label for="fullName">Full name</label><input id="fullName" required maxlength="80" placeholder="Your full name" value=""></div>
-      <div class="field"><label for="email">Email address</label><input id="email" type="email" placeholder="Your email address" value=""></div>
-      <div class="field"><label for="department">Department</label>
-        <select id="department">
-          <option value="CE">Computer Engineering</option>
-          <option value="AI">Artificial Intelligence</option>
-          <option value="EC">Electronics & Communication</option>
-          <option value="IT">Information Technology</option>
-          <option value="CYBER">Cyber Security</option>
-          <option value="CIVIL">Civil Engineering</option>
-          <option value="ME">Mechanical Engineering</option>
-        </select>
-      </div>
-      <div class="field"><label for="semester">Current semester</label>
-        <select id="semester">
-          <option value="1">Semester 1</option><option value="2">Semester 2</option>
-          <option value="3" selected>Semester 3</option><option value="4">Semester 4</option>
-          <option value="5">Semester 5</option><option value="6">Semester 6</option>
-          <option value="7">Semester 7</option><option value="8">Semester 8</option>
-        </select>
-      </div>
-      <div class="field"><label for="college">College / University</label><input id="college" maxlength="120" placeholder="Enter your college"></div>
-      <div class="field"><label for="bio">About me</label><input id="bio" maxlength="180" placeholder="A short introduction"></div>
-    </div>
-    <div class="actions">
-      <button class="btn" type="submit">Save Demo Details</button>
-      <button class="btn light" type="reset">Reset Form</button>
-    </div>
-    <div id="status" role="status"></div>
-    <p class="note">This demo does not upload personal details to a server. Avoid entering sensitive information until account security is configured.</p>
-  </form>
-</section>
-
-<section class="card">
-  <h3>📚 My Uploaded Resources</h3>
-  <div class="empty">No resources to show yet. Once connected, your uploaded notes and study materials will appear here.</div>
-  <div class="actions"><a href="resources.html" class="btn">Browse Resources →</a></div>
-</section>
-
-<footer>J&K Engineering Hub · Learn. Share. Grow.</footer>
 </main>
-</div>
+
+<footer>
+  <div class="container footer-inner">
+    <div>
+      <div class="footer-name">J&K Engineering Hub</div>
+      <div class="footer-note">Learn · Share · Grow</div>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="department.html">Departments</a>
+      <a href="resources.html">Resources</a>
+      <a href="syllabus.html">Syllabus</a>
+    </div>
+    <div class="footer-note">© <span id="year"></span> J&K Engineering Hub</div>
+  </div>
+</footer>
 
 <script>
-const departments = {
-  CE:"Computer Engineering", AI:"Artificial Intelligence",
-  EC:"Electronics & Communication", IT:"Information Technology",
-  CYBER:"Cyber Security", CIVIL:"Civil Engineering", ME:"Mechanical Engineering"
-};
-
+const form = document.getElementById("profileForm");
 const photoInput = document.getElementById("photoInput");
-photoInput.addEventListener("change", function() {
-  const file = this.files && this.files[0];
+const avatar = document.getElementById("avatar");
+const statusMessage = document.getElementById("statusMessage");
+
+const fields = [
+  "fullName",
+  "email",
+  "phone",
+  "college",
+  "department",
+  "semester",
+  "bio"
+];
+
+let currentPhoto = "";
+
+function showMessage(message) {
+  statusMessage.textContent = message;
+  statusMessage.classList.add("show");
+}
+
+function updatePreview() {
+  const name = document.getElementById("fullName").value.trim();
+  const email = document.getElementById("email").value.trim();
+
+  document.getElementById("previewName").textContent = name || "Your Name";
+  document.getElementById("previewEmail").textContent =
+    email || "your.email@example.com";
+}
+
+function renderPhoto(photo) {
+  avatar.replaceChildren();
+
+  if (photo) {
+    const img = document.createElement("img");
+    img.src = photo;
+    img.alt = "Profile photo";
+    avatar.appendChild(img);
+  } else {
+    avatar.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="1.5"
+           stroke-linecap="round" stroke-linejoin="round"
+           aria-hidden="true">
+        <circle cx="12" cy="8" r="4"></circle>
+        <path d="M4.5 21a7.5 7.5 0 0 1 15 0"></path>
+      </svg>`;
+  }
+}
+
+function saveToBrowser() {
+  const profile = {};
+
+  fields.forEach(id => {
+    profile[id] = document.getElementById(id).value;
+  });
+
+  profile.photo = currentPhoto;
+
+  try {
+    localStorage.setItem("jkEngineeringHubProfile", JSON.stringify(profile));
+    return true;
+  } catch (error) {
+    showMessage("Your details could not be saved in this browser. Try a smaller profile photo.");
+    return false;
+  }
+}
+
+function loadFromBrowser() {
+  try {
+    const saved = localStorage.getItem("jkEngineeringHubProfile");
+    if (!saved) return;
+
+    const profile = JSON.parse(saved);
+
+    fields.forEach(id => {
+      if (typeof profile[id] === "string") {
+        document.getElementById(id).value = profile[id];
+      }
+    });
+
+    currentPhoto = profile.photo || "";
+    renderPhoto(currentPhoto);
+    updatePreview();
+  } catch (error) {
+    console.log("No saved profile could be loaded.");
+  }
+}
+
+document.getElementById("changePhoto").addEventListener("click", () => {
+  photoInput.click();
+});
+
+photoInput.addEventListener("change", () => {
+  const file = photoInput.files[0];
   if (!file) return;
+
   if (!file.type.startsWith("image/")) {
-    alert("Please choose an image.");
-    this.value = "";
+    showMessage("Please select an image file.");
     return;
   }
-  if (file.size > 5 * 1024 * 1024) {
-    alert("Please choose an image smaller than 5 MB.");
-    this.value = "";
+
+  if (file.size > 2 * 1024 * 1024) {
+    showMessage("Please choose an image smaller than 2 MB.");
+    photoInput.value = "";
     return;
   }
+
   const reader = new FileReader();
+
   reader.onload = () => {
-    document.getElementById("photoPreview").innerHTML =
-      '<img src="' + reader.result + '" alt="Profile photo preview">';
+    currentPhoto = reader.result;
+    renderPhoto(currentPhoto);
+    showMessage("Photo selected. Tap Save Profile to keep it in this browser.");
   };
+
+  reader.onerror = () => {
+    showMessage("Could not read that image. Please try another photo.");
+  };
+
   reader.readAsDataURL(file);
 });
 
-document.getElementById("profileForm").addEventListener("submit", function(event) {
+document.getElementById("fullName").addEventListener("input", updatePreview);
+document.getElementById("email").addEventListener("input", updatePreview);
+
+form.addEventListener("submit", event => {
   event.preventDefault();
-  const name = document.getElementById("fullName").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const dept = document.getElementById("department").value;
-  const sem = document.getElementById("semester").value;
-  if (!name) return;
 
-  document.getElementById("displayName").textContent = name;
-  document.getElementById("displayEmail").textContent = email || "Email not entered";
-  document.getElementById("displayDept").textContent = departments[dept];
-  document.getElementById("displaySem").textContent = "Semester " + sem;
+  if (!form.reportValidity()) return;
 
-  const status = document.getElementById("status");
-  status.textContent = "Preview updated! Permanent saving will be enabled after Firebase integration.";
-  status.style.display = "block";
+  if (saveToBrowser()) {
+    updatePreview();
+    showMessage("Profile saved in this browser successfully.");
+  }
 });
+
+document.getElementById("resetForm").addEventListener("click", () => {
+  if (!confirm("Reset your profile details? This will remove the locally saved profile.")) {
+    return;
+  }
+
+  form.reset();
+  currentPhoto = "";
+  photoInput.value = "";
+  renderPhoto("");
+  localStorage.removeItem("jkEngineeringHubProfile");
+  updatePreview();
+  showMessage("Profile details have been reset.");
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+loadFromBrowser();
 </script>
+
 </body>
 </html>
