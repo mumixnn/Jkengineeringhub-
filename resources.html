@@ -1,1 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Resources | J&K Engineering Hub</title>
 
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  padding:18px;
+  font-family:Arial,sans-serif;
+  color:white;
+  background:linear-gradient(135deg,#06152f,#075985,#0891b2);
+  min-height:100vh;
+}
+header,.panel{
+  max-width:950px;
+  margin:15px auto;
+  padding:22px;
+  border:1px solid #ffffff40;
+  border-radius:20px;
+  background:#ffffff15;
+  backdrop-filter:blur(12px);
+}
+a{color:#bae6fd}
+h1{margin-bottom:8px}
+.controls{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:10px;
+  margin-top:18px;
+}
+input,select,button{
+  width:100%;
+  padding:12px;
+  border:1px solid #ffffff40;
+  border-radius:10px;
+  font-size:15px;
+}
+input,select{background:#f8fafc;color:#10233d}
+button{
+  background:#38bdf8;
+  color:#06213b;
+  font-weight:bold;
+  cursor:pointer;
+}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+.tabs button{width:auto}
+.tabs button.active{background:#fff}
+.resource{
+  padding:17px;
+  margin:12px 0;
+  border:1px solid #ffffff30;
+  border-radius:15px;
+  background:#ffffff12;
+}
+.resource h3{margin:0 0 8px}
+.meta{color:#dbeafe;font-size:13px}
+.download{
+  display:inline-block;
+  margin-top:10px;
+  padding:10px 14px;
+  background:#38bdf8;
+  color:#06213b;
+  border-radius:9px;
+  text-decoration:none;
+  font-weight:bold;
+}
+.empty{padding:20px;text-align:center;color:#dbeafe}
+footer{text-align:center;padding:20px;color:#dbeafe}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html">← Back to Home</a>
+  <h1>📚 Study Resources</h1>
+  <p>J&K Engineering Hub — Learn, Share and Grow.</p>
+
+  <div class="controls">
+    <select id="department">
+      <option value="CE">Computer Engineering</option>
+      <option value="AI">Artificial Intelligence</option>
+      <option value="EC">Electronics & Communication</option>
+      <option value="IT">Information Technology</option>
+      <option value="CYBER">Cyber Security</option>
+      <option value="CIVIL">Civil Engineering</option>
+      <option value="ME">Mechanical Engineering</option>
+    </select>
+
+    <select id="semester">
+      <option value="1">Semester 1</option>
+      <option value="2">Semester 2</option>
+      <option value="3">Semester 3</option>
+      <option value="4">Semester 4</option>
+      <option value="5">Semester 5</option>
+      <option value="6">Semester 6</option>
+      <option value="7">Semester 7</option>
+      <option value="8">Semester 8</option>
+    </select>
+  </div>
+
+  <div class="controls">
+    <input id="search" type="search" placeholder="Search subjects or notes...">
+    <button onclick="showResources()">Search Resources</button>
+  </div>
+</header>
+
+<main class="panel">
+  <h2 id="pageTitle">Semester Resources</h2>
+
+  <div class="tabs">
+    <button class="active" onclick="setCategory('All',this)">All</button>
+    <button onclick="setCategory('Notes',this)">Notes</button>
+    <button onclick="setCategory('PPT',this)">PPTs</button>
+    <button onclick="setCategory('Question Papers',this)">Question Papers</button>
+    <button onclick="setCategory('Syllabus',this)">Syllabus</button>
+  </div>
+
+  <div id="resourceList"></div>
+</main>
+
+<footer>
+  © 2026 J&K Engineering Hub | Made for Engineering Students
+</footer>
+
+<script>
+const departments={
+  CE:"Computer Engineering",
+  AI:"Artificial Intelligence",
+  EC:"Electronics & Communication",
+  IT:"Information Technology",
+  CYBER:"Cyber Security",
+  CIVIL:"Civil Engineering",
+  ME:"Mechanical Engineering"
+};
+
+/*
+  Add your actual resources below.
+  Replace each example file URL with a direct link to your PDF,
+  PPT, or other file. The examples are placeholders.
+*/
+const resources=[
+  {
+    dept:"CE",sem:3,subject:"Database Management System",
+    title:"DBMS Study Notes",category:"Notes",
+    type:"PDF",url:""
+  },
+  {
+    dept:"CE",sem:3,subject:"Java Programming",
+    title:"Java Programming Presentation",category:"PPT",
+    type:"PPT",url:""
+  },
+  {
+    dept:"CE",sem:3,subject:"Data Structures",
+    title:"Previous Year Question Paper",category:"Question Papers",
+    type:"PDF",url:""
+  },
+  {
+    dept:"CE",sem:3,subject:"Computer Engineering",
+    title:"Official Semester Syllabus",category:"Syllabus",
+    type:"PDF",url:""
+  }
+];
+
+let selectedCategory="All";
+
+const departmentSelect=document.getElementById("department");
+const semesterSelect=document.getElementById("semester");
+const searchInput=document.getElementById("search");
+
+function setCategory(category,button){
+  selectedCategory=category;
+  document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
+  button.classList.add("active");
+  showResources();
+}
+
+function showResources(){
+  const dept=departmentSelect.value;
+  const sem=Number(semesterSelect.value);
+  const query=searchInput.value.trim().toLowerCase();
+
+  document.getElementById("pageTitle").textContent=
+    departments[dept]+" — Semester "+sem;
+
+  const list=document.getElementById("resourceList");
+  list.innerHTML="";
+
+  const filtered=resources.filter(r=>
+    r.dept===dept &&
+    r.sem===sem &&
+    (selectedCategory==="All"||r.category===selectedCategory) &&
+    (r.title+" "+r.subject+" "+r.category).toLowerCase().includes(query)
+  );
+
+  if(filtered.length===0){
+    list.innerHTML=
+      '<div class="empty">No resources added yet.<br>Check back later for notes, PPTs and syllabus.</div>';
+    return;
+  }
+
+  filtered.forEach(r=>{
+    const card=document.createElement("article");
+    card.className="resource";
+
+    const title=document.createElement("h3");
+    title.textContent="📄 "+r.title;
+
+    const subject=document.createElement("p");
+    subject.textContent="Subject: "+r.subject;
+
+    const meta=document.createElement("p");
+    meta.className="meta";
+    meta.textContent=r.category+" • "+r.type+" • "+departments[r.dept]+" • Semester "+r.sem;
+
+    card.append(title,subject,meta);
+
+    if(r.url){
+      const link=document.createElement("a");
+      link.className="download";
+      link.href=r.url;
+      link.target="_blank";
+      link.rel="noopener noreferrer";
+      link.textContent="Open / Download";
+      card.appendChild(link);
+    }else{
+      const note=document.createElement("p");
+      note.className="meta";
+      note.textContent="Sample entry — file link not added yet.";
+      card.appendChild(note);
+    }
+
+    list.appendChild(card);
+  });
+}
+
+const params=new URLSearchParams(location.search);
+if(departments[params.get("dept")]){
+  departmentSelect.value=params.get("dept");
+}
+if(Number(params.get("sem"))>=1&&Number(params.get("sem"))<=8){
+  semesterSelect.value=params.get("sem");
+}
+
+departmentSelect.addEventListener("change",showResources);
+semesterSelect.addEventListener("change",showResources);
+searchInput.addEventListener("input",showResources);
+
+showResources();
+</script>
+
+</body>
+</html>
