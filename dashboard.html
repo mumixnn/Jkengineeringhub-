@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Dashboard | J&K Engineering Hub</title>
+<style>
+:root {
+  --blue:#2563eb; --navy:#10213d; --bg:#f3f6fc;
+  --text:#1e293b; --muted:#64748b; --white:#fff;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,a{font:inherit}
+a{text-decoration:none;color:inherit}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:245px;background:var(--navy);color:white;padding:25px 17px;flex-shrink:0}
+.brand{font-size:19px;font-weight:800;line-height:1.5;margin-bottom:30px}
+.brand span{color:#7dd3fc}
+.nav-label{font-size:11px;color:#9eafc9;letter-spacing:1.5px;margin:23px 10px 10px}
+.nav a{display:block;padding:12px;border-radius:10px;margin:5px 0;color:#dbeafe;font-size:14px}
+.nav a:hover,.nav a.active{background:#263d60;color:white}
+.main{flex:1;min-width:0;padding:25px 30px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:28px}
+.topbar h1{font-size:25px;margin:0 0 7px}
+.muted{color:var(--muted);font-size:13px}
+.profile{display:flex;align-items:center;gap:10px}
+.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#dbeafe;color:#1d4ed8;font-weight:bold}
+.hero{background:linear-gradient(120deg,#1d4ed8,#4f46e5);color:white;border-radius:20px;padding:27px;margin-bottom:24px;position:relative;overflow:hidden}
+.hero h2{font-size:25px;margin:0 0 10px}
+.hero p{font-size:14px;line-height:1.7;max-width:500px;color:#e0e7ff}
+.btn{display:inline-block;background:white;color:#1d4ed8;padding:11px 16px;border-radius:9px;font-weight:bold;font-size:13px;margin-top:7px}
+.section-title{font-size:18px;margin:26px 0 15px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.stat,.card{background:white;border:1px solid #e6ebf3;border-radius:15px;padding:18px}
+.stat .emoji{font-size:23px}
+.stat strong{display:block;font-size:25px;margin:12px 0 5px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.dept{background:white;border:1px solid #e6ebf3;border-radius:14px;padding:16px 12px;text-align:center;transition:.2s}
+.dept:hover{border-color:var(--blue);transform:translateY(-2px)}
+.dept .emoji{font-size:27px}
+.dept strong{display:block;font-size:13px;margin:10px 0 5px}
+.dept small{color:var(--muted);font-size:11px}
+.two-col{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:18px}
+.resource{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #edf0f5}
+.resource:last-child{border:0}
+.file-icon{background:#eff6ff;padding:12px;border-radius:10px}
+.resource-info{flex:1;min-width:0}
+.resource-info strong{font-size:13px;display:block;margin-bottom:5px}
+.resource-info small{color:var(--muted);font-size:11px}
+.open{color:var(--blue);font-size:12px;font-weight:bold}
+.quiz{background:#f5f3ff;border-radius:12px;padding:15px;margin-top:12px}
+.quiz strong{font-size:14px}
+.quiz p{font-size:12px;color:var(--muted);line-height:1.6}
+.quiz a{color:#5b21b6;font-size:12px;font-weight:bold}
+.menu-btn{display:none;border:0;background:white;padding:9px 12px;border-radius:9px}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:28px 0 5px}
+@media(max-width:900px){
+ .sidebar{width:205px}.main{padding:22px 18px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .two-col{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+ .layout{display:block}
+ .sidebar{display:none;width:100%;padding:18px}
+ .sidebar.show{display:block}
+ .menu-btn{display:inline-block}
+ .main{padding:18px 13px}
+ .topbar{align-items:flex-start}
+ .topbar h1{font-size:21px}
+ .profile .user-name{display:none}
+ .hero{padding:22px 18px}
+ .hero h2{font-size:22px}
+ .stats{grid-template-columns:1fr}
+ .stat{display:flex;align-items:center;gap:14px}
+ .stat strong{font-size:21px;margin:3px 0}
+ .stat .emoji{font-size:26px}
+ .stat .stat-text{flex:1}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">J&K <span>ENGINEERING</span><br>HUB 🎓</div>
+    <nav class="nav">
+      <div class="nav-label">STUDENT SPACE</div>
+      <a class="active" href="dashboard.html">🏠 Dashboard</a>
+      <a href="index.html">🌐 Home</a>
+      <a href="department.html">📚 Departments</a>
+      <a href="resources.html">📁 Notes & Resources</a>
+      <a href="syllabus.html">📖 Syllabus</a>
+      <div class="nav-label">LEARNING</div>
+      <a href="quiz.html">📝 Quizzes & Mock Tests</a>
+      <a href="profile.html">👤 My Profile</a>
+      <div class="nav-label">ACCOUNT</div>
+      <a href="login.html">🔐 Login / Sign Up</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div style="display:flex;align-items:flex-start;gap:10px">
+        <button class="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('show')" aria-label="Toggle menu">☰</button>
+        <div>
+          <h1>Student Dashboard</h1>
+          <div class="muted">Your learning space, all in one place.</div>
+        </div>
+      </div>
+      <a href="profile.html" class="profile">
+        <div class="avatar">S</div>
+        <div class="user-name"><strong style="font-size:13px">Student</strong><div class="muted">View profile ↗</div></div>
+      </a>
+    </header>
+
+    <section class="hero">
+      <h2>Learn. Share. Grow. 🚀</h2>
+      <p>Welcome to J&K Engineering Hub — a learning community for engineering students across Jammu & Kashmir. Find notes, explore subjects and prepare for exams.</p>
+      <a class="btn" href="resources.html">Explore Resources →</a>
+    </section>
+
+    <h2 class="section-title">Your Learning Overview</h2>
+    <section class="stats">
+      <div class="stat"><span class="emoji">📚</span><div class="stat-text"><strong>7</strong><span class="muted">Departments</span></div></div>
+      <div class="stat"><span class="emoji">📂</span><div class="stat-text"><strong>8</strong><span class="muted">Semesters per department</span></div></div>
+      <div class="stat"><span class="emoji">📝</span><div class="stat-text"><strong>Start</strong><span class="muted">Your first mock test</span></div></div>
+    </section>
+
+    <h2 class="section-title">Explore Departments</h2>
+    <section class="grid">
+      <a class="dept" href="department.html?dept=CE"><span class="emoji">💻</span><strong>Computer Eng.</strong><small>CE</small></a>
+      <a class="dept" href="department.html?dept=AI"><span class="emoji">🤖</span><strong>Artificial Intelligence</strong><small>AI</small></a>
+      <a class="dept" href="department.html?dept=EC"><span class="emoji">📡</span><strong>Electronics & Comm.</strong><small>ECE</small></a>
+      <a class="dept" href="department.html?dept=IT"><span class="emoji">🌐</span><strong>Information Tech.</strong><small>IT</small></a>
+      <a class="dept" href="department.html?dept=CYBER"><span class="emoji">🔐</span><strong>Cyber Security</strong><small>CYBER</small></a>
+      <a class="dept" href="department.html?dept=CIVIL"><span class="emoji">🏗️</span><strong>Civil Engineering</strong><small>CIVIL</small></a>
+      <a class="dept" href="department.html?dept=ME"><span class="emoji">⚙️</span><strong>Mechanical Eng.</strong><small>ME</small></a>
+      <a class="dept" href="resources.html"><span class="emoji">📂</span><strong>All Resources</strong><small>Browse files</small></a>
+    </section>
+
+    <h2 class="section-title">Continue Learning</h2>
+    <section class="two-col">
+      <div class="card">
+        <strong>📚 Resource Library</strong>
+        <p class="muted">Find notes, presentations, question papers and study materials.</p>
+        <div class="resource"><span class="file-icon">📄</span><div class="resource-info"><strong>Semester Notes</strong><small>Browse by department and semester</small></div><a class="open" href="resources.html">Open →</a></div>
+        <div class="resource"><span class="file-icon">📖</span><div class="resource-info"><strong>Latest Syllabus</strong><small>Explore your course syllabus</small></div><a class="open" href="syllabus.html">Open →</a></div>
+        <div class="resource"><span class="file-icon">⬆️</span><div class="resource-info"><strong>Share Study Material</strong><small>Help other engineering students</small></div><a class="open" href="resources.html">Start →</a></div>
+      </div>
+      <div class="card">
+        <strong>🎯 Exam Preparation</strong>
+        <p class="muted">Practise questions and check your understanding.</p>
+        <div class="quiz"><strong>📝 Practice Quiz</strong><p>Test your knowledge with multiple-choice questions.</p><a href="quiz.html">Start practising →</a></div>
+        <div class="quiz"><strong>⏱️ Mock Tests</strong><p>Prepare for exams with timed practice sessions.</p><a href="quiz.html">Explore tests →</a></div>
+      </div>
+    </section>
+
+    <footer>J&K Engineering Hub · Built for engineering students of Jammu & Kashmir</footer>
+  </main>
+</div>
+</body>
+</html>
