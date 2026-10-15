@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Student Profile | J&K Engineering Hub</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fc;color:#1e293b}
+a{text-decoration:none;color:inherit}
+button,input,select{font:inherit}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:230px;background:#10213d;color:white;padding:24px 16px;flex-shrink:0}
+.brand{font-size:18px;font-weight:800;line-height:1.5;margin-bottom:30px}
+.brand span{color:#7dd3fc}
+.nav-label{font-size:11px;color:#9eafc9;letter-spacing:1px;margin:22px 10px 10px}
+.nav a{display:block;padding:12px;border-radius:9px;margin:4px 0;color:#dbeafe;font-size:14px}
+.nav a:hover,.nav a.active{background:#263d60}
+main{flex:1;min-width:0;padding:28px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:25px}
+h1{font-size:26px;margin:0 0 8px}
+.muted{color:#64748b;font-size:13px;line-height:1.6}
+.card{background:white;border:1px solid #e5eaf2;border-radius:16px;padding:22px;margin-bottom:20px}
+.profile-head{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.photo-wrap{position:relative}
+.photo{width:104px;height:104px;border-radius:50%;background:#dbeafe;display:grid;place-items:center;font-size:42px;overflow:hidden;border:4px solid #eff6ff}
+.photo img{width:100%;height:100%;object-fit:cover}
+.profile-info{flex:1;min-width:180px}
+.profile-info h2{margin:0 0 8px;font-size:23px}
+.tag{display:inline-block;padding:6px 10px;background:#eff6ff;color:#1d4ed8;border-radius:20px;font-size:11px;margin:7px 5px 0 0}
+.btn{display:inline-block;padding:11px 15px;border-radius:9px;background:#2563eb;color:white;border:0;cursor:pointer;font-weight:bold;font-size:12px}
+.btn.light{background:#eff6ff;color:#1d4ed8}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:20px}
+.stat{background:white;border:1px solid #e5eaf2;border-radius:14px;padding:18px}
+.stat strong{display:block;font-size:24px;margin:10px 0 5px}
+h3{font-size:17px;margin:0 0 17px}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+label{display:block;font-size:12px;font-weight:bold;margin-bottom:8px}
+input,select{width:100%;padding:12px;border:1px solid #dbe3ef;border-radius:9px;background:white;color:#1e293b;outline:none}
+input:focus,select:focus{border-color:#2563eb}
+.field{min-width:0}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.note{font-size:12px;color:#64748b;line-height:1.6;margin-top:14px}
+.resource{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #edf0f5}
+.resource:last-child{border:0}
+.file{font-size:23px;background:#eff6ff;padding:12px;border-radius:10px}
+.resource-info{flex:1;min-width:0}
+.resource-info strong{display:block;font-size:13px;margin-bottom:6px}
+.resource-info small{font-size:11px;color:#64748b}
+.empty{padding:20px;text-align:center;background:#f8fafc;border-radius:10px;color:#64748b;font-size:13px}
+.menu-btn{display:none;border:0;background:white;padding:10px;border-radius:8px}
+#status{display:none;margin-top:12px;background:#eff6ff;color:#1d4ed8;padding:12px;border-radius:9px;font-size:13px}
+footer{text-align:center;color:#94a3b8;font-size:11px;padding:15px}
+@media(max-width:800px){.sidebar{width:200px}main{padding:20px 15px}.stats{grid-template-columns:1fr}}
+@media(max-width:600px){.layout{display:block}.sidebar{display:none;width:100%}.sidebar.show{display:block}.menu-btn{display:inline-block}main{padding:17px 12px}.top h1{font-size:22px}.fields{grid-template-columns:1fr}.card{padding:17px}.profile-head{gap:14px}.photo{width:84px;height:84px}.profile-info h2{font-size:20px}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar" id="sidebar">
+  <div class="brand">J&K <span>ENGINEERING</span><br>HUB 🎓</div>
+  <nav class="nav">
+    <div class="nav-label">STUDENT SPACE</div>
+    <a href="dashboard.html">🏠 Dashboard</a>
+    <a href="index.html">🌐 Home</a>
+    <a href="department.html">📚 Departments</a>
+    <a href="resources.html">📁 Notes & Resources</a>
+    <a href="syllabus.html">📖 Syllabus</a>
+    <div class="nav-label">LEARNING</div>
+    <a href="quiz.html">📝 Quizzes & Mock Tests</a>
+    <a class="active" href="profile.html">👤 My Profile</a>
+    <div class="nav-label">ACCOUNT</div>
+    <a href="login.html">🔐 Login / Sign Up</a>
+  </nav>
+</aside>
+
+<main>
+<header class="top">
+  <div style="display:flex;gap:10px;align-items:flex-start">
+    <button class="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('show')" aria-label="Toggle menu">☰</button>
+    <div><h1>My Profile</h1><div class="muted">Manage your student details and contributions.</div></div>
+  </div>
+  <a href="dashboard.html" class="btn light">← Dashboard</a>
+</header>
+
+<section class="card">
+  <div class="profile-head">
+    <div class="photo-wrap">
+      <div class="photo" id="photoPreview">👨‍🎓</div>
+    </div>
+    <div class="profile-info">
+      <h2 id="displayName">Student Name</h2>
+      <div class="muted" id="displayEmail">student@example.com · Demo profile</div>
+      <span class="tag" id="displayDept">Computer Engineering</span>
+      <span class="tag" id="displaySem">Semester 3</span>
+    </div>
+    <div>
+      <label class="btn light" for="photoInput">📷 Choose Photo</label>
+      <input type="file" id="photoInput" accept="image/*" style="display:none">
+    </div>
+  </div>
+  <div class="note">Photo preview works in this browser session. Saving it to your account will be available after Firebase integration.</div>
+</section>
+
+<section class="stats">
+  <div class="stat"><span>📤 Contributions</span><strong>0</strong><span class="muted">Resources shared</span></div>
+  <div class="stat"><span>📝 Quiz attempts</span><strong>0</strong><span class="muted">Practice sessions</span></div>
+  <div class="stat"><span>⭐ Reputation</span><strong>New</strong><span class="muted">Keep contributing</span></div>
+</section>
+
+<section class="card">
+  <h3>✏️ Student Information</h3>
+  <form id="profileForm">
+    <div class="fields">
+      <div class="field"><label for="fullName">Full name</label><input id="fullName" required maxlength="80" placeholder="Your full name" value=""></div>
+      <div class="field"><label for="email">Email address</label><input id="email" type="email" placeholder="Your email address" value=""></div>
+      <div class="field"><label for="department">Department</label>
+        <select id="department">
+          <option value="CE">Computer Engineering</option>
+          <option value="AI">Artificial Intelligence</option>
+          <option value="EC">Electronics & Communication</option>
+          <option value="IT">Information Technology</option>
+          <option value="CYBER">Cyber Security</option>
+          <option value="CIVIL">Civil Engineering</option>
+          <option value="ME">Mechanical Engineering</option>
+        </select>
+      </div>
+      <div class="field"><label for="semester">Current semester</label>
+        <select id="semester">
+          <option value="1">Semester 1</option><option value="2">Semester 2</option>
+          <option value="3" selected>Semester 3</option><option value="4">Semester 4</option>
+          <option value="5">Semester 5</option><option value="6">Semester 6</option>
+          <option value="7">Semester 7</option><option value="8">Semester 8</option>
+        </select>
+      </div>
+      <div class="field"><label for="college">College / University</label><input id="college" maxlength="120" placeholder="Enter your college"></div>
+      <div class="field"><label for="bio">About me</label><input id="bio" maxlength="180" placeholder="A short introduction"></div>
+    </div>
+    <div class="actions">
+      <button class="btn" type="submit">Save Demo Details</button>
+      <button class="btn light" type="reset">Reset Form</button>
+    </div>
+    <div id="status" role="status"></div>
+    <p class="note">This demo does not upload personal details to a server. Avoid entering sensitive information until account security is configured.</p>
+  </form>
+</section>
+
+<section class="card">
+  <h3>📚 My Uploaded Resources</h3>
+  <div class="empty">No resources to show yet. Once connected, your uploaded notes and study materials will appear here.</div>
+  <div class="actions"><a href="resources.html" class="btn">Browse Resources →</a></div>
+</section>
+
+<footer>J&K Engineering Hub · Learn. Share. Grow.</footer>
+</main>
+</div>
+
+<script>
+const departments = {
+  CE:"Computer Engineering", AI:"Artificial Intelligence",
+  EC:"Electronics & Communication", IT:"Information Technology",
+  CYBER:"Cyber Security", CIVIL:"Civil Engineering", ME:"Mechanical Engineering"
+};
+
+const photoInput = document.getElementById("photoInput");
+photoInput.addEventListener("change", function() {
+  const file = this.files && this.files[0];
+  if (!file) return;
+  if (!file.type.startsWith("image/")) {
+    alert("Please choose an image.");
+    this.value = "";
+    return;
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    alert("Please choose an image smaller than 5 MB.");
+    this.value = "";
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = () => {
+    document.getElementById("photoPreview").innerHTML =
+      '<img src="' + reader.result + '" alt="Profile photo preview">';
+  };
+  reader.readAsDataURL(file);
+});
+
+document.getElementById("profileForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+  const name = document.getElementById("fullName").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const dept = document.getElementById("department").value;
+  const sem = document.getElementById("semester").value;
+  if (!name) return;
+
+  document.getElementById("displayName").textContent = name;
+  document.getElementById("displayEmail").textContent = email || "Email not entered";
+  document.getElementById("displayDept").textContent = departments[dept];
+  document.getElementById("displaySem").textContent = "Semester " + sem;
+
+  const status = document.getElementById("status");
+  status.textContent = "Preview updated! Permanent saving will be enabled after Firebase integration.";
+  status.style.display = "block";
+});
+</script>
+</body>
+</html>
