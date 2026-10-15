@@ -1,282 +1,486 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#102a43">
-  <meta name="description" content="Engineering notes, syllabus and study resources for students across Jammu and Kashmir.">
-  <title>J&K Engineering Hub</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#06152f">
+<meta name="description" content="J&K Engineering Hub — Notes, syllabus, presentations and study resources for engineering students in Jammu and Kashmir.">
+<title>J&K Engineering Hub | Student Portal</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      color: #102a43;
-      min-height: 100vh;
-      background:
-        radial-gradient(ellipse at 10% 5%, #9ce8f5, transparent 40%),
-        radial-gradient(ellipse at 90% 90%, #b7c8ff, transparent 45%),
-        linear-gradient(135deg, #e8faff, #f2f0ff);
-      background-attachment: fixed;
-    }
-
-    header {
-      padding: 22px 15px;
-      text-align: center;
-      color: white;
-      background: rgba(10, 35, 65, 0.88);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      border-bottom: 1px solid rgba(255,255,255,.2);
-    }
-
-    header h1 {
-      font-size: clamp(22px, 5vw, 30px);
-    }
-
-    header p {
-      margin-top: 8px;
-      font-size: 14px;
-      opacity: .85;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 48px 16px 25px;
-    }
-
-    .hero h2 {
-      font-size: clamp(27px, 6vw, 40px);
-      margin-bottom: 13px;
-    }
-
-    .hero p {
-      color: #476078;
-      line-height: 1.7;
-      font-size: 15px;
-    }
-
-    .search {
-      display: block;
-      width: min(92%, 520px);
-      margin: 24px auto 10px;
-      padding: 15px 18px;
-      border: 1px solid rgba(255,255,255,.9);
-      border-radius: 16px;
-      background: rgba(255,255,255,.72);
-      box-shadow: 0 8px 25px rgba(30,70,110,.08);
-      font-size: 16px;
-      outline-color: #168aad;
-    }
-
-    .section-title {
-      text-align: center;
-      margin: 28px 10px 8px;
-      font-size: 23px;
-    }
-
-    .section-subtitle {
-      text-align: center;
-      color: #536b80;
-      margin: 0 12px 15px;
-      font-size: 14px;
-    }
-
-    .departments {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
-      gap: 16px;
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 16px;
-    }
-
-    .card {
-      display: block;
-      text-align: center;
-      text-decoration: none;
-      color: inherit;
-      padding: 25px 12px;
-      min-height: 165px;
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,.85);
-      background: rgba(255,255,255,.55);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 8px 28px rgba(34,85,120,.10);
-      transition: transform .2s, box-shadow .2s;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 14px 32px rgba(34,85,120,.16);
-    }
-
-    .icon {
-      font-size: 34px;
-      margin-bottom: 13px;
-    }
-
-    .card h3 {
-      font-size: 16px;
-      line-height: 1.4;
-    }
-
-    .card p {
-      font-size: 12px;
-      margin-top: 9px;
-      color: #536b80;
-      line-height: 1.5;
-    }
-
-    .empty {
-      display: none;
-      text-align: center;
-      padding: 20px;
-      color: #536b80;
-    }
-
-    footer {
-      text-align: center;
-      padding: 25px 15px;
-      margin-top: 25px;
-      color: #52677c;
-      font-size: 13px;
-    }
-
-    @media (max-width: 380px) {
-      .departments {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 11px;
-        padding: 12px;
-      }
-
-      .card {
-        padding: 21px 8px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        transition: none !important;
-      }
-    }
-  </style>
+<style>
+:root{
+  --bg:#06152f;
+  --blue:#38bdf8;
+  --cyan:#67e8f9;
+  --glass:rgba(255,255,255,.09);
+  --border:rgba(255,255,255,.19);
+  --muted:#cbdff3;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Arial,Helvetica,sans-serif;
+  color:#fff;
+  background:
+    radial-gradient(ellipse at 10% 10%,#0e7490 0,transparent 35%),
+    radial-gradient(ellipse at 90% 40%,#164e80 0,transparent 38%),
+    linear-gradient(135deg,#06152f,#082f49 55%,#0c4a6e);
+}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit}
+button,a,input,select{-webkit-tap-highlight-color:transparent}
+button{cursor:pointer}
+.container{width:min(1120px,100% - 32px);margin:auto}
+nav{
+  position:sticky;top:0;z-index:10;
+  background:rgba(4,20,43,.85);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;padding:15px 0;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800}
+.logo{
+  display:grid;place-items:center;width:44px;height:44px;
+  border-radius:14px;background:linear-gradient(135deg,#38bdf8,#67e8f9);
+  color:#05233b;font-size:20px;font-weight:900;
+  box-shadow:0 8px 25px #38bdf833;
+}
+.brand small{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+.nav-links{display:flex;gap:18px;flex-wrap:wrap;font-size:14px}
+.nav-links a:hover{color:var(--cyan)}
+.hero{
+  padding:60px 0 35px;
+  display:grid;grid-template-columns:1.3fr .7fr;
+  gap:25px;align-items:center;
+}
+.eyebrow{
+  display:inline-block;padding:8px 12px;border-radius:30px;
+  border:1px solid var(--border);background:var(--glass);
+  color:var(--cyan);font-size:12px;font-weight:bold;
+}
+h1{font-size:clamp(34px,6vw,60px);line-height:1.08;margin:20px 0}
+.gradient-text{
+  background:linear-gradient(90deg,#67e8f9,#38bdf8,#c4b5fd);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero p{line-height:1.8;color:var(--muted);max-width:620px}
+.searchbox{
+  display:flex;gap:9px;margin-top:22px;max-width:620px;
+}
+.searchbox input{
+  flex:1;min-width:0;padding:15px;border-radius:13px;
+  border:1px solid var(--border);background:#ffffff12;color:#fff;
+  outline:none;
+}
+input::placeholder{color:#cbd5e1}
+.searchbox input:focus{border-color:var(--cyan)}
+.btn{
+  display:inline-flex;justify-content:center;align-items:center;
+  gap:7px;padding:12px 16px;border:0;border-radius:12px;
+  background:linear-gradient(135deg,#38bdf8,#67e8f9);
+  color:#06213b;font-weight:800;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn-secondary{
+  background:var(--glass);border:1px solid var(--border);color:white;
+}
+.hero-card,.glass{
+  border:1px solid var(--border);background:var(--glass);
+  backdrop-filter:blur(14px);border-radius:23px;
+  box-shadow:0 15px 50px #00000015;
+}
+.hero-card{padding:25px}
+.hero-card h2{margin-top:0}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat{
+  padding:18px;border-radius:15px;background:#ffffff0c;
+  border:1px solid #ffffff15;
+}
+.stat strong{display:block;font-size:25px;color:var(--cyan);margin-bottom:7px}
+.stat span{font-size:12px;color:var(--muted)}
+section{padding:30px 0}
+.section-head{
+  display:flex;justify-content:space-between;align-items:end;
+  gap:15px;flex-wrap:wrap;margin-bottom:18px;
+}
+.section-head h2{font-size:clamp(23px,4vw,32px);margin:0 0 7px}
+.section-head p{color:var(--muted);margin:0;line-height:1.6}
+.department-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;
+}
+.dept-card{
+  display:block;padding:20px;border:1px solid var(--border);
+  border-radius:19px;background:var(--glass);
+  transition:transform .2s,border-color .2s;
+}
+.dept-card:hover{transform:translateY(-4px);border-color:#67e8f9}
+.dept-icon{
+  display:grid;place-items:center;width:48px;height:48px;
+  border-radius:15px;background:#38bdf81b;font-size:24px;margin-bottom:15px;
+}
+.dept-card h3{margin:0 0 9px;font-size:17px}
+.dept-card p{color:var(--muted);font-size:13px;line-height:1.6;min-height:40px}
+.card-link{color:var(--cyan);font-weight:bold;font-size:13px}
+.quick-grid{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;
+}
+.quick-card{padding:20px;border-radius:18px;background:var(--glass);border:1px solid var(--border)}
+.quick-card .emoji{font-size:25px}
+.quick-card h3{font-size:16px}
+.quick-card p{font-size:13px;color:var(--muted);line-height:1.6}
+.quick-card a{display:inline-block;margin-top:6px;color:var(--cyan);font-weight:bold;font-size:13px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:17px}
+.panel{padding:23px}
+.panel h2{margin-top:0}
+.panel p,.panel li{color:var(--muted);line-height:1.8}
+.announcement{
+  border-left:3px solid var(--cyan);padding:10px 0 10px 15px;
+  margin:15px 0;background:linear-gradient(90deg,#38bdf810,transparent);
+}
+.announcement strong{display:block;margin-bottom:6px}
+.announcement small{color:var(--muted)}
+form{display:flex;flex-direction:column;gap:10px}
+form input,form select{
+  width:100%;padding:13px;border:1px solid var(--border);
+  background:#ffffff12;color:#fff;border-radius:11px;
+}
+form select option{color:#111}
+footer{margin-top:35px;border-top:1px solid var(--border);padding:30px 0;color:var(--muted)}
+.footer-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-links{display:flex;gap:15px;flex-wrap:wrap}
+.hidden{display:none!important}
+#searchMessage{color:var(--cyan);font-size:13px;margin-top:10px}
+@media(max-width:800px){
+  .hero{grid-template-columns:1fr;padding-top:40px}
+  .department-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:520px){
+  .container{width:calc(100% - 24px)}
+  .nav-inner{align-items:flex-start}
+  .nav-links{gap:12px;font-size:12px}
+  .searchbox{flex-direction:column}
+  .department-grid,.quick-grid,.two-col{grid-template-columns:1fr}
+  .hero-card{padding:18px}
+  section{padding:22px 0}
+}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <h1>📘 J&K Engineering Hub</h1>
-    <p>Your learning community, all in one place</p>
-  </header>
-
-  <section class="hero">
-    <h2>Learn. Share. Succeed.</h2>
-    <p>
-      Engineering notes, syllabus and study resources<br>
-      for students across Jammu & Kashmir.
-    </p>
-
-    <input
-      class="search"
-      id="search"
-      type="search"
-      placeholder="🔍 Search departments..."
-      aria-label="Search departments"
-    >
-  </section>
-
-  <h2 class="section-title">Explore Departments</h2>
-  <p class="section-subtitle">Choose your engineering department to get started.</p>
-
-  <main class="departments" id="departments">
-
-    <a class="card" href="department.html?dept=CE"
-       data-name="computer engineering ce">
-      <div class="icon">💻</div>
-      <h3>Computer Engineering</h3>
-      <p>Notes · Syllabus · Resources</p>
+<nav>
+  <div class="container nav-inner">
+    <a href="index.html" class="brand">
+      <span class="logo">JK</span>
+      <span>
+        J&K Engineering Hub
+        <small>YOUR ENGINEERING COMPANION</small>
+      </span>
     </a>
+    <div class="nav-links">
+      <a href="#departments">Departments</a>
+      <a href="#resources">Resources</a>
+      <a href="syllabus.html">Syllabus</a>
+      <a href="#announcements">Updates</a>
+    </div>
+  </div>
+</nav>
 
-    <a class="card" href="department.html?dept=AI"
-       data-name="artificial intelligence ai">
-      <div class="icon">🤖</div>
-      <h3>Artificial Intelligence</h3>
-      <p>Notes · Syllabus · Resources</p>
-    </a>
+<main>
+  <div class="container">
+    <section class="hero">
+      <div>
+        <span class="eyebrow">🎓 BUILT FOR J&K ENGINEERING STUDENTS</span>
+        <h1>Study smarter.<br><span class="gradient-text">Build your future.</span></h1>
+        <p>
+          Your study companion for engineering notes, presentations,
+          question papers and syllabus resources — organised by department
+          and semester.
+        </p>
 
-    <a class="card" href="department.html?dept=EC"
-       data-name="electronics communication ec">
-      <div class="icon">📡</div>
-      <h3>Electronics & Communication</h3>
-      <p>Notes · Syllabus · Resources</p>
-    </a>
+        <form class="searchbox" id="mainSearch">
+          <input id="searchInput" type="search"
+            placeholder="Search departments, notes or subjects..."
+            aria-label="Search resources" required>
+          <button class="btn" type="submit">Search ↗</button>
+        </form>
+        <p id="searchMessage" aria-live="polite"></p>
 
-    <a class="card" href="department.html?dept=IT"
-       data-name="information technology it">
-      <div class="icon">🌐</div>
-      <h3>Information Technology</h3>
-      <p>Notes · Syllabus · Resources</p>
-    </a>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
+          <a class="btn" href="#departments">Explore Departments</a>
+          <a class="btn btn-secondary" href="syllabus.html">View Syllabus</a>
+        </div>
+      </div>
 
-    <a class="card" href="department.html?dept=CYBER"
-       data-name="cyber security">
-      <div class="icon">🔐</div>
-      <h3>Cyber Security</h3>
-      <p>Notes · Syllabus · Resources</p>
-    </a>
+      <aside class="hero-card">
+        <h2>Your study space 📚</h2>
+        <p>Everything organised in one place.</p>
+        <div class="stat-grid">
+          <div class="stat"><strong>7</strong><span>Departments</span></div>
+          <div class="stat"><strong>8</strong><span>Semesters each</span></div>
+          <div class="stat"><strong>PDF</strong><span>Study materials</span></div>
+          <div class="stat"><strong>Free</strong><span>Student access</span></div>
+        </div>
+      </aside>
+    </section>
 
-    <a class="card" href="department.html?dept=CIVIL"
-       data-name="civil engineering">
-      <div class="icon">🏗️</div>
-      <h3>Civil Engineering</h3>
-      <p>Notes · Syllabus · Resources</p>
-    </a>
+    <section id="departments">
+      <div class="section-head">
+        <div>
+          <h2>Explore Departments</h2>
+          <p>Choose your department to browse all eight semesters.</p>
+        </div>
+        <a class="card-link" href="syllabus.html">Browse syllabus →</a>
+      </div>
 
-    <a class="card" href="department.html?dept=ME"
-       data-name="mechanical engineering me">
-      <div class="icon">⚙️</div>
-      <h3>Mechanical Engineering</h3>
-      <p>Notes · Syllabus · Resources</p>
-    </a>
+      <div class="department-grid" id="departmentGrid">
 
-  </main>
+        <a class="dept-card" data-code="CE" data-name="Computer Engineering"
+           href="department.html?dept=CE">
+          <div class="dept-icon">💻</div>
+          <h3>Computer Engineering</h3>
+          <p>Programming, databases, networks and computing.</p>
+          <span class="card-link">Explore department →</span>
+        </a>
 
-  <p class="empty" id="empty">No matching department found.</p>
+        <a class="dept-card" data-code="AI" data-name="Artificial Intelligence"
+           href="department.html?dept=AI">
+          <div class="dept-icon">🤖</div>
+          <h3>Artificial Intelligence</h3>
+          <p>Machine learning, intelligent systems and data.</p>
+          <span class="card-link">Explore department →</span>
+        </a>
 
-  <footer>
-    <p>© 2026 J&K Engineering Hub</p>
-    <p style="margin-top:6px">Built for engineering students of Jammu & Kashmir 💙</p>
-  </footer>
+        <a class="dept-card" data-code="EC" data-name="Electronics Communication"
+           href="department.html?dept=EC">
+          <div class="dept-icon">📡</div>
+          <h3>Electronics & Communication</h3>
+          <p>Circuits, signals, electronics and communication.</p>
+          <span class="card-link">Explore department →</span>
+        </a>
 
-  <script>
-    const search = document.getElementById("search");
-    const cards = document.querySelectorAll(".card");
-    const empty = document.getElementById("empty");
+        <a class="dept-card" data-code="IT" data-name="Information Technology"
+           href="department.html?dept=IT">
+          <div class="dept-icon">🌐</div>
+          <h3>Information Technology</h3>
+          <p>Software, information systems and web technology.</p>
+          <span class="card-link">Explore department →</span>
+        </a>
 
-    search.addEventListener("input", function () {
-      const query = this.value.toLowerCase().trim();
-      let visibleCount = 0;
+        <a class="dept-card" data-code="CYBER" data-name="Cyber Security"
+           href="department.html?dept=CYBER">
+          <div class="dept-icon">🔐</div>
+          <h3>Cyber Security</h3>
+          <p>Security, networks, privacy and digital defence.</p>
+          <span class="card-link">Explore department →</span>
+        </a>
 
-      cards.forEach(function (card) {
-        const name = card.dataset.name.toLowerCase();
-        const title = card.querySelector("h3").textContent.toLowerCase();
-        const matches = name.includes(query) || title.includes(query);
+        <a class="dept-card" data-code="CIVIL" data-name="Civil Engineering"
+           href="department.html?dept=CIVIL">
+          <div class="dept-icon">🏗️</div>
+          <h3>Civil Engineering</h3>
+          <p>Structures, construction and infrastructure.</p>
+          <span class="card-link">Explore department →</span>
+        </a>
 
-        card.style.display = matches ? "" : "none";
+        <a class="dept-card" data-code="ME" data-name="Mechanical Engineering"
+           href="department.html?dept=ME">
+          <div class="dept-icon">⚙️</div>
+          <h3>Mechanical Engineering</h3>
+          <p>Machines, manufacturing, design and mechanics.</p>
+          <span class="card-link">Explore department →</span>
+        </a>
 
-        if (matches) visibleCount++;
-      });
+      </div>
+      <p id="noDepartments" class="hidden">No matching departments found.</p>
+    </section>
 
-      empty.style.display = visibleCount === 0 ? "block" : "none";
-    });
-  </script>
+    <section id="resources">
+      <div class="section-head">
+        <div>
+          <h2>Study Resources</h2>
+          <p>Quick access to the materials you need.</p>
+        </div>
+      </div>
+
+      <div class="quick-grid">
+        <article class="quick-card">
+          <div class="emoji">📝</div>
+          <h3>Notes</h3>
+          <p>Find subject notes for your semester.</p>
+          <a href="resources.html">Browse notes →</a>
+        </article>
+
+        <article class="quick-card">
+          <div class="emoji">📊</div>
+          <h3>Presentations</h3>
+          <p>Look for PPTs and presentation materials.</p>
+          <a href="resources.html">Browse PPTs →</a>
+        </article>
+
+        <article class="quick-card">
+          <div class="emoji">📄</div>
+          <h3>Question Papers</h3>
+          <p>Practise using previous papers when available.</p>
+          <a href="resources.html">Find papers →</a>
+        </article>
+
+        <article class="quick-card">
+          <div class="emoji">📘</div>
+          <h3>Syllabus</h3>
+          <p>Choose your department and semester.</p>
+          <a href="syllabus.html">View syllabus →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="two-col" id="announcements">
+      <article class="glass panel">
+        <h2>📢 Hub Updates</h2>
+        <div class="announcement">
+          <strong>Welcome to J&K Engineering Hub</strong>
+          <small>Browse the departments and semesters to find study materials.</small>
+        </div>
+        <div class="announcement">
+          <strong>Share useful study materials</strong>
+          <small>Resources will appear here when they are added to the website.</small>
+        </div>
+        <p>Official syllabus documents should be checked against your university's latest curriculum.</p>
+      </article>
+
+      <article class="glass panel">
+        <h2>⚡ Quick Access</h2>
+        <p>Jump directly to a department and semester.</p>
+
+        <form id="quickForm">
+          <label for="quickDept">Department</label>
+          <select id="quickDept">
+            <option value="CE">Computer Engineering</option>
+            <option value="AI">Artificial Intelligence</option>
+            <option value="EC">Electronics & Communication</option>
+            <option value="IT">Information Technology</option>
+            <option value="CYBER">Cyber Security</option>
+            <option value="CIVIL">Civil Engineering</option>
+            <option value="ME">Mechanical Engineering</option>
+          </select>
+
+          <label for="quickSem">Semester</label>
+          <select id="quickSem">
+            <option value="1">Semester 1</option>
+            <option value="2">Semester 2</option>
+            <option value="3">Semester 3</option>
+            <option value="4">Semester 4</option>
+            <option value="5">Semester 5</option>
+            <option value="6">Semester 6</option>
+            <option value="7">Semester 7</option>
+            <option value="8">Semester 8</option>
+          </select>
+
+          <button class="btn" type="submit">Open Resources →</button>
+          <button class="btn btn-secondary" id="quickSyllabus" type="button">
+            Open Syllabus →
+          </button>
+        </form>
+      </article>
+    </section>
+
+    <section>
+      <div class="glass panel">
+        <h2>💡 Our Mission</h2>
+        <p>
+          To make engineering study resources easier to find and share for
+          students across Jammu and Kashmir. Start with your department,
+          select a semester and explore the available materials.
+        </p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <div>
+      <strong>J&K Engineering Hub</strong>
+      <p>Made for engineering students in Jammu & Kashmir.</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="syllabus.html">Syllabus</a>
+      <a href="resources.html">Resources</a>
+    </div>
+    <small>© <span id="year"></span> J&K Engineering Hub</small>
+  </div>
+</footer>
+
+<script>
+const departmentNames = {
+  CE:"Computer Engineering",
+  AI:"Artificial Intelligence",
+  EC:"Electronics & Communication",
+  IT:"Information Technology",
+  CYBER:"Cyber Security",
+  CIVIL:"Civil Engineering",
+  ME:"Mechanical Engineering"
+};
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+document.getElementById("mainSearch").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const query = document.getElementById("searchInput").value.trim().toLowerCase();
+  const cards = [...document.querySelectorAll(".dept-card")];
+  let firstMatch = null;
+  let count = 0;
+
+  cards.forEach(card => {
+    const matches = (card.dataset.name + " " + card.dataset.code)
+      .toLowerCase().includes(query);
+
+    card.classList.toggle("hidden", query !== "" && !matches);
+
+    if(matches){
+      count++;
+      if(!firstMatch) firstMatch = card;
+    }
+  });
+
+  document.getElementById("noDepartments").classList.toggle("hidden", count > 0);
+  document.getElementById("searchMessage").textContent =
+    query === "" ? "Showing all departments." :
+    count > 0 ? count + " matching department(s). Select one below." :
+    "No department matched. For subject searches, browse the resources page.";
+
+  if(query === ""){
+    document.getElementById("departments").scrollIntoView({behavior:"smooth"});
+  }else if(firstMatch){
+    document.getElementById("departments").scrollIntoView({behavior:"smooth"});
+  }else{
+    window.location.href = "resources.html";
+  }
+});
+
+document.getElementById("quickForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const dept = document.getElementById("quickDept").value;
+  const sem = document.getElementById("quickSem").value;
+  window.location.href = "resources.html?dept=" +
+    encodeURIComponent(dept) + "&sem=" + encodeURIComponent(sem);
+});
+
+document.getElementById("quickSyllabus").addEventListener("click", function(){
+  const dept = document.getElementById("quickDept").value;
+  const sem = document.getElementById("quickSem").value;
+  window.location.href = "syllabus.html?dept=" +
+    encodeURIComponent(dept) + "&sem=" + encodeURIComponent(sem);
+});
+</script>
 
 </body>
 </html>
