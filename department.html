@@ -1,150 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Department | J&K Engineering Hub</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Department | J&K Engineering Hub</title>
 
-  <style>
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      padding: 20px;
-      font-family: Arial, sans-serif;
-      color: #15304a;
-      min-height: 100vh;
-      background:
-        radial-gradient(ellipse at top left, #9ce8f5, transparent 45%),
-        radial-gradient(ellipse at bottom right, #bbcaff, transparent 45%),
-        linear-gradient(135deg, #eafaff, #f4f0ff);
-    }
-
-    header {
-      padding: 22px;
-      text-align: center;
-      border-radius: 20px;
-      background: rgba(13, 48, 77, .88);
-      color: white;
-    }
-
-    header h1 { margin: 0 0 8px; font-size: 25px; }
-
-    a { color: inherit; }
-
-    .back {
-      display: inline-block;
-      margin: 18px 0;
-      color: #075985;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .intro { text-align: center; margin: 25px 0; }
-
-    .intro h2 { margin-bottom: 8px; }
-
-    .semesters {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
-      gap: 15px;
-      max-width: 850px;
-      margin: auto;
-    }
-
-    .semester {
-      display: block;
-      padding: 24px 10px;
-      text-align: center;
-      text-decoration: none;
-      border: 1px solid rgba(255,255,255,.9);
-      border-radius: 18px;
-      background: rgba(255,255,255,.58);
-      box-shadow: 0 8px 25px rgba(30,70,110,.1);
-      backdrop-filter: blur(12px);
-      transition: transform .2s;
-    }
-
-    .semester:hover { transform: translateY(-4px); }
-
-    .semester span {
-      display: block;
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-
-    .semester strong { font-size: 16px; }
-
-    .semester small {
-      display: block;
-      margin-top: 8px;
-      color: #506980;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 40px;
-      color: #52677c;
-      font-size: 13px;
-    }
-  </style>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  padding:20px;
+  min-height:100vh;
+  font-family:Arial,sans-serif;
+  color:white;
+  background:linear-gradient(135deg,#06152f,#075985,#0891b2);
+}
+header,.panel{
+  max-width:900px;
+  margin:15px auto;
+  padding:22px;
+  border:1px solid #ffffff40;
+  border-radius:20px;
+  background:#ffffff15;
+  backdrop-filter:blur(12px);
+}
+a{color:#bae6fd;text-decoration:none}
+a:hover{text-decoration:underline}
+.toplinks{display:flex;gap:18px;flex-wrap:wrap}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:14px;
+  margin-top:20px;
+}
+.semester{
+  padding:18px;
+  border:1px solid #ffffff35;
+  border-radius:16px;
+  background:#ffffff12;
+}
+.semester h3{margin-top:0}
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:15px;
+}
+.btn{
+  display:inline-block;
+  padding:10px 12px;
+  border-radius:10px;
+  background:#38bdf8;
+  color:#06213b;
+  font-weight:bold;
+}
+.secondary{
+  background:#e0f2fe;
+  color:#075985;
+}
+footer{text-align:center;margin:25px 0;color:#dbeafe}
+</style>
 </head>
 
 <body>
-  <header>
-    <h1>📘 J&K Engineering Hub</h1>
-    <p>Learn • Share • Succeed</p>
-  </header>
 
-  <a class="back" href="index.html">← Back to Home</a>
+<header>
+  <div class="toplinks">
+    <a href="index.html">← Home</a>
+    <a id="allSyllabus" href="syllabus.html">📘 View Department Syllabus</a>
+  </div>
 
-  <section class="intro">
-    <h2 id="departmentName">Engineering Department</h2>
-    <p>Select your semester to explore study resources.</p>
-  </section>
+  <h1 id="departmentTitle">Engineering Department</h1>
+  <p>Choose your semester to explore study materials.</p>
+</header>
 
-  <main class="semesters" id="semesters"></main>
+<main class="panel">
+  <h2>📚 Select Semester</h2>
+  <div id="semesterGrid" class="grid"></div>
+</main>
 
-  <footer>© 2026 J&K Engineering Hub</footer>
+<footer>
+  © 2026 J&K Engineering Hub
+</footer>
 
-  <script>
-    const departments = {
-      CE: "Computer Engineering",
-      AI: "Artificial Intelligence",
-      EC: "Electronics & Communication",
-      IT: "Information Technology",
-      CYBER: "Cyber Security",
-      CIVIL: "Civil Engineering",
-      ME: "Mechanical Engineering"
-    };
+<script>
+const departments = {
+  CE: "Computer Engineering",
+  AI: "Artificial Intelligence",
+  EC: "Electronics & Communication",
+  IT: "Information Technology",
+  CYBER: "Cyber Security",
+  CIVIL: "Civil Engineering",
+  ME: "Mechanical Engineering"
+};
 
-    const params = new URLSearchParams(location.search);
-    const code = (params.get("dept") || "CE").toUpperCase();
-    const department = departments[code] || departments.CE;
+const params = new URLSearchParams(window.location.search);
+const dept = params.get("dept") || "CE";
+const departmentName = departments[dept] || departments.CE;
 
-    document.title = department + " | J&K Engineering Hub";
-    document.getElementById("departmentName").textContent = department;
+document.title = departmentName + " | J&K Engineering Hub";
+document.getElementById("departmentTitle").textContent = departmentName;
+document.getElementById("allSyllabus").href =
+  "syllabus.html?dept=" + encodeURIComponent(dept);
 
-    const container = document.getElementById("semesters");
+const grid = document.getElementById("semesterGrid");
 
-    for (let i = 1; i <= 8; i++) {
-      const card = document.createElement("a");
-      card.className = "semester";
-      card.href = "resources.html?dept=" + encodeURIComponent(code)
-        + "&sem=" + i;
+for (let sem = 1; sem <= 8; sem++) {
+  const card = document.createElement("section");
+  card.className = "semester";
 
-      const icon = document.createElement("span");
-      icon.textContent = "📚";
+  const heading = document.createElement("h3");
+  heading.textContent = "Semester " + sem;
 
-      const title = document.createElement("strong");
-      title.textContent = "Semester " + i;
+  const description = document.createElement("p");
+  description.textContent =
+    "Notes, presentations, question papers and study resources.";
 
-      const detail = document.createElement("small");
-      detail.textContent = "Notes & syllabus";
+  const actions = document.createElement("div");
+  actions.className = "actions";
 
-      card.append(icon, title, detail);
-      container.appendChild(card);
-    }
-  </script>
+  const resourcesLink = document.createElement("a");
+  resourcesLink.className = "btn";
+  resourcesLink.href =
+    "resources.html?dept=" + encodeURIComponent(dept) + "&sem=" + sem;
+  resourcesLink.textContent = "Open Resources";
+
+  const syllabusLink = document.createElement("a");
+  syllabusLink.className = "btn secondary";
+  syllabusLink.href =
+    "syllabus.html?dept=" + encodeURIComponent(dept);
+  syllabusLink.textContent = "View Syllabus";
+
+  actions.append(resourcesLink, syllabusLink);
+  card.append(heading, description, actions);
+  grid.appendChild(card);
+}
+</script>
+
 </body>
 </html>
